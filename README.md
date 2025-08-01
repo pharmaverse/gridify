@@ -1,5 +1,8 @@
 # gridify <img src="man/figures/logo.png" align="right" height="auto" width="300" />
 
+[![R-CMD-check](https://github.com/pharmaverse/gridify/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pharmaverse/gridify/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/pharmaverse/gridify/graph/badge.svg)](https://app.codecov.io/gh/pharmaverse/gridify)
+
 ## Overview
 
 In the pharmaceutical industry, and many other fields that rely heavily
