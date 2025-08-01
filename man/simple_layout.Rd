@@ -2,7 +2,7 @@
 % Please edit documentation in R/simple_layout.R
 \name{simple_layout}
 \alias{simple_layout}
-\title{Simple Layout for a gridify object"}
+\title{Simple Layout for a gridify object}
 \usage{
 simple_layout(
   margin = grid::unit(c(t = 0.1, r = 0.1, b = 0.1, l = 0.1), units = "npc"),

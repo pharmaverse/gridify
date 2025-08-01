@@ -1,4 +1,4 @@
-#' Simple Layout for a gridify object"
+#' Simple Layout for a gridify object
 #'
 #' Creates a simple layout only containing two text element cells: a title and a footer.
 #'
