@@ -1,0 +1,53 @@
+pkgdown:
+  title: "gridify"
+
+articles:
+  - title: "gridify"
+    navbar: ~
+    contents:
+      - simple_examples
+      - multi_page_examples
+      - create_custom_layout
+      - transparency
+      
+reference:
+  - title: gridify Users
+  
+  - subtitle: main gridify interface
+    contents:
+     - gridify
+     - set_cell
+     - print,gridifyClass-method
+     - show,gridifyClass-method
+     - show,gridifyLayout-method
+     - show_spec
+     - show_layout
+     - show_cells
+     - export_to
+    
+  - subtitle: existing layouts
+    contents:
+     - get_layouts
+     - simple_layout
+     - complex_layout
+     - pharma_layout
+     - pharma_layout_base
+     - pharma_layout_A4
+     - pharma_layout_letter
+     - layout_issue
+
+  - title: gridify custom layout development
+  - subtitle: functions
+    contents:
+     - gridifyLayout
+     - gridifyObject
+     - gridifyCells
+     - gridifyCell
+     
+  - subtitle: S4 classes
+    contents:
+     - gridifyClass-class
+     - gridifyLayout-class
+     - gridifyObject-class
+     - gridifyCells-class
+     - gridifyCell-class

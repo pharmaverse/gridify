@@ -1,0 +1,53 @@
+Type: Package
+Package: gridify
+Title: Enrich Figures and Tables with Custom Headers and Footers and More
+Version: 0.7.1.9000
+Authors@R: c(
+    person("Maciej", "Nasinski", , "Maciej.Nasinski@ucb.com", role = c("aut", "cre")),
+    person("Alexandra", "Wall", , "Alexandra.Wall@ucb.com", role = "aut"),
+    person("Sarah", "Robson", , "Sarah.Robson2@ucb.com", role = "aut"),
+    person("Pritish", "Dash", , "Pritish.Dash@ucb.com", role = "aut"),
+    person("Jennifer", "Winick-Ng", , "Jennifer.Winick-Ng@ucb.com", role = "aut"),
+    person("Lily", "Nan", , "Lily.Nan@ucb.com", role = "ctb"),
+    person("Alphonse", "Kwizera", , "Alphonse.Kwizera@ucb.com", role = "ctb"),
+    person("Agota", "Bodoni", , "Agota.Bodoni@ucb.com", role = "ctb"),
+    person("Eilis", "Meldrum-Dolan", , "Eilis.Meldrum-Dolan@ucb.com", role = "ctb"),
+    person("Gary", "Cao", , "Gary.Cao@ucb.com", role = "ctb"),
+    person("UCB S.A., Belgium", role = c("cph", "fnd"))
+  )
+Description: A simple and flexible tool designed to create enriched figures and tables by providing a way to add text 
+    around them through predefined or custom layouts. 
+    Any input which is convertible to 'grob' is supported, like 'ggplot', 'gt' or 'flextable'.
+License: Apache License 2.0
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports: 
+    grid,
+    methods
+Suggests:
+    flextable (>= 0.8.0),
+    ggplot2,
+    gridGraphics,
+    gt (>= 0.11.0),
+    gtable,
+    knitr,
+    magrittr,
+    rmarkdown,
+    rtables,
+    rtables.officer,
+    spelling,
+    testthat (>= 3.0.0)
+Collate:
+    grid_utils.R
+    gridify-classes.R
+    gridify-methods.R
+    ansi_colour.R
+    simple_layout.R
+    complex_layout.R
+    pharma_layout.R
+    get_layouts.R
+    layout_issues.R
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+Language: en-GB

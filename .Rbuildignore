@@ -1,0 +1,10 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.lintr$
+^LICENSE$
+^azure-pipelines$
+^azure-pipelines\.yml$
+^CODE_OF_CONDUCT\.md$
+^CONTRIBUTING\.md$
+^\.vscode$
+^_pkgdown.yml$

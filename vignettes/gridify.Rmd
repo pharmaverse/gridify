@@ -1,0 +1,205 @@
+---
+title: "Get Started with gridify"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Get Started with gridify}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse   = TRUE,
+  comment    = "#>",
+  fig.width  = 7,
+  fig.height = 4
+)
+```
+
+## Introduction
+
+In the pharmaceutical industry, and many other fields that rely heavily on data reporting, there is often a need to create tables and figures with specific text elements — like titles, subtitles, captions, and footnotes — positioned consistently around the output. 
+Manually arranging these elements can be time-consuming and prone to inconsistencies across projects.
+
+`gridify` addresses this by building on the base R `[grid](https://cran.r-project.org/package=grid)` package, making it easy to add flexible, customizable elements around a plot or table. This ensures a consistent layout for text elements (like headers, footers, etc.) across various output types, such as:
+
+- `ggplot2` objects  
+- `flextable` tables
+- `gt` tables   
+
+- Base R figures  
+- Any **grid**-convertible object (e.g., **grob**, **gtable**)
+
+Because `gridify` is based on a graphical system, even tables become graphical objects (grobs) under the hood, meaning the end result is always an image.
+
+## Installation
+
+If `gridify` is not yet on CRAN, you can install it from Pharmaverse GitHub (example):
+
+```r
+devtools::install_github("pharmaverse/gridify", dependencies = TRUE, build_manual = TRUE, build_vignettes = TRUE)
+```
+
+or from the source after `git clone`, for example:
+
+```r
+devtools::install("gridify")
+```
+
+Then load **gridify**:
+
+```{r}
+library(gridify)
+library(magrittr)
+```
+
+## Basic Workflow
+
+1. **Create your object** (figure or table).  
+2. **Choose a layout** (built-in or custom).  
+3. **Wrap the object** in `gridify()`.  
+4. **Fill text cells** using `set_cell()` for headers, footers, notes, etc.  
+
+Below is a minimal example using `ggplot2` for demonstration. The same approach works for `gt`, `flextable`, or base R figures.  
+For `rtables`, convert them into a `flextable` using `rtables.officer::tt_to_flextable()` before following this approach.
+
+### 1. Create a Figure
+
+```{r}
+library(ggplot2)
+
+basic_plot <- ggplot2::ggplot(mtcars, ggplot2::aes(x = mpg, y = wt)) +
+  ggplot2::geom_point()
+```
+
+*(For tables, simply replace `basic_plot` with your `gt` or `flextable` object.)*
+
+### 2. Pick a Layout
+
+In the `gridify` package, a **layout** is a predefined structure that determines how various elements of an output are arranged. 
+It defines the positions of different components such as the output, title, subtitle, footnotes, etc., on the available area.
+                                          
+Layouts in `gridify` define where to place titles, footers, subtitles, etc., so your figures (or tables, or any grobs) have consistent text elements. 
+
+You can use built-in layouts or create your own (see `vignette("create_custom_layout", package = "gridify")`).
+
+The built-in layouts include:
+
+| Function                 | Description                                                                                                                                                                                                                             |
+|--------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `simple_layout()`        | A layout with two cells: `title` (top) and `footer` (bottom).                                                                                                                                                                          |
+| `complex_layout()`       | A multi-cell layout including `header_left`, `header_middle`, `header_right`, `title`, `subtitle`, `note`, `footer_left`, `footer_middle`, and `footer_right`.                                                                          |
+| `pharma_layout_base()` | A base layout for pharmaceutical outputs, with predefined cells for headers, footers, titles, subtitles, notes, and references (defaults can be overwritten).|
+| `pharma_layout_letter()` | A layout for pharmaceutical letters, with predefined cells for headers, footers, titles, subtitles, notes, and references (defaults can be overwritten).                                                                                |
+| `pharma_layout_A4()`     | Similar to `pharma_layout_letter()`, but for A4 size. |
+
+
+```{r}
+pharma_layout_letter()
+```
+
+### 3. Wrap with gridify
+
+Use the `gridify()` function to combine your object (figure or table) with the specified layout:
+
+```{r}
+grob_object <- gridify(
+  object = basic_plot,
+  layout = pharma_layout_letter()
+)
+```
+
+### 4. Add Text to Cells
+
+Use the show method (return the object) to check out available cells.
+
+```{r, fig.width=7, fig.height=7}
+grob_object
+```
+
+You can add text to labeled cells (headers, footers, notes, etc.). 
+
+```{r, fig.width=7, fig.height=7}
+grob_object <- grob_object %>%
+  set_cell("header_left_1", "My Company") %>%
+  set_cell("header_left_2", "<PROJECT> / <INDICATION>") %>%
+  set_cell("header_left_3", "<STUDY>") %>%
+  set_cell("header_right_1", "CONFIDENTIAL") %>%
+  set_cell("header_right_2", "<Draft or Final>") %>%
+  set_cell("header_right_3", "Data Cut-off: YYYY-MM-DD") %>%
+  set_cell("output_num", "<Figure> xx.xx.xx") %>%
+  set_cell("title_1", "<Title 1>") %>%
+  set_cell("title_2", "<Title 2>") %>%
+  set_cell("title_3", "<Optional Title 3>") %>%
+  set_cell("by_line", "By: <GROUP>, <optionally: Demographic parameters>") %>%
+  set_cell("note", "<Note or Footnotes>") %>%
+  set_cell("references", "<References:>") %>%
+  set_cell("footer_left", "Program: <PROGRAM NAME>, YYYY-MM-DD at HH:MM") %>%
+  set_cell("footer_right", "Page xx of nn") %>%
+  set_cell("watermark", "DRAFT")
+
+grob_object
+```
+
+The output is automatically drawn for the user.
+
+
+### 5. Print or Assign
+
+Calling `print()` on a `gridify` object displays the final layout in your R session, and invisibly returns the `grid` grob:
+
+```{r, fig.width=7, fig.height=7}
+final_grob <- print(grob_object)
+```
+
+Raw `grid` code behind:
+
+```{r}
+final_grob
+```
+
+`gridify` uses meta-programming to capture all `grid` calls needed to assemble your layout. That means you can retrieve or audit exactly how the figure or table is constructed. This functionality is particularly valuable in regulated environments (e.g., pharmaceuticals) or whenever transparency and consistency are critical.
+
+## Example with a Table
+
+Below is a quick example from the README, using a `gt` table:
+
+```{r, fig.width=7, fig.height=6}
+library(gt)
+
+tab <- gt::gt(head(mtcars)) %>%
+  gt::tab_options(
+    table.width = gt::pct(100),
+    data_row.padding = gt::px(10),
+    table_body.hlines.color = "white",
+    table.font.size = 12
+  )
+
+gridify(
+  object = tab,
+  layout = pharma_layout_base()
+) %>%
+  set_cell("header_left_1", "My Company") %>%
+  set_cell("header_right_1", "CONFIDENTIAL") %>%
+  set_cell("title_1", "Table Title") %>%
+  set_cell("footer_left", "Program: <PROGRAM NAME>") %>%
+  set_cell("footer_right", "Page 1 of 1")
+```
+
+This wraps the `gt` table in a pharma-style layout, placing headers and footers around it.
+
+## Saving Your Output
+
+To save `gridify` drawings to files see `vignette("simple_examples", package = "gridify")`.
+
+## More Resources
+
+- **Simple Examples**: `vignette("simple_examples", package = "gridify")`  
+- **Complex Examples**: `vignette("multi_page_examples", package = "gridify")`  
+- **Custom Layout**: `vignette("create_custom_layout", package = "gridify")`  
+- **Transparency**: `vignette("transparency", package = "gridify")`  
+
+## Conclusion
+
+That’s it! `gridify` enables you to consistently position text elements around any figures or tables, all while letting you leverage base R `grid` for maximum control and transparency. 
+By defining or customizing a layout once, you can reuse it across multiple outputs—saving time and ensuring consistency.

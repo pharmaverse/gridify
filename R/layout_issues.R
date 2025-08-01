@@ -1,0 +1,77 @@
+#' Template for Layout Issues Note
+#'
+#' @note
+#'
+#' \strong{The Font Issue Information:}
+#'
+#' Changes to the fontfamily may be ignored by some devices, but is supported by
+#' PostScript, PDF, X11, Windows, and Quartz. The fontfamily may be used to specify
+#' one of the Hershey Font families (e.g., HersheySerif, serif), and this specification will be
+#' honoured on all devices.
+#'
+#' If you encounter this warning, you can register the fonts using the `extrafont` package:
+#'
+#' ```r
+#' library(extrafont)
+#' font_import()
+#' loadfonts(device = 'all')
+#' ```
+#'
+#' If you still see the warning while using RStudio, try changing the graphics backend.
+#'
+#' \strong{Negative Dimensions Issues:}
+#'
+#' grobs from the grid package and ggplot2 objects (when converted to grobs by gridify)
+#' may appear distorted in the output
+#' if there is insufficient space in the window, caused by negative dimensions.
+#' This should be resolved. However, if this is affecting your layout, please increase your window size or
+#' only use static heights/widths for custom layouts.
+#'
+#' The negative dimensions are caused by the way grid handles `null` and `npc` heights/widths so if some dimensions are
+#' static, then the `npc` or `null` values may cause unexpected behaviour when the window size is too small.
+#' It was resolved by setting a minimum size of the object in the gridify object to 1 inch for each dimension.
+#'
+#' The following example demonstrates this behaviour
+#' Try resizing your window:
+#'
+#' \preformatted{
+#' library(grid)
+#' library(ggplot2)
+#' grid.newpage()
+#' object <- ggplot2::ggplotGrob(ggplot(mtcars, aes(mpg, wt)) + geom_line())
+#' grid::grid.draw(
+#'   grid::grobTree(
+#'     grid::grobTree(
+#'       grid::editGrob(
+#'         object,
+#'         vp = grid::viewport(
+#'           # height = grid::unit.pmax(grid::unit(1, "npc"), grid::unit(1, "inch")),
+#'           # width = grid::unit.pmax(grid::unit(1, "npc"), grid::unit(1, "inch"))
+#'         )
+#'       ),
+#'       vp = grid::viewport(
+#'         layout.pos.row = 2,
+#'         layout.pos.col = 1:3
+#'       )
+#'     ),
+#'     vp = grid::viewport(
+#'       layout = grid::grid.layout(
+#'         nrow = 3,
+#'         ncol = 3,
+#'         heights = grid::unit(c(9, 1, 9), c("cm", "null", "cm"))
+#'       )
+#'     )
+#'   )
+#' )
+#' }
+#'
+#' \strong{gt Font Size Issue:}
+#'
+#' When specifying font sizes, the `gt` package interprets values as having the
+#' unit pixels (`px`), whilst the `grid` package, on which `gridify` is built,
+#' assumes points (`pt`). As a result, even if you set the font sizes in both
+#' `gt` and `gridify` (using `grid::gpar()`) to the same number, they may
+#' still appear different. To convert point size to pixel size, multiply the point size by 4/3.
+#'
+#' @name layout_issue
+NULL
