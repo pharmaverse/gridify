@@ -35,7 +35,7 @@ inputs are converted to a `grob` object in `gridify` and the result of using
 If `gridify` is not yet on CRAN, you can install it from Pharmaverse GitHub (example):
 
 ``` r
-devtools::install_github("pharmaverse/gridify", dependencies = TRUE, build_manual = TRUE, build_vignettes = TRUE)
+devtools::install_github("pharmaverse/gridify", build_manual = TRUE, build_vignettes = TRUE)
 ```
 
 ## Example
@@ -53,10 +53,11 @@ The following example uses a table created by the `gt` package and the
 
 ``` r
 library(gridify)
-library(magrittr)
+# install.packages("gt")
 library(gt)
+# (to use |> version 4.1.0 of R is required, for lower versions we recommend %>% from magrittr)
 
-tab <- gt::gt(head(mtcars, n = 10))  %>%
+tab <- gt::gt(head(mtcars, n = 10))  |>
   gt::tab_options(
     table.width = gt::pct(100),
     data_row.padding = gt::px(10),
@@ -70,27 +71,31 @@ gridify_object <- gridify(
     margin = grid::unit(c(0.5, 0.5, 0.5, 0.5), "inches"),
     global_gpar = grid::gpar(fontfamily = "serif", fontsize = 10)
   )
-) %>%
-  set_cell("header_left_1", "My Company") %>%
-  set_cell("header_left_2", "<PROJECT> / <INDICATION>") %>%
-  set_cell("header_left_3", "<STUDY>") %>%
-  set_cell("header_right_1", "CONFIDENTIAL") %>%
-  set_cell("header_right_2", "<Draft or Final>") %>%
-  set_cell("header_right_3", "Data Cut-off: YYYY-MM-DD") %>%
-  set_cell("output_num", "<Table> xx.xx.xx") %>%
-  set_cell("title_1", "<Title 1>") %>%
-  set_cell("title_2", "<Title 2>") %>%
-  set_cell("title_3", "<Optional Title 3>") %>%
-  set_cell("by_line", "By: <GROUP>, <optionally: Demographic parameters>") %>%
-  set_cell("note", "<Note or Footnotes>") %>%
-  set_cell("references", "<References:>") %>%
-  set_cell("footer_left", "Program: <PROGRAM NAME>, YYYY-MM-DD at HH:MM") %>%
-  set_cell("footer_right", "Page xx of nn") %>%
-  set_cell("watermark", "DRAFT")
+)
 
 gridify_object
 
-print(gridify_object)
+gridify_object_fill <- gridify_object |>
+  set_cell("header_left_1", "My Company") |>
+  set_cell("header_left_2", "<PROJECT> / <INDICATION>") |>
+  set_cell("header_left_3", "<STUDY>") |>
+  set_cell("header_right_1", "CONFIDENTIAL") |>
+  set_cell("header_right_2", "<Draft or Final>") |>
+  set_cell("header_right_3", "Data Cut-off: YYYY-MM-DD") |>
+  set_cell("output_num", "<Table> xx.xx.xx") |>
+  set_cell("title_1", "<Title 1>") |>
+  set_cell("title_2", "<Title 2>") |>
+  set_cell("title_3", "<Optional Title 3>") |>
+  set_cell("by_line", "By: <GROUP>, <optionally: Demographic parameters>") |>
+  set_cell("note", "<Note or Footnotes>") |>
+  set_cell("references", "<References:>") |>
+  set_cell("footer_left", "Program: <PROGRAM NAME>, YYYY-MM-DD at HH:MM") |>
+  set_cell("footer_right", "Page xx of nn") |>
+  set_cell("watermark", "DRAFT")
+
+gridify_object_fill
+
+print(gridify_object_fill)
 ```
 
 <img src="man/figures/README-example-1.png" width="100%" />
