@@ -34,4 +34,4 @@ inst/*.pdf
 po/*~
 inst/doc
 .Rproj.user
-
+.DS_Store

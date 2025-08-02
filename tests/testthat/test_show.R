@@ -192,14 +192,17 @@ test_that("show on complex gridifyLayout returns information to the console", {
 
 test_that("test span row for output height row = c(x:y)", {
   test_layout <- gridifyLayout(
-    nrow = 6L,
+    nrow = 3L,
     ncol = 1L,
-    heights = grid::unit(c(0.05, 0.05, 0.05, 0.7, 0.05, 0.1), "npc"),
+    heights = grid::unit(c(0.15, 0.7, 0.15), "npc"),
     widths = grid::unit(1, "npc"),
     margin = grid::unit(c(t = 0.1, r = 0.1, b = 0.1, l = 0.1), units = "npc"),
     global_gpar = grid::gpar(),
-    object = gridifyObject(row = c(1:3), col = 1),
-    cells = gridifyCells(title = gridifyCell(row = 1, col = 1), footer = gridifyCell(row = 3, col = 1))
+    object = gridifyObject(row = 2, col = 1),
+    cells = gridifyCells(
+      title = gridifyCell(row = 1, col = 1),
+      footer = gridifyCell(row = 3, col = 1)
+    )
   )
   expect_s4_class(test_layout, "gridifyLayout")
 
@@ -209,31 +212,34 @@ test_that("test span row for output height row = c(x:y)", {
 
   expect_equal(output, c(
     "gridifyLayout object", "---------------------", "Layout dimensions:",
-    "  Number of rows: 6", "  Number of columns: 1", "", "Heights of rows:",
-    "  Row 1: 0.05 npc", "  Row 2: 0.05 npc", "  Row 3: 0.05 npc",
-    "  Row 4: 0.7 npc", "  Row 5: 0.05 npc", "  Row 6: 0.1 npc",
+    "  Number of rows: 3", "  Number of columns: 1", "", "Heights of rows:",
+    "  Row 1: 0.15 npc", "  Row 2: 0.7 npc", "  Row 3: 0.15 npc",
     "", "Widths of columns:", "  Column 1: 1 npc", "", "Object Position:",
-    "  Row: 1-3", "  Col: 1", "  Width: 1", "  Height: 1", "", "Object Row Heights:",
-    "  Row 1: 0.05 npc", "  Row 2: 0.05 npc", "  Row 3: 0.05 npc",
-    "", "Margin:", "  Top: 0.1 npc", "  Right: 0.1 npc", "  Bottom: 0.1 npc",
-    "  Left: 0.1 npc", "", "Global graphical parameters:", "  Are not set", "",
-    "Default Cell Info:", "  title:",
+    "  Row: 2", "  Col: 1", "  Width: 1", "  Height: 1", "", "Object Row Heights:",
+    "  Row 2: 0.7 npc", "", "Margin:", "  Top: 0.1 npc", "  Right: 0.1 npc",
+    "  Bottom: 0.1 npc", "  Left: 0.1 npc", "", "Global graphical parameters:",
+    "  Are not set", "", "Default Cell Info:", "  title:",
     "    row:1, col:1, text:NULL, mch:Inf, x:0.5, y:0.5, hjust:0.5, vjust:0.5, rot:0, ",
-    "  footer:",
-    "    row:3, col:1, text:NULL, mch:Inf, x:0.5, y:0.5, hjust:0.5, vjust:0.5, rot:0, ", ""
+    "  footer:", "    row:3, col:1, text:NULL, mch:Inf, x:0.5, y:0.5, hjust:0.5, vjust:0.5, rot:0, ",
+    ""
   ))
 })
 
 test_that("test span row for output height row = c(x, y)", {
   test_layout <- gridifyLayout(
-    nrow = 6L,
+    nrow = 3L,
     ncol = 1L,
-    heights = grid::unit(c(0.05, 0.05, 0.05, 0.7, 0.05, 0.1), "npc"),
+    heights = grid::unit(c(0.15, 0.7, 0.15), "npc"),
     widths = grid::unit(1, "npc"),
     margin = grid::unit(c(t = 0.1, r = 0.1, b = 0.1, l = 0.1), units = "npc"),
     global_gpar = grid::gpar(),
-    object = gridifyObject(row = c(1, 4), col = 1),
-    cells = gridifyCells(title = gridifyCell(row = 1, col = 1), footer = gridifyCell(row = 3, col = 1))
+    object = gridifyObject(row = 2, col = 1),
+    cells = gridifyCells(
+      title = gridifyCell(
+        row = 1, col = 1, text = "Longer Default Title", gpar = grid::gpar(col = "black")
+      ),
+      footer = gridifyCell(row = 3, col = 1)
+    )
   )
   expect_s4_class(test_layout, "gridifyLayout")
 
@@ -243,17 +249,16 @@ test_that("test span row for output height row = c(x, y)", {
 
   expect_equal(output, c(
     "gridifyLayout object", "---------------------", "Layout dimensions:",
-    "  Number of rows: 6", "  Number of columns: 1", "", "Heights of rows:",
-    "  Row 1: 0.05 npc", "  Row 2: 0.05 npc", "  Row 3: 0.05 npc",
-    "  Row 4: 0.7 npc", "  Row 5: 0.05 npc", "  Row 6: 0.1 npc",
+    "  Number of rows: 3", "  Number of columns: 1", "", "Heights of rows:",
+    "  Row 1: 0.15 npc", "  Row 2: 0.7 npc", "  Row 3: 0.15 npc",
     "", "Widths of columns:", "  Column 1: 1 npc", "", "Object Position:",
-    "  Row: 1-4", "  Col: 1", "  Width: 1", "  Height: 1", "", "Object Row Heights:",
-    "  Row 1: 0.05 npc", "  Row 2: 0.05 npc", "  Row 3: 0.05 npc",
-    "  Row 4: 0.7 npc", "", "Margin:", "  Top: 0.1 npc", "  Right: 0.1 npc",
+    "  Row: 2", "  Col: 1", "  Width: 1", "  Height: 1", "", "Object Row Heights:",
+    "  Row 2: 0.7 npc", "", "Margin:", "  Top: 0.1 npc", "  Right: 0.1 npc",
     "  Bottom: 0.1 npc", "  Left: 0.1 npc", "", "Global graphical parameters:",
     "  Are not set", "", "Default Cell Info:", "  title:",
-    "    row:1, col:1, text:NULL, mch:Inf, x:0.5, y:0.5, hjust:0.5, vjust:0.5, rot:0, ",
-    "  footer:",
-    "    row:3, col:1, text:NULL, mch:Inf, x:0.5, y:0.5, hjust:0.5, vjust:0.5, rot:0, ", ""
+    "    row:1, col:1, text:Longer Def..., mch:Inf, x:0.5, y:0.5, hjust:0.5, vjust:0.5, rot:0, ",
+    "    gpar - col:black, ", "  footer:",
+    "    row:3, col:1, text:NULL, mch:Inf, x:0.5, y:0.5, hjust:0.5, vjust:0.5, rot:0, ",
+    ""
   ))
 })

@@ -11,6 +11,38 @@ test_that("print on gridifyClass returns invisibly grob object", {
   expect_type(print(test_gridify), "language")
 })
 
+test_that("print on gridifyClass returns invisibly grob object", {
+  expect_silent(
+    test_gridify <- gridify(
+      object = ggplot2::ggplot(mtcars, ggplot2::aes(mpg, wt)) +
+        ggplot2::geom_point(),
+      layout = gridifyLayout(
+        nrow = 3L,
+        ncol = 1L,
+        heights = grid::unit(c(0, 10, 0), c("lines", "lines", "lines")),
+        widths = grid::unit(1, "npc"),
+        margin = grid::unit(c(t = 0.1, r = 0.1, b = 0.1, l = 0.1), units = "npc"),
+        global_gpar = grid::gpar(),
+        object = gridifyObject(row = 2, col = 1),
+        cells = gridifyCells(
+          title = gridifyCell(
+            row = 1, col = 1, text = "Longer Default Title", mch = 10,
+            gpar = grid::gpar(col = "black", fontsize = 12)
+          ),
+          footer = gridifyCell(row = 3, col = 1)
+        ),
+        adjust_height = TRUE
+      )
+    )
+  )
+  expect_silent(
+    test_gridify <- set_cell(test_gridify, "footer", "Footer", gpar = grid::gpar(col = "black"))
+  )
+  expect_s4_class(test_gridify, "gridifyClass")
+  expect_invisible(print(test_gridify))
+  expect_type(print(test_gridify), "language")
+})
+
 test_that("print on gridifyClass creates image", {
   skip_if(!getOption("RUNSNAPSHOTTESTS", FALSE))
   expect_silent(

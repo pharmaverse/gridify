@@ -100,7 +100,8 @@ print(gridify_object_fill)
 
 <img src="man/figures/README-example-1.png" width="100%" />
 
-Note: Get the image using `export_to(gridify_object, to = "mypng.png", res = 300, width = 2300, height = 1900)`
+Note: Get the image using  
+`export_to(gridify_object_fill, to = "mypng.png", res = 300, width = 2300, height = 1900)`
 
 ## Documentation Guide
 

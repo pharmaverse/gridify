@@ -55,7 +55,7 @@ test_that("set_cell works on gridify object", {
 test_that("set_cell works with multiple arguments filled", {
   expect_s4_class(test_gridify, "gridifyClass")
 
-  output <- set_cell(test_gridify, "title", "TITLE", mch = NULL, x = 0.7, hjust = 1, rot = 45)
+  output <- set_cell(test_gridify, "title", "TITLE", mch = 120, x = 0.7, hjust = 1, rot = 45)
   output <- set_cell(
     output, "footer", "FOOTER",
     mch = NULL, y = 0.2, hjust = 0, gpar = grid::gpar(fontsize = 22, col = "red")
@@ -64,7 +64,7 @@ test_that("set_cell works with multiple arguments filled", {
   expect_equal(output@elements, list(
     title = list(
       text = "TITLE",
-      mch = NULL,
+      mch = 120,
       x = 0.7,
       y = NULL,
       hjust = 1,
@@ -167,6 +167,19 @@ test_that("set_cell errors when cell rot is wrong", {
 test_that("set_cell errors when cell gpar is wrong", {
   expect_error(set_cell(test_gridify, "title", "something", gpar = "a"),
     "The gpar argument is not a gpar instance",
+    fixed = TRUE
+  )
+})
+
+test_that("set_cell errors when cell mch is wrong", {
+  expect_error(
+    set_cell(
+      test_gridify,
+      "title",
+      "something",
+      mch = "a"
+    ),
+    "The mch argument is not a positive numeric value",
     fixed = TRUE
   )
 })
