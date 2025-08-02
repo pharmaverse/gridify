@@ -19,6 +19,8 @@ Description: A simple and flexible tool designed to create enriched figures and 
     around them through predefined or custom layouts. 
     Any input which is convertible to 'grob' is supported, like 'ggplot', 'gt' or 'flextable'.
 License: Apache License 2.0
+URL: https://pharmaverse.github.io/gridify/
+BugReports: https://github.com/pharmaverse/gridify/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
