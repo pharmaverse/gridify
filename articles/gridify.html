@@ -69,7 +69,14 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/pharmaverse/gridify/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -85,7 +92,7 @@
       <h1 data-toc-skip>Get Started with gridify</h1>
             
       
-
+      <small class="dont-index">Source: <a href="https://github.com/pharmaverse/gridify/blob/main/vignettes/gridify.Rmd" class="external-link"><code>vignettes/gridify.Rmd</code></a></small>
       <div class="hidden name"><code>gridify.Rmd</code></div>
 
     </div>
@@ -130,7 +137,7 @@ Pharmaverse GitHub (example):</p>
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install</span><span class="op">(</span><span class="st">"gridify"</span><span class="op">)</span></span></code></pre></div>
 <p>Then load <strong>gridify</strong>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridify</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pharmaverse.github.io/gridify/" class="external-link">gridify</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -482,7 +489,7 @@ displays the final layout in your R session, and invisibly returns the
 <span><span class="co">#&gt;             "cm", "null", "cm", "lines", "cm", "cm")), widths = grid::unit(c(0.33, </span></span>
 <span><span class="co">#&gt;         0.33, 0.33), c("npc", "npc", "npc")))))</span></span>
 <span><span class="co">#&gt; attr(,"env")</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x56460a4b3810&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; &lt;environment: 0x56046a835da8&gt;</span></span></code></pre></div>
 <p><code>gridify</code> uses meta-programming to capture all
 <code>grid</code> calls needed to assemble your layout. That means you
 can retrieve or audit exactly how the figure or table is constructed.
