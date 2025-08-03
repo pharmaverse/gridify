@@ -567,7 +567,9 @@ gridify <- function(
   if (inherits(object, "formula")) {
     if (requireNamespace("gridGraphics")) {
       object_expr <- object[[2]]
-      object <- grid::grid.grabExpr(gridGraphics::grid.echo(function() eval(object_expr)))
+      object <- grid::grid.grabExpr(
+        gridGraphics::grid.echo(function() eval(object_expr))
+      )
     } else {
       stop("Please install gridGraphics to use it in gridify.")
     }
