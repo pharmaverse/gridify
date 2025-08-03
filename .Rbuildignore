@@ -9,4 +9,5 @@
 ^\.vscode$
 ^_pkgdown\.yml$
 ^\.github$
+^\.devcontainer$
 

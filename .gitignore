@@ -35,3 +35,48 @@ po/*~
 inst/doc
 .Rproj.user
 .DS_Store
+
+# ─────── Data files ───────
+# CSV & tabular
+*.csv
+*.tsv
+
+# SAS
+*.sas7bdat
+*.sas7bcat
+
+# Excel
+*.xls
+*.xlsx
+*.xlsm
+*.xlsb
+
+# SPSS, Stata
+*.sav
+*.dta
+
+# R
+*.rda
+*.rdata
+*.rds
+
+# MATLAB, HDF5
+*.mat
+*.h5
+
+# SQLite, DB
+*.db
+*.sqlite
+*.db3
+
+# Documents & reports
+*.pdf
+*.doc
+*.docx
+*.ppt
+*.pptx
+
+# Generic archives (if you also want to block ZIPs, etc.)
+*.zip
+*.tar
+*.gz
