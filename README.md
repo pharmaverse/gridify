@@ -1,4 +1,4 @@
-# gridify <img src="man/figures/logo.png" align="right" height="auto" width="300" />
+# gridify <img src="man/figures/logo.png" alt="gridify logo" align="right" height="auto" width="300" />
 
 [![R-CMD-check](https://github.com/pharmaverse/gridify/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pharmaverse/gridify/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/pharmaverse/gridify/graph/badge.svg)](https://app.codecov.io/gh/pharmaverse/gridify)
@@ -101,7 +101,7 @@ gridify_object_fill
 print(gridify_object_fill)
 ```
 
-<img src="man/figures/README-example-1.png" width="100%" />
+<img src="man/figures/README-example-1.png" alt="Example of gridify output" width="100%" />
 
 Note: Get the image using  
 `export_to(gridify_object_fill, to = "mypng.png", res = 300, width = 2300, height = 1900)`
@@ -143,4 +143,4 @@ By contributing to this project, you agree to abide by its terms.
 
 Along with the authors and contributors, thanks to the following people for their support:
 
-Alberto Montironi, Jonathan Bleier, Cynthia McShea, Nils Penard, Oswald Dallimore, Laetitia Lemoine, Richard Abdy
+Alberto Montironi, Jonathan Bleier, Cynthia McShea, Nils Penard, Oswald Dallimore, Laetitia Lemoine, Daniel Vicencio Perez, Richard Abdy

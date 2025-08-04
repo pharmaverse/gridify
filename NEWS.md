@@ -1,3 +1,3 @@
-# gridify 0.7.1.9000
+# gridify 0.7.2
 
 * First open-source release.

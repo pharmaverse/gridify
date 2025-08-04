@@ -1,6 +1,6 @@
 ---
 title: "Multi-Page and Multi-Figure Examples"
-output:
+output: 
   rmarkdown::html_vignette:
     toc: true
     toc_depth: 4
@@ -8,6 +8,9 @@ vignette: >
   %\VignetteIndexEntry{Multi-Page and Multi-Figure Examples}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+editor_options:
+  markdown:
+    wrap: 72
 ---
 
 ```{r setup, include = FALSE}

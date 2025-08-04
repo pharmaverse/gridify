@@ -3,11 +3,14 @@ title: "Simple Examples"
 output: 
   rmarkdown::html_vignette:
     toc: true
-    toc_depth: 6
+    toc_depth: 4
 vignette: >
   %\VignetteIndexEntry{Simple Examples}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+editor_options:
+  markdown:
+    wrap: 72
 ---
 
 ```{r, include = FALSE}
