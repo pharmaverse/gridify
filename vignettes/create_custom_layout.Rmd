@@ -1,11 +1,9 @@
 ---
 title: "Create Custom Layout"
-output:
-    rmarkdown::html_document:
-        theme: "spacelab"
-        highlight: "kate"
-        toc: true
-        toc_float: true
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
 vignette: >
   %\VignetteIndexEntry{Create Custom Layout}
   %\VignetteEngine{knitr::rmarkdown}
@@ -34,7 +32,7 @@ Please note that creating a custom layout may not be required. It is intended fo
 
 A layout is a grid structure defined by the number of rows and columns which creates spaces or cells where text elements can then be added. Each cell is then defined by the rows and columns it spans.
 
-```{r}
+```{r layout-basics}
 library(gridify)
 # (to use |> version 4.1.0 of R is required, for lower versions we recommend %>% from magrittr)
 library(magrittr)
@@ -48,7 +46,7 @@ show_layout(simple_layout())
 
 Here is an example layout. All arguments will be explained below.
 
-```{r}
+```{r example-layout}
 #| results: hide
 
 new_layout <- gridifyLayout(
@@ -108,7 +106,7 @@ The layout needs to have a margin defined to determine how much space there shou
 
 The margin must be a call to `grid::unit(...)` where a vector with arguments `t`, `r`, `b` and `l` are given values, this is for the top, right, bottom and left margins respectively e.g.
 
-```{r}
+```{r margin-argument}
 #| eval: false
 
 # a 10% margin on all sides
@@ -121,7 +119,7 @@ The object's location is defined in the `object` argument of `gridifyLayout()`. 
 
 The arguments `height` and `width` of `gridifyObject()` determine how much of the space the object should take up within the cell(s) location. The default values are `1`, which is the equivalent of 100% of the width/height of the area.
 
-```{r}
+```{r adding-object-argument}
 #| eval: false
 
 # an object that spans only row 3 but both columns 1 and 2
@@ -137,26 +135,26 @@ For transparency, this section will explain how the `scales` argument works, and
 
 In the predefined simple and complex layouts, you can choose between `"free"` and `"fixed"` scales. When using `"free"` scales, row heights are proportionally 15%, 70% and 15% of the total area. Conversely, with `"fixed"` scales, row heights are determined by the number of lines required for each text element, with any remaining space allocated to the object.
 
-```{r}
+```{r scales-argument-free}
 simple_layout(scales = "free")
 ```
 
-```{r}
+```{r show-scales-argument-free}
 show_layout(simple_layout(scales = "free"))
 ```
 
-```{r}
+```{r scales-argument-fixed}
 simple_layout(scales = "fixed")
 ```
 
-```{r}
+```{r show-scales-argument-fixed}
 # As no lines were defined, the object takes up the whole space below
 show_layout(simple_layout(scales = "fixed"))
 ```
 
 Below is an example of how to add scales to a custom layout with options being `npc` or `lines`.
 
-```{r}
+```{r how-add-scales-custom-layout}
 scales_example_layout <- function(
     margin = grid::unit(c(t = 0.1, r = 0.1, b = 0.1, l = 0.1), units = "npc"),
     global_gpar = grid::gpar(),
@@ -202,7 +200,7 @@ The cells are the places a user can add their text elements to the output. If a 
 
 The cells are created by making a call to `gridifyCells()` which requires named arguments returning calls to `gridifyCell()`. The names of these arguments are the names the user will be referencing when adding text elements to the output so make sure they are named appropriately.
 
-```{r}
+```{r adding-cells}
 #| eval: false
 gridifyCells(
   company = gridifyCell(row = 1, col = 2, x = 1, hjust = 1, y = 1, vjust = 1),
@@ -253,7 +251,7 @@ local \> default \> global
 
 Therefore, any graphical parameter can be overwritten by the users in the calls to `set_cell()`.
 
-```{r}
+```{r default-graphical-parameters}
 #| results: hide
 
 new_layout <- gridifyLayout(
@@ -285,7 +283,7 @@ gridify(
 
 The text element fonts can also be customized easily as per the user requirements.
 
-```{r}
+```{r default-graphical-parameters-text}
 #| results: hide
 
 new_layout <- gridifyLayout(
@@ -322,7 +320,7 @@ gridify(
 
 The `text` argument of `gridifyCell()` can be used to set the default text for a cell. Please note, the text provided by the end user with `set_cell()` will take higher priority and overwrite the default.
 
-```{r}
+```{r default-cell-text}
 new_layout <- gridifyLayout(
   nrow = 4L,
   ncol = 2L,
@@ -353,7 +351,7 @@ gridify(
 
 To add a watermark to your output, create a cell covering the desired rows and columns and set the transparency of the text, the font size large and the rotation to 45 degrees.
 
-```{r}
+```{r adding-watermark}
 #| results: hide
 
 new_layout <- gridifyLayout(

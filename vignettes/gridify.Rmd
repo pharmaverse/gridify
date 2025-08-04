@@ -1,11 +1,9 @@
 ---
 title: "Get Started with gridify"
-output:
-    rmarkdown::html_document:
-        theme: "spacelab"
-        highlight: "kate"
-        toc: true
-        toc_float: true
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
 vignette: >
   %\VignetteIndexEntry{Get Started with gridify}
   %\VignetteEngine{knitr::rmarkdown}
