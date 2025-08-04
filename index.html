@@ -109,7 +109,8 @@ Whilst <strong>rtables</strong> are not directly supported, we can use <strong>r
 </h2>
 <p>If <code>gridify</code> is not yet on CRAN, you can install it from Pharmaverse GitHub (example):</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"pharmaverse/gridify"</span>, build_manual <span class="op">=</span> <span class="cn">TRUE</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"pharmaverse/gridify"</span>, build_manual <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
@@ -125,6 +126,8 @@ Whilst <strong>rtables</strong> are not directly supported, we can use <strong>r
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pharmaverse.github.io/gridify/" class="external-link">gridify</a></span><span class="op">)</span></span>
 <span><span class="co"># install.packages("gt")</span></span>
+<span><span class="co"># gt needs gtable</span></span>
+<span><span class="co"># install.packages("gtable")</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span>
 <span><span class="co"># (to use |&gt; version 4.1.0 of R is required, for lower versions we recommend %&gt;% from magrittr)</span></span>
 <span></span>
