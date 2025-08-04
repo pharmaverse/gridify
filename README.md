@@ -35,7 +35,8 @@ inputs are converted to a `grob` object in `gridify` and the result of using
 If `gridify` is not yet on CRAN, you can install it from Pharmaverse GitHub (example):
 
 ``` r
-devtools::install_github("pharmaverse/gridify", build_manual = TRUE, build_vignettes = TRUE)
+# install.packages("remotes")
+remotes::install_github("pharmaverse/gridify", build_manual = TRUE)
 ```
 
 ## Example
@@ -54,6 +55,8 @@ The following example uses a table created by the `gt` package and the
 ``` r
 library(gridify)
 # install.packages("gt")
+# gt needs gtable
+# install.packages("gtable")
 library(gt)
 # (to use |> version 4.1.0 of R is required, for lower versions we recommend %>% from magrittr)
 
