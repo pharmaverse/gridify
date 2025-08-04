@@ -143,4 +143,4 @@ By contributing to this project, you agree to abide by its terms.
 
 Along with the authors and contributors, thanks to the following people for their support:
 
-Jonathan Bleier, Alberto Montirioni, Cynthia McShea, Oswald Dallimore, Laetitia Lemoine, Richard Abdy
+Alberto Montironi, Jonathan Bleier, Cynthia McShea, Nils Penard, Oswald Dallimore, Laetitia Lemoine, Richard Abdy
