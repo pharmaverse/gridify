@@ -1,10 +1,18 @@
 ---
 title: "Get Started with gridify"
-output: rmarkdown::html_vignette
+output:
+    rmarkdown::html_document:
+        theme: "spacelab"
+        highlight: "kate"
+        toc: true
+        toc_float: true
 vignette: >
   %\VignetteIndexEntry{Get Started with gridify}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+editor_options:
+  markdown:
+    wrap: 72
 ---
 
 ```{r, include = FALSE}
@@ -21,7 +29,7 @@ knitr::opts_chunk$set(
 In the pharmaceutical industry, and many other fields that rely heavily on data reporting, there is often a need to create tables and figures with specific text elements — like titles, subtitles, captions, and footnotes — positioned consistently around the output. 
 Manually arranging these elements can be time-consuming and prone to inconsistencies across projects.
 
-`gridify` addresses this by building on the base R `[grid](https://cran.r-project.org/package=grid)` package, making it easy to add flexible, customizable elements around a plot or table. This ensures a consistent layout for text elements (like headers, footers, etc.) across various output types, such as:
+`gridify` addresses this by building on the base R [grid](https://cran.r-project.org/package=grid) package, making it easy to add flexible, customizable elements around a plot or table. This ensures a consistent layout for text elements (like headers, footers, etc.) across various output types, such as:
 
 - `ggplot2` objects  
 - `flextable` tables

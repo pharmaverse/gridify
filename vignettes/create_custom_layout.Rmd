@@ -1,13 +1,18 @@
 ---
 title: "Create Custom Layout"
-output: 
-  rmarkdown::html_vignette:
-    toc: true
-    toc_depth: 4
+output:
+    rmarkdown::html_document:
+        theme: "spacelab"
+        highlight: "kate"
+        toc: true
+        toc_float: true
 vignette: >
   %\VignetteIndexEntry{Create Custom Layout}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+editor_options:
+  markdown:
+    wrap: 72
 ---
 
 ```{r, include = FALSE}

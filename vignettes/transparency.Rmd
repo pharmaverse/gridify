@@ -1,10 +1,18 @@
 ---
 title: "Transparency with gridify"
-output: rmarkdown::html_vignette
+output:
+    rmarkdown::html_document:
+        theme: "spacelab"
+        highlight: "kate"
+        toc: true
+        toc_float: true
 vignette: >
   %\VignetteIndexEntry{Transparency with gridify}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+editor_options:
+  markdown:
+    wrap: 72
 ---
 
 ```{r, include = FALSE}
