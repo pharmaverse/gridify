@@ -32,7 +32,7 @@ Must be a vector of length 4, one element for each margin, with values in order 
 \item{global_gpar}{A call to \code{grid::gpar()} specifying the global graphical parameters.
 Default is \code{grid::gpar()}.}
 
-\item{background}{a string with background colour. Default \code{grid::get.gpar()$fill}.}
+\item{background}{A string with background colour. Default \code{grid::get.gpar()$fill}.}
 
 \item{adjust_height}{A logical value indicating whether to automatically adjust the height of the object to
 make sure all of the text elements around the output do not overlap.

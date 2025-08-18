@@ -151,7 +151,7 @@ setValidity("gridifyLayout", function(object) {
 #' Must be a vector of length 4, one element for each margin, with values in order for top, right, bottom, left.
 #' @param global_gpar A call to `grid::gpar()` specifying the global graphical parameters.
 #' Default is `grid::gpar()`.
-#' @param background a string with background colour. Default `grid::get.gpar()$fill`.
+#' @param background A string with background colour. Default `grid::get.gpar()$fill`.
 #' @param adjust_height A logical value indicating whether to automatically adjust the height of the object to
 #' make sure all of the text elements around the output do not overlap.
 #' This only applies for rows with height defined in cm, mm, inch or lines units. Default is TRUE.
