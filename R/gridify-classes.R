@@ -626,9 +626,7 @@ gridify <- function(
     ) {
       object <- flextable::gen_grob(object)
     } else {
-      stop(
-        "Please install flextable >= 0.8.0 to use it in gridify, as it depends on flextable::gen_grob."
-      )
+      stop("Please install flextable >= 0.8.0 to use it in gridify, as it depends on flextable::gen_grob.")
     }
   }
 
@@ -636,9 +634,7 @@ gridify <- function(
     if (requireNamespace("gt") && (utils::packageVersion("gt") >= "0.11.0")) {
       object <- gt::as_gtable(object)
     } else {
-      stop(
-        "Please install gt >= 0.11.0 to use it in gridify, as it depends on gt::as_gtable."
-      )
+      stop("Please install gt >= 0.11.0 to use it in gridify, as it depends on gt::as_gtable.")
     }
   }
 

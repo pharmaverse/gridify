@@ -452,7 +452,7 @@ print(g)
 ```
 
 
-## Background colour example
+## Background Colour Example
 
 Here is an example of how to set the background colour using the `background` argument in `simple_layout()`. By default, it uses `grid::get.gpar()$fill` (white background). In this example, we set the background colour to `"beige"`.
 
