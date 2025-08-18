@@ -75,3 +75,5 @@ inst/doc
 *.docx
 *.ppt
 *.pptx
+/doc/
+/Meta/

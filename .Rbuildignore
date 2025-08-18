@@ -10,4 +10,7 @@
 ^_pkgdown\.yml$
 ^\.github$
 ^\.devcontainer$
+^Rplots\.pdf$
 
+^doc$
+^Meta$

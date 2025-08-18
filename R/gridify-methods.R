@@ -972,8 +972,6 @@ setMethod("show", "gridifyLayout", function(object) {
 #'   \item If a vector of file names (one per object) is provided, each gridify object is
 #'   written to its corresponding file.
 #' }
-#' @inherit font_issue note
-#'
 #' @return No value is returned; the function is called for its side effect of writing output to a file.
 #'
 #' @examples
