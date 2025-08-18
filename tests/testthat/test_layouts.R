@@ -51,3 +51,10 @@ test_that("background argument works correctly", {
     expect_silent(layout_func(background = NA_character_))
   }
 })
+
+test_that("global_gpar argument works correctly", {
+  for (layout in layouts) {
+    layout_func <- asNamespace("gridify")[[layout]]
+    expect_silent(layout_func(global_gpar = grid::gpar(col = "black")))
+  }
+})

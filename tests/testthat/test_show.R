@@ -426,7 +426,7 @@ test_that("test span row for output height row = c(x, y)", {
     background = "white",
     object = gridifyObject(row = c(1, 4), col = 1),
     cells = gridifyCells(
-      title = gridifyCell(row = 1, col = 1),
+      title = gridifyCell(row = 1, col = 1, text = "Long Title With Text", gpar = grid::gpar(col = "black")),
       footer = gridifyCell(row = 3, col = 1)
     )
   )
@@ -482,7 +482,8 @@ test_that("test span row for output height row = c(x, y)", {
       "",
       "Default Cell Info:",
       "  title:",
-      "    row:1, col:1, text:NULL, mch:Inf, x:0.5, y:0.5, hjust:0.5, vjust:0.5, rot:0, ",
+      "    row:1, col:1, text:Long Title..., mch:Inf, x:0.5, y:0.5, hjust:0.5, vjust:0.5, rot:0, ",
+      "    gpar - col:black, ",
       "  footer:",
       "    row:3, col:1, text:NULL, mch:Inf, x:0.5, y:0.5, hjust:0.5, vjust:0.5, rot:0, ",
       ""
