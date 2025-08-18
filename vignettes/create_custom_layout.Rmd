@@ -56,6 +56,7 @@ new_layout <- gridifyLayout(
   widths = grid::unit(c(0.5, 0.5), "npc"),
   margin = grid::unit(c(t = 0.1, r = 0.1, b = 0.1, l = 0.1), units = "npc"),
   global_gpar = grid::gpar(),
+  background = grid::get.gpar()$fill,
   adjust_height = FALSE,
   object = gridifyObject(row = 3, col = 1:2),
   cells = gridifyCells(
@@ -111,6 +112,23 @@ The margin must be a call to `grid::unit(...)` where a vector with arguments `t`
 
 # a 10% margin on all sides
 grid::unit(c(t = 0.1, r = 0.1, b = 0.1, l = 0.1), units = "npc")
+```
+
+## Background colour
+
+The `background` argument controls the background colour of the layout.
+This may be done to match the layout’s background colour to that of the gridify object.
+The background value can be set to the default colour (white), or to any specific colour e.g.
+
+```{r}
+#| eval: false
+
+# set the background colour to be the default
+background <- grid::get.gpar()$fill
+
+# set the background colour to a specific colour
+background <- "blue"
+background <- "#96BA39"
 ```
 
 ## Adding the Object argument
@@ -175,6 +193,7 @@ scales_example_layout <- function(
     widths = grid::unit(1, "npc"),
     margin = margin,
     global_gpar = global_gpar,
+    background = grid::get.gpar()$fill,
     adjust_height = TRUE,
     object = gridifyObject(row = 2, col = 1),
     cells = gridifyCells(
@@ -262,6 +281,7 @@ new_layout <- gridifyLayout(
   margin = grid::unit(c(t = 0.1, r = 0.1, b = 0.1, l = 0.1), units = "inches"),
   # default graphics for whole output set in global_gpar
   global_gpar = grid::gpar(fontfamiy = "Courier", col = "navy"),
+  background = grid::get.gpar()$fill,
   adjust_height = FALSE,
   object = gridifyObject(row = 2, col = 1),
   cells = gridifyCells(
@@ -297,6 +317,7 @@ new_layout <- gridifyLayout(
     col = "navy",
     fontface = "italic"
   ), # default italic text for the whole output
+  background = grid::get.gpar()$fill,
   adjust_height = FALSE,
   object = gridifyObject(row = 2, col = 1),
   cells = gridifyCells(
@@ -328,6 +349,7 @@ new_layout <- gridifyLayout(
   widths = grid::unit(c(0.5, 0.5), "npc"),
   margin = grid::unit(c(t = 0.1, r = 0.1, b = 0.1, l = 0.1), units = "npc"),
   global_gpar = grid::gpar(),
+  background = grid::get.gpar()$fill,
   adjust_height = FALSE,
   object = gridifyObject(row = 3, col = 1:2),
   cells = gridifyCells(
@@ -361,6 +383,7 @@ new_layout <- gridifyLayout(
   widths = grid::unit(1, "npc"),
   margin = grid::unit(c(t = 0.1, r = 0.1, b = 0.1, l = 0.1), units = "cm"),
   global_gpar = grid::gpar(),
+  background = grid::get.gpar()$fill,
   adjust_height = FALSE,
   object = gridifyObject(row = 2, col = 1),
   cells = gridifyCells(

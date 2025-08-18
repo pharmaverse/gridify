@@ -17,9 +17,4 @@ a character string with ANSI codes surrounding it.
 \description{
 Add ANSI colour to a string
 }
-\examples{
-\dontrun{
-cat(gridify:::coloured_print("This is a test", colour = "blue"))
-}
-}
 \keyword{internal}

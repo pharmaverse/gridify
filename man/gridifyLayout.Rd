@@ -11,6 +11,7 @@ gridifyLayout(
   widths,
   margin,
   global_gpar = grid::gpar(),
+  background = grid::get.gpar()$fill,
   adjust_height = TRUE,
   object,
   cells
@@ -30,6 +31,8 @@ Must be a vector of length 4, one element for each margin, with values in order 
 
 \item{global_gpar}{A call to \code{grid::gpar()} specifying the global graphical parameters.
 Default is \code{grid::gpar()}.}
+
+\item{background}{a string with background colour. Default \code{grid::get.gpar()$fill}.}
 
 \item{adjust_height}{A logical value indicating whether to automatically adjust the height of the object to
 make sure all of the text elements around the output do not overlap.
@@ -53,6 +56,7 @@ layout <- gridifyLayout(
   widths = grid::unit(1, "npc"),
   margin = grid::unit(c(t = 0.1, r = 0.1, b = 0.1, l = 0.1), units = "npc"),
   global_gpar = grid::gpar(),
+  background = grid::get.gpar()$fill,
   adjust_height = FALSE,
   object = gridifyObject(row = 2, col = 1),
   cells = gridifyCells(
@@ -81,6 +85,7 @@ new_layout <- function(
     heights = grid::unit(c(3, 0.5, 1, 3), c("cm", "cm", "null", "cm")),
     widths = grid::unit(1, "npc"),
     global_gpar = global_gpar,
+    background = grid::get.gpar()$fill,
     margin = margin,
     adjust_height = FALSE,
     object = gridifyObject(row = 3, col = 1),

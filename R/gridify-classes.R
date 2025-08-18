@@ -1,5 +1,15 @@
 setOldClass(
-  c("unit", "simpleUnit", "unit.list", "gpar", "grob", "gtable", "gridifyObject", "gridifyCells", "gridifyCell")
+  c(
+    "unit",
+    "simpleUnit",
+    "unit.list",
+    "gpar",
+    "grob",
+    "gtable",
+    "gridifyObject",
+    "gridifyCells",
+    "gridifyCell"
+  )
 )
 setClassUnion("unitOrSimpleUnit", c("unit", "simpleUnit", "unit.list"))
 
@@ -13,6 +23,7 @@ setClassUnion("unitOrSimpleUnit", c("unit", "simpleUnit", "unit.list"))
 #' @slot widths A `grid::unit()` call specifying the widths of the columns.
 #' @slot margin A `grid::unit()` specifying the margins around the object.
 #' @slot global_gpar A `grid::gpar()` object specifying the global graphical parameters.
+#' @slot background A string with background colour.
 #' @slot adjust_height A logical value indicating whether to adjust the height of the object.
 #' Only applies for cells with height defined in cm, mm, inch or lines units.
 #' @slot object A grob object.
@@ -27,6 +38,7 @@ setClass(
     widths = "unitOrSimpleUnit",
     margin = "unitOrSimpleUnit",
     global_gpar = "gpar",
+    background = "character",
     adjust_height = "logical",
     object = "gridifyObject",
     cells = "gridifyCells"
@@ -34,21 +46,38 @@ setClass(
 )
 
 setValidity("gridifyLayout", function(object) {
-  if (!is(object@margin, "unit")) stop("The 'margin' argument must be of type 'unit'.")
-  if (length(object@margin) != 4) stop("The 'margin' argument must be a vector of length 4.")
+  if (!is(object@margin, "unit")) {
+    stop("The 'margin' argument must be of type 'unit'.")
+  }
+  if (length(object@margin) != 4) {
+    stop("The 'margin' argument must be a vector of length 4.")
+  }
+  if (!((length(object@background) == 1) && is.character(object@background))) {
+    stop("The 'background' argument must be a string.")
+  }
   if (length(object@heights) != object@nrow) {
-    stop("heights has to have the same length as number of rows (nrow) in gridifyLayout.")
+    stop(
+      "heights has to have the same length as number of rows (nrow) in gridifyLayout."
+    )
   }
   if (length(object@widths) != object@ncol) {
-    stop("widths has to have the same length as number of cols (ncol) in gridifyLayout.")
+    stop(
+      "widths has to have the same length as number of cols (ncol) in gridifyLayout."
+    )
   }
 
   if (!all(object@object@row <= object@nrow)) {
-    stop(sprintf("gridifyObject row value has to be less or equal to nrow: %s.", object@nrow))
+    stop(sprintf(
+      "gridifyObject row value has to be less or equal to nrow: %s.",
+      object@nrow
+    ))
   }
 
   if (!all(object@object@col <= object@ncol)) {
-    stop(sprintf("gridifyObject col value has to be less or equal to ncol: %s.", object@ncol))
+    stop(sprintf(
+      "gridifyObject col value has to be less or equal to ncol: %s.",
+      object@ncol
+    ))
   }
 
   cells_rows <- unlist(sapply(object@cells@cells, function(e) e@row))
@@ -57,15 +86,19 @@ setValidity("gridifyLayout", function(object) {
   if (!all(cells_rows <= object@nrow)) {
     stop(c(
       "All cells rows have to be less or equal to nrow.",
-      "\nNumber of rows: ", object@nrow,
-      "\nMaximum row number called in a cell: ", max(cells_rows)
+      "\nNumber of rows: ",
+      object@nrow,
+      "\nMaximum row number called in a cell: ",
+      max(cells_rows)
     ))
   }
   if (!all(cells_cols <= object@ncol)) {
     stop(c(
       "All cells cols have to be less or equal to ncol",
-      "\nNumber of rows: ", object@ncol,
-      "\nMaximum row number called in a cell: ", max(cells_cols)
+      "\nNumber of rows: ",
+      object@ncol,
+      "\nMaximum row number called in a cell: ",
+      max(cells_cols)
     ))
   }
 
@@ -73,8 +106,16 @@ setValidity("gridifyLayout", function(object) {
   overlap <- NULL
 
   for (cell in object@cells@cells) {
-    r_range <- if (length(cell@row) == 2) seq(min(cell@row), max(cell@row)) else cell@row
-    c_range <- if (length(cell@col) == 2) seq(min(cell@col), max(cell@col)) else cell@col
+    r_range <- if (length(cell@row) == 2) {
+      seq(min(cell@row), max(cell@row))
+    } else {
+      cell@row
+    }
+    c_range <- if (length(cell@col) == 2) {
+      seq(min(cell@col), max(cell@col))
+    } else {
+      cell@col
+    }
 
     for (r in r_range) {
       for (c in c_range) {
@@ -110,6 +151,7 @@ setValidity("gridifyLayout", function(object) {
 #' Must be a vector of length 4, one element for each margin, with values in order for top, right, bottom, left.
 #' @param global_gpar A call to `grid::gpar()` specifying the global graphical parameters.
 #' Default is `grid::gpar()`.
+#' @param background a string with background colour. Default `grid::get.gpar()$fill`.
 #' @param adjust_height A logical value indicating whether to automatically adjust the height of the object to
 #' make sure all of the text elements around the output do not overlap.
 #' This only applies for rows with height defined in cm, mm, inch or lines units. Default is TRUE.
@@ -128,6 +170,7 @@ setValidity("gridifyLayout", function(object) {
 #'   widths = grid::unit(1, "npc"),
 #'   margin = grid::unit(c(t = 0.1, r = 0.1, b = 0.1, l = 0.1), units = "npc"),
 #'   global_gpar = grid::gpar(),
+#'   background = grid::get.gpar()$fill,
 #'   adjust_height = FALSE,
 #'   object = gridifyObject(row = 2, col = 1),
 #'   cells = gridifyCells(
@@ -156,6 +199,7 @@ setValidity("gridifyLayout", function(object) {
 #'     heights = grid::unit(c(3, 0.5, 1, 3), c("cm", "cm", "null", "cm")),
 #'     widths = grid::unit(1, "npc"),
 #'     global_gpar = global_gpar,
+#'     background = grid::get.gpar()$fill,
 #'     margin = margin,
 #'     adjust_height = FALSE,
 #'     object = gridifyObject(row = 3, col = 1),
@@ -174,22 +218,26 @@ setValidity("gridifyLayout", function(object) {
 #'   set_cell("subtitle", "SUBTITLE") %>%
 #'   set_cell("footer", "FOOTER")
 gridifyLayout <- function(
-    nrow,
-    ncol,
-    heights,
-    widths,
-    margin,
-    global_gpar = grid::gpar(),
-    adjust_height = TRUE,
-    object,
-    cells) {
-  new("gridifyLayout",
+  nrow,
+  ncol,
+  heights,
+  widths,
+  margin,
+  global_gpar = grid::gpar(),
+  background = grid::get.gpar()$fill,
+  adjust_height = TRUE,
+  object,
+  cells
+) {
+  new(
+    "gridifyLayout",
     nrow = nrow,
     ncol = ncol,
     heights = heights,
     widths = widths,
     margin = margin,
     global_gpar = global_gpar,
+    background = background,
     adjust_height = adjust_height,
     object = object,
     cells = cells
@@ -230,9 +278,15 @@ setClass(
 )
 
 setValidity("gridifyCell", function(object) {
-  if (min(object@row) < 1 || !all(object@row %% 1 == 0)) stop("cell row has to be positive integer.")
-  if (min(object@col) < 1 || !all(object@col %% 1 == 0)) stop("cell col has to be positive integer.")
-  if (length(object@text) > 1) stop("cell text has to be a string.")
+  if (min(object@row) < 1 || !all(object@row %% 1 == 0)) {
+    stop("cell row has to be positive integer.")
+  }
+  if (min(object@col) < 1 || !all(object@col %% 1 == 0)) {
+    stop("cell col has to be positive integer.")
+  }
+  if (length(object@text) > 1) {
+    stop("cell text has to be a string.")
+  }
 
   TRUE
 })
@@ -281,16 +335,17 @@ setValidity("gridifyCell", function(object) {
 #'   gpar = grid::gpar()
 #' )
 gridifyCell <- function(
-    row,
-    col,
-    text = character(0),
-    mch = Inf,
-    x = 0.5,
-    y = 0.5,
-    hjust = 0.5,
-    vjust = 0.5,
-    rot = 0,
-    gpar = grid::gpar()) {
+  row,
+  col,
+  text = character(0),
+  mch = Inf,
+  x = 0.5,
+  y = 0.5,
+  hjust = 0.5,
+  vjust = 0.5,
+  rot = 0,
+  gpar = grid::gpar()
+) {
   new(
     "gridifyCell",
     row = row,
@@ -320,13 +375,19 @@ setClass(
 )
 
 setValidity("gridifyCells", function(object) {
-  if (length(object@cells) == 0) stop("gridifyCells can not be empty.")
-  if (length(names(object@cells)) != length(object@cells)) stop("All elements in gridifyCells have to be named.")
+  if (length(object@cells) == 0) {
+    stop("gridifyCells can not be empty.")
+  }
+  if (length(names(object@cells)) != length(object@cells)) {
+    stop("All elements in gridifyCells have to be named.")
+  }
   if (length(unique(names(object@cells))) != length(object@cells)) {
     stop("All elements in gridifyCells must have unique names.")
   }
 
-  if (!all(vapply(object@cells, function(e) is(e, "gridifyCell"), logical(1)))) {
+  if (
+    !all(vapply(object@cells, function(e) is(e, "gridifyCell"), logical(1)))
+  ) {
     stop("All elements in gridifyCells have to be gridifyCell.")
   }
 
@@ -392,8 +453,12 @@ setClass(
 )
 
 setValidity("gridifyObject", function(object) {
-  if (min(object@row) < 1 || !all(object@row %% 1 == 0)) stop("cell row has to be positive integer.")
-  if (min(object@col) < 1 || !all(object@col %% 1 == 0)) stop("cell col has to be positive integer.")
+  if (min(object@row) < 1 || !all(object@row %% 1 == 0)) {
+    stop("cell row has to be positive integer.")
+  }
+  if (min(object@col) < 1 || !all(object@col %% 1 == 0)) {
+    stop("cell col has to be positive integer.")
+  }
 
   TRUE
 })
@@ -518,20 +583,26 @@ setValidity("gridifyClass", function(object) {
 #'   )
 #' )
 gridify <- function(
-    object = grid::nullGrob(),
-    layout,
-    elements = list(),
-    ...) {
+  object = grid::nullGrob(),
+  layout,
+  elements = list(),
+  ...
+) {
   # Check the classes of the inputs
   accepted_classes <- c("grob", "ggplot", "flextable", "gt_tbl", "formula")
   if (!(inherits(object, accepted_classes))) {
-    stop(sprintf("object argument of gridify has to be one of %s class.", paste(accepted_classes, collapse = ", ")))
+    stop(sprintf(
+      "object argument of gridify has to be one of %s class.",
+      paste(accepted_classes, collapse = ", ")
+    ))
   }
 
   if (!(inherits(layout, "gridifyLayout") || is.function(layout))) {
     stop("layout argument of gridify has to be of gridifyLayout class.")
   }
-  if (!is.list(elements)) stop("elements argument of gridify has to be a list.")
+  if (!is.list(elements)) {
+    stop("elements argument of gridify has to be a list.")
+  }
 
   if (is.function(layout)) {
     layout <- layout()
@@ -549,10 +620,15 @@ gridify <- function(
   }
 
   if (inherits(object, "flextable")) {
-    if (requireNamespace("flextable") && (utils::packageVersion("flextable") >= "0.8.0")) {
+    if (
+      requireNamespace("flextable") &&
+        (utils::packageVersion("flextable") >= "0.8.0")
+    ) {
       object <- flextable::gen_grob(object)
     } else {
-      stop("Please install flextable >= 0.8.0 to use it in gridify, as it depends on flextable::gen_grob.")
+      stop(
+        "Please install flextable >= 0.8.0 to use it in gridify, as it depends on flextable::gen_grob."
+      )
     }
   }
 
@@ -560,7 +636,9 @@ gridify <- function(
     if (requireNamespace("gt") && (utils::packageVersion("gt") >= "0.11.0")) {
       object <- gt::as_gtable(object)
     } else {
-      stop("Please install gt >= 0.11.0 to use it in gridify, as it depends on gt::as_gtable.")
+      stop(
+        "Please install gt >= 0.11.0 to use it in gridify, as it depends on gt::as_gtable."
+      )
     }
   }
 
@@ -576,7 +654,8 @@ gridify <- function(
   }
 
   # Create a new gridify object
-  new("gridifyClass",
+  new(
+    "gridifyClass",
     object = object,
     layout = layout,
     elements = if (length(elements)) elements else list()
