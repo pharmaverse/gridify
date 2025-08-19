@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gridify</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,7 +62,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Transparency with gridify</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/pharmaverse/gridify/blob/v0.7.2/vignettes/transparency.Rmd" class="external-link"><code>vignettes/transparency.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/pharmaverse/gridify/blob/main/vignettes/transparency.Rmd" class="external-link"><code>vignettes/transparency.Rmd</code></a></small>
       <div class="d-none name"><code>transparency.Rmd</code></div>
     </div>
 
@@ -129,37 +129,39 @@ the scenes:</p>
 <span><span class="co"># The underlying grid call is returned invisibly by the print() method.</span></span>
 <span><span class="co"># We can inspect or store it for further manipulations:</span></span>
 <span><span class="va">grid_call_behind</span></span>
-<span><span class="co">#&gt; grid::gTree(children = do.call(grid::gList, list(grid::grobTree(grid::editGrob(OBJECT, </span></span>
-<span><span class="co">#&gt;     vp = grid::viewport(height = grid::unit.pmax(grid::unit(1, </span></span>
+<span><span class="co">#&gt; grid::gTree(children = grid::gList(grid::rectGrob(x = 0, y = 0, </span></span>
+<span><span class="co">#&gt;     width = 1, height = 1, just = c("left", "bottom"), gp = grid::gpar(fill = "transparent", </span></span>
+<span><span class="co">#&gt;         col = "transparent")), grid::gTree(children = do.call(grid::gList, </span></span>
+<span><span class="co">#&gt;     list(grid::grobTree(grid::editGrob(OBJECT, vp = grid::viewport(height = grid::unit.pmax(grid::unit(1, </span></span>
 <span><span class="co">#&gt;         "npc"), grid::unit(1, "inch")), width = grid::unit.pmax(grid::unit(1, </span></span>
 <span><span class="co">#&gt;         "npc"), grid::unit(1, "inch")))), vp = grid::viewport(layout.pos.row = 4, </span></span>
-<span><span class="co">#&gt;     layout.pos.col = c(1, 3))), grid::grobTree(grid::textGrob(label = "Left Header", </span></span>
-<span><span class="co">#&gt;     x = 0.5, y = 0.5, hjust = 0.5, vjust = 0.5, rot = 0, gp = grid::gpar()), </span></span>
-<span><span class="co">#&gt;     gp = grid::gpar(), vp = grid::viewport(layout.pos.row = 1, </span></span>
+<span><span class="co">#&gt;         layout.pos.col = c(1, 3))), grid::grobTree(grid::textGrob(label = "Left Header", </span></span>
+<span><span class="co">#&gt;         x = 0.5, y = 0.5, hjust = 0.5, vjust = 0.5, rot = 0, </span></span>
+<span><span class="co">#&gt;         gp = grid::gpar()), gp = grid::gpar(), vp = grid::viewport(layout.pos.row = 1, </span></span>
 <span><span class="co">#&gt;         layout.pos.col = 1)), grid::grobTree(grid::textGrob(label = "Middle Header", </span></span>
-<span><span class="co">#&gt;     x = 0.5, y = 0.5, hjust = 0.5, vjust = 0.5, rot = 0, gp = grid::gpar()), </span></span>
-<span><span class="co">#&gt;     gp = grid::gpar(), vp = grid::viewport(layout.pos.row = 1, </span></span>
+<span><span class="co">#&gt;         x = 0.5, y = 0.5, hjust = 0.5, vjust = 0.5, rot = 0, </span></span>
+<span><span class="co">#&gt;         gp = grid::gpar()), gp = grid::gpar(), vp = grid::viewport(layout.pos.row = 1, </span></span>
 <span><span class="co">#&gt;         layout.pos.col = 2)), grid::grobTree(grid::textGrob(label = "Right Header", </span></span>
-<span><span class="co">#&gt;     x = 0.5, y = 0.5, hjust = 0.5, vjust = 0.5, rot = 0, gp = grid::gpar()), </span></span>
-<span><span class="co">#&gt;     gp = grid::gpar(), vp = grid::viewport(layout.pos.row = 1, </span></span>
+<span><span class="co">#&gt;         x = 0.5, y = 0.5, hjust = 0.5, vjust = 0.5, rot = 0, </span></span>
+<span><span class="co">#&gt;         gp = grid::gpar()), gp = grid::gpar(), vp = grid::viewport(layout.pos.row = 1, </span></span>
 <span><span class="co">#&gt;         layout.pos.col = 3)), grid::grobTree(grid::textGrob(label = "Title", </span></span>
-<span><span class="co">#&gt;     x = 0.5, y = 0.5, hjust = 0.5, vjust = 0.5, rot = 0, gp = grid::gpar()), </span></span>
-<span><span class="co">#&gt;     gp = grid::gpar(), vp = grid::viewport(layout.pos.row = 2, </span></span>
+<span><span class="co">#&gt;         x = 0.5, y = 0.5, hjust = 0.5, vjust = 0.5, rot = 0, </span></span>
+<span><span class="co">#&gt;         gp = grid::gpar()), gp = grid::gpar(), vp = grid::viewport(layout.pos.row = 2, </span></span>
 <span><span class="co">#&gt;         layout.pos.col = c(1, 3))), grid::grobTree(grid::textGrob(label = "Subtitle", </span></span>
-<span><span class="co">#&gt;     x = 0.5, y = 0.5, hjust = 0.5, vjust = 0.5, rot = 0, gp = grid::gpar()), </span></span>
-<span><span class="co">#&gt;     gp = grid::gpar(), vp = grid::viewport(layout.pos.row = 3, </span></span>
+<span><span class="co">#&gt;         x = 0.5, y = 0.5, hjust = 0.5, vjust = 0.5, rot = 0, </span></span>
+<span><span class="co">#&gt;         gp = grid::gpar()), gp = grid::gpar(), vp = grid::viewport(layout.pos.row = 3, </span></span>
 <span><span class="co">#&gt;         layout.pos.col = c(1, 3))), grid::grobTree(grid::textGrob(label = "Note", </span></span>
-<span><span class="co">#&gt;     x = 0.5, y = 0.5, hjust = 0.5, vjust = 0.5, rot = 0, gp = grid::gpar()), </span></span>
-<span><span class="co">#&gt;     gp = grid::gpar(), vp = grid::viewport(layout.pos.row = 5, </span></span>
+<span><span class="co">#&gt;         x = 0.5, y = 0.5, hjust = 0.5, vjust = 0.5, rot = 0, </span></span>
+<span><span class="co">#&gt;         gp = grid::gpar()), gp = grid::gpar(), vp = grid::viewport(layout.pos.row = 5, </span></span>
 <span><span class="co">#&gt;         layout.pos.col = c(1, 3))), grid::grobTree(grid::textGrob(label = "Left Footer", </span></span>
-<span><span class="co">#&gt;     x = 0.5, y = 0.5, hjust = 0.5, vjust = 0.5, rot = 0, gp = grid::gpar()), </span></span>
-<span><span class="co">#&gt;     gp = grid::gpar(), vp = grid::viewport(layout.pos.row = 6, </span></span>
+<span><span class="co">#&gt;         x = 0.5, y = 0.5, hjust = 0.5, vjust = 0.5, rot = 0, </span></span>
+<span><span class="co">#&gt;         gp = grid::gpar()), gp = grid::gpar(), vp = grid::viewport(layout.pos.row = 6, </span></span>
 <span><span class="co">#&gt;         layout.pos.col = 1)), grid::grobTree(grid::textGrob(label = "Middle Footer", </span></span>
-<span><span class="co">#&gt;     x = 0.5, y = 0.5, hjust = 0.5, vjust = 0.5, rot = 0, gp = grid::gpar()), </span></span>
-<span><span class="co">#&gt;     gp = grid::gpar(), vp = grid::viewport(layout.pos.row = 6, </span></span>
+<span><span class="co">#&gt;         x = 0.5, y = 0.5, hjust = 0.5, vjust = 0.5, rot = 0, </span></span>
+<span><span class="co">#&gt;         gp = grid::gpar()), gp = grid::gpar(), vp = grid::viewport(layout.pos.row = 6, </span></span>
 <span><span class="co">#&gt;         layout.pos.col = 2)), grid::grobTree(grid::textGrob(label = "Right Footer", </span></span>
-<span><span class="co">#&gt;     x = 0.5, y = 0.5, hjust = 0.5, vjust = 0.5, rot = 0, gp = grid::gpar()), </span></span>
-<span><span class="co">#&gt;     gp = grid::gpar(), vp = grid::viewport(layout.pos.row = 6, </span></span>
+<span><span class="co">#&gt;         x = 0.5, y = 0.5, hjust = 0.5, vjust = 0.5, rot = 0, </span></span>
+<span><span class="co">#&gt;         gp = grid::gpar()), gp = grid::gpar(), vp = grid::viewport(layout.pos.row = 6, </span></span>
 <span><span class="co">#&gt;         layout.pos.col = 3)))), vp = grid::viewport(name = "lyt", </span></span>
 <span><span class="co">#&gt;     x = grid::unit(0.1, "npc"), y = grid::unit(0.1, "npc"), just = c("left", </span></span>
 <span><span class="co">#&gt;         "bottom"), width = grid::unit(1, "npc") - grid::unit(0.1, </span></span>
@@ -168,9 +170,9 @@ the scenes:</p>
 <span><span class="co">#&gt;     gp = grid::gpar(), layout = grid::grid.layout(nrow = 6L, </span></span>
 <span><span class="co">#&gt;         ncol = 3L, heights = grid::unit(c(0.4, 0.4, 0.4, 1, 0.4, </span></span>
 <span><span class="co">#&gt;         0.4), c("cm", "cm", "cm", "null", "cm", "cm")), widths = grid::unit(c(0.33, </span></span>
-<span><span class="co">#&gt;         0.33, 0.33), c("npc", "npc", "npc")))))</span></span>
+<span><span class="co">#&gt;         0.33, 0.33), c("npc", "npc", "npc")))))))</span></span>
 <span><span class="co">#&gt; attr(,"env")</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x555cd9b383d0&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; &lt;environment: 0x5605262d6ab0&gt;</span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Retrieve the main object- either a figure or table</span></span>
 <span><span class="va">OBJECT</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">grid_call_behind</span>, <span class="st">"env"</span><span class="op">)</span><span class="op">[[</span><span class="st">"OBJECT"</span><span class="op">]</span><span class="op">]</span></span>

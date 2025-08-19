@@ -13,7 +13,7 @@ The layout includes cells for headers, titles, footers, and optional elements li
 
     <a class="navbar-brand me-2" href="../index.html">gridify</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,7 +42,7 @@ The layout includes cells for headers, titles, footers, and optional elements li
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Base Function for Pharma Layouts</h1>
-      <small class="dont-index">Source: <a href="https://github.com/pharmaverse/gridify/blob/v0.7.2/R/pharma_layout.R" class="external-link"><code>R/pharma_layout.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/pharmaverse/gridify/blob/main/R/pharma_layout.R" class="external-link"><code>R/pharma_layout.R</code></a></small>
       <div class="d-none name"><code>pharma_layout_base.Rd</code></div>
     </div>
 
@@ -58,6 +58,7 @@ The layout includes cells for headers, titles, footers, and optional elements li
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pharma_layout_base</span><span class="op">(</span></span>
 <span>  margin <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fl">1</span>, r <span class="op">=</span> <span class="fl">1</span>, b <span class="op">=</span> <span class="fl">1</span>, l <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, units <span class="op">=</span> <span class="st">"inches"</span><span class="op">)</span>,</span>
 <span>  global_gpar <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  background <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">get.gpar</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">fill</span>,</span>
 <span>  adjust_height <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -76,6 +77,11 @@ Default is <code>grid::unit(c(1, 1, 1, 1), "inches")</code>.</p></dd>
 Default is NULL,
 however the defaults in the layout are: <code>fontfamily = "Serif", fontsize = 9 and lineheight = 0.95</code>,
 which can be overwritten alongside other graphical parameters found by <code><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">grid::get.gpar()</a></code>.</p></dd>
+
+
+<dt id="arg-background">background<a class="anchor" aria-label="anchor" href="#arg-background"></a></dt>
+<dd><p>A string specifying the background fill colour.
+Default <code>grid::get.gpar()$fill</code> for a white background.</p></dd>
 
 
 <dt id="arg-adjust-height">adjust_height<a class="anchor" aria-label="anchor" href="#arg-adjust-height"></a></dt>
@@ -218,6 +224,9 @@ still appear different. To convert point size to pixel size, multiply the point 
 <span class="r-out co"><span class="r-pr">#&gt;</span>   linemitre: 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   lex: 1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Background colour:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   white</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Default Cell Info:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   header_left_1:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     row:1, col:1, text:NULL, mch:Inf, x:0, y:0.5, hjust:0, vjust:0.5, rot:0, </span>
@@ -240,9 +249,9 @@ still appear different. To convert point size to pixel size, multiply the point 
 <span class="r-out co"><span class="r-pr">#&gt;</span>   title_3:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     row:7, col:2, text:NULL, mch:Inf, x:0.5, y:0.5, hjust:0.5, vjust:0.5, rot:0, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   by_line:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     row:89, col:13, text:NULL, mch:Inf, x:0, y:0.5, hjust:0, vjust:0.5, rot:0, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     row:8-9, col:1-3, text:NULL, mch:Inf, x:0, y:0.5, hjust:0, vjust:0.5, rot:0, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   note:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     row:11, col:13, text:NULL, mch:100, x:0, y:0.5, hjust:0, vjust:0.5, rot:0, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     row:11, col:1-3, text:NULL, mch:100, x:0, y:0.5, hjust:0, vjust:0.5, rot:0, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   references:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     row:13, col:1, text:NULL, mch:Inf, x:0, y:0.5, hjust:0, vjust:0.5, rot:0, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   footer_left:</span>

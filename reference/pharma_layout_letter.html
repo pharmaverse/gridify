@@ -9,7 +9,7 @@ elements for pharma layouts using the letter paper size."><meta property="og:ima
 
     <a class="navbar-brand me-2" href="../index.html">gridify</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +38,7 @@ elements for pharma layouts using the letter paper size."><meta property="og:ima
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Pharma Layout (Letter) for a gridify object</h1>
-      <small class="dont-index">Source: <a href="https://github.com/pharmaverse/gridify/blob/v0.7.2/R/pharma_layout.R" class="external-link"><code>R/pharma_layout.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/pharmaverse/gridify/blob/main/R/pharma_layout.R" class="external-link"><code>R/pharma_layout.R</code></a></small>
       <div class="d-none name"><code>pharma_layout_letter.Rd</code></div>
     </div>
 
@@ -49,7 +49,7 @@ elements for pharma layouts using the letter paper size.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pharma_layout_letter</span><span class="op">(</span>global_gpar <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">pharma_layout_letter</span><span class="op">(</span>global_gpar <span class="op">=</span> <span class="cn">NULL</span>, background <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">get.gpar</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">fill</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -61,6 +61,11 @@ elements for pharma layouts using the letter paper size.</p>
 Default is NULL, however the defaults in the layout, inherited from <code><a href="pharma_layout_base.html">pharma_layout_base()</a></code>,
 are: <code>fontfamily = "Serif", fontsize = 9 and lineheight = 0.95</code>,
 which can be overwritten alongside other graphical parameters found by <code><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">grid::get.gpar()</a></code>.</p></dd>
+
+
+<dt id="arg-background">background<a class="anchor" aria-label="anchor" href="#arg-background"></a></dt>
+<dd><p>A character string specifying the background fill colour.
+Default <code>grid::get.gpar()$fill</code> for a white background.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -202,6 +207,9 @@ still appear different. To convert point size to pixel size, multiply the point 
 <span class="r-out co"><span class="r-pr">#&gt;</span>   linemitre: 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   lex: 1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Background colour:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   white</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Default Cell Info:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   header_left_1:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     row:1, col:1, text:NULL, mch:Inf, x:0, y:0.5, hjust:0, vjust:0.5, rot:0, </span>
@@ -224,9 +232,9 @@ still appear different. To convert point size to pixel size, multiply the point 
 <span class="r-out co"><span class="r-pr">#&gt;</span>   title_3:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     row:7, col:2, text:NULL, mch:Inf, x:0.5, y:0.5, hjust:0.5, vjust:0.5, rot:0, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   by_line:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     row:89, col:13, text:NULL, mch:Inf, x:0, y:0.5, hjust:0, vjust:0.5, rot:0, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     row:8-9, col:1-3, text:NULL, mch:Inf, x:0, y:0.5, hjust:0, vjust:0.5, rot:0, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   note:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     row:11, col:13, text:NULL, mch:100, x:0, y:0.5, hjust:0, vjust:0.5, rot:0, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     row:11, col:1-3, text:NULL, mch:100, x:0, y:0.5, hjust:0, vjust:0.5, rot:0, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   references:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     row:13, col:1, text:NULL, mch:Inf, x:0, y:0.5, hjust:0, vjust:0.5, rot:0, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   footer_left:</span>

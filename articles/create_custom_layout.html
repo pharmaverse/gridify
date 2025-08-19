@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gridify</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,7 +62,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Create Custom Layout</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/pharmaverse/gridify/blob/v0.7.2/vignettes/create_custom_layout.Rmd" class="external-link"><code>vignettes/create_custom_layout.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/pharmaverse/gridify/blob/main/vignettes/create_custom_layout.Rmd" class="external-link"><code>vignettes/create_custom_layout.Rmd</code></a></small>
       <div class="d-none name"><code>create_custom_layout.Rmd</code></div>
     </div>
 
@@ -108,6 +108,7 @@ added. Each cell is then defined by the rows and columns it spans.</p>
 <span>  widths <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.5</span><span class="op">)</span>, <span class="st">"npc"</span><span class="op">)</span>,</span>
 <span>  margin <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fl">0.1</span>, r <span class="op">=</span> <span class="fl">0.1</span>, b <span class="op">=</span> <span class="fl">0.1</span>, l <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>, units <span class="op">=</span> <span class="st">"npc"</span><span class="op">)</span>,</span>
 <span>  global_gpar <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  background <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">get.gpar</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">fill</span>,</span>
 <span>  adjust_height <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  object <span class="op">=</span> <span class="fu"><a href="../reference/gridifyObject.html">gridifyObject</a></span><span class="op">(</span>row <span class="op">=</span> <span class="fl">3</span>, col <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>,</span>
 <span>  cells <span class="op">=</span> <span class="fu"><a href="../reference/gridifyCells.html">gridifyCells</a></span><span class="op">(</span></span>
@@ -201,6 +202,21 @@ left margins respectively e.g.</p>
 <span><span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fl">0.1</span>, r <span class="op">=</span> <span class="fl">0.1</span>, b <span class="op">=</span> <span class="fl">0.1</span>, l <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>, units <span class="op">=</span> <span class="st">"npc"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
+<h2 id="background-colour">Background colour<a class="anchor" aria-label="anchor" href="#background-colour"></a>
+</h2>
+<p>The <code>background</code> argument controls the background colour
+of the layout. This may be done to match the layout’s background colour
+to that of the gridify object. The background value can be set to the
+default colour (white), or to any specific colour e.g.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># set the background colour to be the default</span></span>
+<span><span class="va">background</span> <span class="op">&lt;-</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">get.gpar</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">fill</span></span>
+<span></span>
+<span><span class="co"># set the background colour to a specific colour</span></span>
+<span><span class="va">background</span> <span class="op">&lt;-</span> <span class="st">"blue"</span></span>
+<span><span class="va">background</span> <span class="op">&lt;-</span> <span class="st">"#96BA39"</span></span></code></pre></div>
+</div>
+<div class="section level2">
 <h2 id="adding-the-object-argument">Adding the Object argument<a class="anchor" aria-label="anchor" href="#adding-the-object-argument"></a>
 </h2>
 <p>The object’s location is defined in the <code>object</code> argument
@@ -212,7 +228,7 @@ should span within the layout.</p>
 should take up within the cell(s) location. The default values are
 <code>1</code>, which is the equivalent of 100% of the width/height of
 the area.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># an object that spans only row 3 but both columns 1 and 2</span></span>
 <span><span class="fu"><a href="../reference/gridifyObject.html">gridifyObject</a></span><span class="op">(</span>row <span class="op">=</span> <span class="fl">3</span>, col <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -234,7 +250,7 @@ to add it to a custom layout.</p>
 15% of the total area. Conversely, with <code>"fixed"</code> scales, row
 heights are determined by the number of lines required for each text
 element, with any remaining space allocated to the object.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/simple_layout.html">simple_layout</a></span><span class="op">(</span>scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; gridifyLayout object</span></span>
 <span><span class="co">#&gt; ---------------------</span></span>
@@ -268,15 +284,18 @@ element, with any remaining space allocated to the object.</p>
 <span><span class="co">#&gt; Global graphical parameters:</span></span>
 <span><span class="co">#&gt;   Are not set</span></span>
 <span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Background colour:</span></span>
+<span><span class="co">#&gt;   transparent</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Default Cell Info:</span></span>
 <span><span class="co">#&gt;   title:</span></span>
 <span><span class="co">#&gt;     row:1, col:1, text:NULL, mch:Inf, x:0.5, y:0.5, hjust:0.5, vjust:0.5, rot:0, </span></span>
 <span><span class="co">#&gt;   footer:</span></span>
 <span><span class="co">#&gt;     row:3, col:1, text:NULL, mch:Inf, x:0.5, y:0.5, hjust:0.5, vjust:0.5, rot:0,</span></span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/show_layout.html">show_layout</a></span><span class="op">(</span><span class="fu"><a href="../reference/simple_layout.html">simple_layout</a></span><span class="op">(</span>scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="create_custom_layout_files/figure-html/show-scales-argument-free-1.png" width="672"></p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/simple_layout.html">simple_layout</a></span><span class="op">(</span>scales <span class="op">=</span> <span class="st">"fixed"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; gridifyLayout object</span></span>
 <span><span class="co">#&gt; ---------------------</span></span>
@@ -310,18 +329,21 @@ element, with any remaining space allocated to the object.</p>
 <span><span class="co">#&gt; Global graphical parameters:</span></span>
 <span><span class="co">#&gt;   Are not set</span></span>
 <span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Background colour:</span></span>
+<span><span class="co">#&gt;   transparent</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Default Cell Info:</span></span>
 <span><span class="co">#&gt;   title:</span></span>
 <span><span class="co">#&gt;     row:1, col:1, text:NULL, mch:Inf, x:0.5, y:0.5, hjust:0.5, vjust:0.5, rot:0, </span></span>
 <span><span class="co">#&gt;   footer:</span></span>
 <span><span class="co">#&gt;     row:3, col:1, text:NULL, mch:Inf, x:0.5, y:0.5, hjust:0.5, vjust:0.5, rot:0,</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># As no lines were defined, the object takes up the whole space below</span></span>
 <span><span class="fu"><a href="../reference/show_layout.html">show_layout</a></span><span class="op">(</span><span class="fu"><a href="../reference/simple_layout.html">simple_layout</a></span><span class="op">(</span>scales <span class="op">=</span> <span class="st">"fixed"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="create_custom_layout_files/figure-html/show-scales-argument-fixed-1.png" width="672"></p>
 <p>Below is an example of how to add scales to a custom layout with
 options being <code>npc</code> or <code>lines</code>.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">scales_example_layout</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span></span>
 <span>    <span class="va">margin</span> <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fl">0.1</span>, r <span class="op">=</span> <span class="fl">0.1</span>, b <span class="op">=</span> <span class="fl">0.1</span>, l <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>, units <span class="op">=</span> <span class="st">"npc"</span><span class="op">)</span>,</span>
 <span>    <span class="va">global_gpar</span> <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -342,6 +364,7 @@ options being <code>npc</code> or <code>lines</code>.</p>
 <span>    widths <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">"npc"</span><span class="op">)</span>,</span>
 <span>    margin <span class="op">=</span> <span class="va">margin</span>,</span>
 <span>    global_gpar <span class="op">=</span> <span class="va">global_gpar</span>,</span>
+<span>    background <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">get.gpar</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">fill</span>,</span>
 <span>    adjust_height <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>    object <span class="op">=</span> <span class="fu"><a href="../reference/gridifyObject.html">gridifyObject</a></span><span class="op">(</span>row <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
 <span>    cells <span class="op">=</span> <span class="fu"><a href="../reference/gridifyCells.html">gridifyCells</a></span><span class="op">(</span></span>
@@ -384,6 +407,9 @@ options being <code>npc</code> or <code>lines</code>.</p>
 <span><span class="co">#&gt; Global graphical parameters:</span></span>
 <span><span class="co">#&gt;   Are not set</span></span>
 <span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Background colour:</span></span>
+<span><span class="co">#&gt;   transparent</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Default Cell Info:</span></span>
 <span><span class="co">#&gt;   title:</span></span>
 <span><span class="co">#&gt;     row:1, col:1, text:NULL, mch:Inf, x:0.5, y:0.5, hjust:0.5, vjust:0.5, rot:0, </span></span>
@@ -391,7 +417,7 @@ options being <code>npc</code> or <code>lines</code>.</p>
 <span><span class="co">#&gt;     row:3, col:1, text:NULL, mch:Inf, x:0.5, y:0.5, hjust:0.5, vjust:0.5, rot:0,</span></span>
 <span><span class="fu"><a href="../reference/show_layout.html">show_layout</a></span><span class="op">(</span><span class="fu">scales_example_layout</span><span class="op">(</span>scales <span class="op">=</span> <span class="st">"npc"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="create_custom_layout_files/figure-html/how-add-scales-custom-layout-1.png" width="672"></p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">scales_example_layout</span><span class="op">(</span>scales <span class="op">=</span> <span class="st">"lines"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; gridifyLayout object</span></span>
 <span><span class="co">#&gt; ---------------------</span></span>
@@ -425,6 +451,9 @@ options being <code>npc</code> or <code>lines</code>.</p>
 <span><span class="co">#&gt; Global graphical parameters:</span></span>
 <span><span class="co">#&gt;   Are not set</span></span>
 <span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Background colour:</span></span>
+<span><span class="co">#&gt;   transparent</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Default Cell Info:</span></span>
 <span><span class="co">#&gt;   title:</span></span>
 <span><span class="co">#&gt;     row:1, col:1, text:NULL, mch:Inf, x:0.5, y:0.5, hjust:0.5, vjust:0.5, rot:0, </span></span>
@@ -451,7 +480,7 @@ which requires named arguments returning calls to
 <code><a href="../reference/gridifyCell.html">gridifyCell()</a></code>. The names of these arguments are the names
 the user will be referencing when adding text elements to the output so
 make sure they are named appropriately.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/gridifyCells.html">gridifyCells</a></span><span class="op">(</span></span>
 <span>  company <span class="op">=</span> <span class="fu"><a href="../reference/gridifyCell.html">gridifyCell</a></span><span class="op">(</span>row <span class="op">=</span> <span class="fl">1</span>, col <span class="op">=</span> <span class="fl">2</span>, x <span class="op">=</span> <span class="fl">1</span>, hjust <span class="op">=</span> <span class="fl">1</span>, y <span class="op">=</span> <span class="fl">1</span>, vjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  title <span class="op">=</span> <span class="fu"><a href="../reference/gridifyCell.html">gridifyCell</a></span><span class="op">(</span>row <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="fl">1</span>, x <span class="op">=</span> <span class="fl">1</span>, hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,</span>
@@ -538,7 +567,7 @@ of the <code><a href="../reference/gridifyCell.html">gridifyCell()</a></code> fu
 <code>gridifyLayout(..., global_gpar)</code></p>
 <p>Therefore, any graphical parameter can be overwritten by the users in
 the calls to <code><a href="../reference/set_cell.html">set_cell()</a></code>.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_layout</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gridifyLayout.html">gridifyLayout</a></span><span class="op">(</span></span>
 <span>  nrow <span class="op">=</span> <span class="fl">3L</span>,</span>
 <span>  ncol <span class="op">=</span> <span class="fl">1L</span>,</span>
@@ -547,6 +576,7 @@ the calls to <code><a href="../reference/set_cell.html">set_cell()</a></code>.</
 <span>  margin <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fl">0.1</span>, r <span class="op">=</span> <span class="fl">0.1</span>, b <span class="op">=</span> <span class="fl">0.1</span>, l <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>, units <span class="op">=</span> <span class="st">"inches"</span><span class="op">)</span>,</span>
 <span>  <span class="co"># default graphics for whole output set in global_gpar</span></span>
 <span>  global_gpar <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontfamiy <span class="op">=</span> <span class="st">"Courier"</span>, col <span class="op">=</span> <span class="st">"navy"</span><span class="op">)</span>,</span>
+<span>  background <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">get.gpar</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">fill</span>,</span>
 <span>  adjust_height <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  object <span class="op">=</span> <span class="fu"><a href="../reference/gridifyObject.html">gridifyObject</a></span><span class="op">(</span>row <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  cells <span class="op">=</span> <span class="fu"><a href="../reference/gridifyCells.html">gridifyCells</a></span><span class="op">(</span></span>
@@ -567,7 +597,7 @@ the calls to <code><a href="../reference/set_cell.html">set_cell()</a></code>.</
 <p><img src="create_custom_layout_files/figure-html/default-graphical-parameters-1.png" width="672"></p>
 <p>The text element fonts can also be customized easily as per the user
 requirements.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_layout</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gridifyLayout.html">gridifyLayout</a></span><span class="op">(</span></span>
 <span>  nrow <span class="op">=</span> <span class="fl">3L</span>,</span>
 <span>  ncol <span class="op">=</span> <span class="fl">1L</span>,</span>
@@ -579,6 +609,7 @@ requirements.</p>
 <span>    col <span class="op">=</span> <span class="st">"navy"</span>,</span>
 <span>    fontface <span class="op">=</span> <span class="st">"italic"</span></span>
 <span>  <span class="op">)</span>, <span class="co"># default italic text for the whole output</span></span>
+<span>  background <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">get.gpar</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">fill</span>,</span>
 <span>  adjust_height <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  object <span class="op">=</span> <span class="fu"><a href="../reference/gridifyObject.html">gridifyObject</a></span><span class="op">(</span>row <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  cells <span class="op">=</span> <span class="fu"><a href="../reference/gridifyCells.html">gridifyCells</a></span><span class="op">(</span></span>
@@ -605,7 +636,7 @@ requirements.</p>
 used to set the default text for a cell. Please note, the text provided
 by the end user with <code><a href="../reference/set_cell.html">set_cell()</a></code> will take higher priority
 and overwrite the default.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_layout</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gridifyLayout.html">gridifyLayout</a></span><span class="op">(</span></span>
 <span>  nrow <span class="op">=</span> <span class="fl">4L</span>,</span>
 <span>  ncol <span class="op">=</span> <span class="fl">2L</span>,</span>
@@ -613,6 +644,7 @@ and overwrite the default.</p>
 <span>  widths <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.5</span><span class="op">)</span>, <span class="st">"npc"</span><span class="op">)</span>,</span>
 <span>  margin <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fl">0.1</span>, r <span class="op">=</span> <span class="fl">0.1</span>, b <span class="op">=</span> <span class="fl">0.1</span>, l <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>, units <span class="op">=</span> <span class="st">"npc"</span><span class="op">)</span>,</span>
 <span>  global_gpar <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  background <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">get.gpar</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">fill</span>,</span>
 <span>  adjust_height <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  object <span class="op">=</span> <span class="fu"><a href="../reference/gridifyObject.html">gridifyObject</a></span><span class="op">(</span>row <span class="op">=</span> <span class="fl">3</span>, col <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>,</span>
 <span>  cells <span class="op">=</span> <span class="fu"><a href="../reference/gridifyCells.html">gridifyCells</a></span><span class="op">(</span></span>
@@ -645,7 +677,7 @@ and overwrite the default.</p>
 <p>To add a watermark to your output, create a cell covering the desired
 rows and columns and set the transparency of the text, the font size
 large and the rotation to 45 degrees.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">new_layout</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gridifyLayout.html">gridifyLayout</a></span><span class="op">(</span></span>
 <span>  nrow <span class="op">=</span> <span class="fl">3L</span>,</span>
 <span>  ncol <span class="op">=</span> <span class="fl">1L</span>,</span>
@@ -653,6 +685,7 @@ large and the rotation to 45 degrees.</p>
 <span>  widths <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">"npc"</span><span class="op">)</span>,</span>
 <span>  margin <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fl">0.1</span>, r <span class="op">=</span> <span class="fl">0.1</span>, b <span class="op">=</span> <span class="fl">0.1</span>, l <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>, units <span class="op">=</span> <span class="st">"cm"</span><span class="op">)</span>,</span>
 <span>  global_gpar <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  background <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">get.gpar</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">fill</span>,</span>
 <span>  adjust_height <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  object <span class="op">=</span> <span class="fu"><a href="../reference/gridifyObject.html">gridifyObject</a></span><span class="op">(</span>row <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
 <span>  cells <span class="op">=</span> <span class="fu"><a href="../reference/gridifyCells.html">gridifyCells</a></span><span class="op">(</span></span>

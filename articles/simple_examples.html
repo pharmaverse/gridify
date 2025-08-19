@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gridify</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,7 +62,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Simple Examples</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/pharmaverse/gridify/blob/v0.7.2/vignettes/simple_examples.Rmd" class="external-link"><code>vignettes/simple_examples.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/pharmaverse/gridify/blob/main/vignettes/simple_examples.Rmd" class="external-link"><code>vignettes/simple_examples.Rmd</code></a></small>
       <div class="d-none name"><code>simple_examples.Rmd</code></div>
     </div>
 
@@ -496,6 +496,9 @@ specifications of <code>g</code>’s layout.</p>
 <span><span class="co">#&gt; Global graphical parameters:</span></span>
 <span><span class="co">#&gt;   Are not set</span></span>
 <span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Background colour:</span></span>
+<span><span class="co">#&gt;   transparent</span></span>
+<span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Default Cell Info:</span></span>
 <span><span class="co">#&gt;   title:</span></span>
 <span><span class="co">#&gt;     row:1, col:1, text:NULL, mch:Inf, x:0.5, y:0.5, hjust:0.5, vjust:0.5, rot:0, </span></span>
@@ -536,6 +539,9 @@ layout) if we want to view its specs.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Global graphical parameters:</span></span>
 <span><span class="co">#&gt;   Are not set</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Background colour:</span></span>
+<span><span class="co">#&gt;   transparent</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Default Cell Info:</span></span>
 <span><span class="co">#&gt;   title:</span></span>
@@ -593,6 +599,39 @@ size to <code>12</code>.</p>
 </div>
 </div>
 <div class="section level2">
+<h2 id="background-colour-example">Background Colour Example<a class="anchor" aria-label="anchor" href="#background-colour-example"></a>
+</h2>
+<p>Here is an example of how to set the background colour using the
+<code>background</code> argument in <code><a href="../reference/simple_layout.html">simple_layout()</a></code>. By
+default, it uses <code>grid::get.gpar()$fill</code> (white background).
+In this example, we set the background colour to
+<code>"beige"</code>.</p>
+<p>The <code>background</code> argument works across all built-in layout
+functions, including <code><a href="../reference/simple_layout.html">simple_layout()</a></code>,
+<code><a href="../reference/complex_layout.html">complex_layout()</a></code>, <code><a href="../reference/pharma_layout_base.html">pharma_layout_base()</a></code>,
+<code><a href="../reference/pharma_layout_A4.html">pharma_layout_A4()</a></code>, and
+<code><a href="../reference/pharma_layout_letter.html">pharma_layout_letter()</a></code>. It can also be applied in any
+custom layouts you create
+(<code><a href="../articles/create_custom_layout.html">vignette("create_custom_layout", package = "gridify")</a></code>).</p>
+<p><strong>Note:</strong> When using <code>ggplot2</code>, you may also
+need to set the plot’s background colour to match the layout’s
+background.</p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">figure_obj</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span></span>
+<span>    plot.background <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"beige"</span>, colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,  <span class="co"># Entire plot background</span></span>
+<span>    panel.background <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_rect</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"beige"</span>, colour <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span>,     <span class="co"># Panel (where data is plotted)</span></span>
+<span>    panel.border <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_rect</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"black"</span>, fill <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gridify.html">gridify</a></span><span class="op">(</span><span class="va">figure_obj</span>, layout <span class="op">=</span> <span class="fu"><a href="../reference/simple_layout.html">simple_layout</a></span><span class="op">(</span>background <span class="op">=</span> <span class="st">"beige"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"title"</span>, <span class="st">"Title"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer"</span>, <span class="st">"Footer"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-28-1.png" width="672"></p>
+</div>
+<div class="section level2">
 <h2 id="set_cell-arguments">
 <code>set_cell()</code> Arguments<a class="anchor" aria-label="anchor" href="#set_cell-arguments"></a>
 </h2>
@@ -610,7 +649,7 @@ across multiple lines.</p>
 applied. We set the footer to a long string, and then set the maximum
 number of characters per line to <code>45</code> using the
 <code>mch</code> argument.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">figure_obj</span> <span class="op">&lt;-</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
@@ -625,7 +664,7 @@ number of characters per line to <code>45</code> using the
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer"</span>, <span class="va">long_footer_string</span>, mch <span class="op">=</span> <span class="fl">45</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-28-1.png" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-29-1.png" width="672"></p>
 </div>
 <div class="section level3">
 <h3 id="position-and-rotation">Position and Rotation<a class="anchor" aria-label="anchor" href="#position-and-rotation"></a>
@@ -675,13 +714,13 @@ degrees, applied anticlockwise from the x-axis.</p></li>
 <code>hjust = 0</code>, and <code>rot = 5</code> to the footer. This
 aligns the left edge of the footer to the left corner of the cell, with
 a rotation of 5 degrees.</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gridify.html">gridify</a></span><span class="op">(</span><span class="va">figure_obj</span>, layout <span class="op">=</span> <span class="fu"><a href="../reference/simple_layout.html">simple_layout</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"title"</span>, <span class="st">"Title"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer"</span>, <span class="va">long_footer_string</span>, mch <span class="op">=</span> <span class="fl">45</span>, x <span class="op">=</span> <span class="fl">0</span>, hjust <span class="op">=</span> <span class="fl">0</span>, rot <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-29-1.png" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-30-1.png" width="672"></p>
 </div>
 </div>
 <div class="section level2">
@@ -700,7 +739,7 @@ proportions between the text elements and the output. The
 proportional to the size of the output.</p>
 <p>Here is an example of a figure with <code><a href="../reference/complex_layout.html">complex_layout()</a></code> and
 the default <code>scales = "fixed"</code> applied.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fixed_scales_g</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gridify.html">gridify</a></span><span class="op">(</span></span>
 <span>  object <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -715,10 +754,10 @@ the default <code>scales = "fixed"</code> applied.</p>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer_right"</span>, <span class="st">"Right Footer"</span>, hjust <span class="op">=</span> <span class="fl">0</span>, vjust <span class="op">=</span> <span class="fl">0.5</span>, gpar <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontsize <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">fixed_scales_g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-30-1.png" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-31-1.png" width="672"></p>
 <p>When we apply <code>scales = "free"</code> text elements scale
 dynamically, which may cause overlap if the output space is small.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">free_scales_g</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gridify.html">gridify</a></span><span class="op">(</span></span>
 <span>  object <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -733,14 +772,14 @@ dynamically, which may cause overlap if the output space is small.</p>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer_right"</span>, <span class="st">"Right Footer"</span>, hjust <span class="op">=</span> <span class="fl">0</span>, vjust <span class="op">=</span> <span class="fl">0.5</span>, gpar <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontsize <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">free_scales_g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-31-1.png" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-32-1.png" width="672"></p>
 <p>When working with <code>.Rmd</code> or <code>.Qmd</code> files, we
 can also remove the text overlap when <code>scales = "free"</code> by
 adjusting the <code>knitr</code> options <code>fig.width</code> and
 <code>fig.height</code> to expand the output.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">free_scales_g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-32-1.png" width="960"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-33-1.png" width="960"></p>
 <p>When exporting to <code>.pdf</code>, <code>.png</code> or
 <code>.jpeg</code> we can remove text overlap by adjusting
 <code>width</code> and <code>height</code> whilst using the
@@ -826,7 +865,7 @@ see
 by applying <code><a href="../reference/complex_layout.html">complex_layout()</a></code> with
 <code>scales = "fixed"</code> to a line plot and print the object to
 view it with default adjustments.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gridify.html">gridify</a></span><span class="op">(</span></span>
 <span>  object <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -843,16 +882,16 @@ view it with default adjustments.</p>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer_right"</span>, <span class="st">"Right Footer"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-33-1.png" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-34-1.png" width="672"></p>
 <p>Now we set <code>gridify.adjust_height.line</code> to
 <code>0.7</code> using the <code><a href="https://rdrr.io/r/base/options.html" class="external-link">options()</a></code> function. This
 increases the height of the rows and the space between text
 elements.</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>gridify.adjust_height.line <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-34-1.png" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-35-1.png" width="672"></p>
 <p><strong>Example with <code><a href="../reference/pharma_layout_letter.html">pharma_layout_letter()</a></code></strong></p>
 <p>Here is an example of the use of
 <code>gridify.adjust_height.line</code> with
@@ -860,7 +899,7 @@ elements.</p>
 <code>gridify.adjust_height.line</code> option back to the default of
 <code>0.1</code>. Then we create a <code>gridify</code> object by
 applying <code><a href="../reference/pharma_layout_letter.html">pharma_layout_letter()</a></code> to a line plot.</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>gridify.adjust_height.line <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">g</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gridify.html">gridify</a></span><span class="op">(</span></span>
@@ -879,14 +918,14 @@ applying <code><a href="../reference/pharma_layout_letter.html">pharma_layout_le
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer_right"</span>, <span class="st">"Page xx of nn"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-35-1.png" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-36-1.png" width="672"></p>
 <p>Now we set <code>gridify.adjust_height.line</code> to
 <code>0.7</code>.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>gridify.adjust_height.line <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-36-1.png" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-37-1.png" width="672"></p>
 </div>
 </div>
 </div>
@@ -899,7 +938,7 @@ JPEG files using the <code><a href="../reference/export_to.html">export_to()</a>
 PDF file.</p>
 <p>We take the earlier example where we applied
 <code><a href="../reference/pharma_layout_letter.html">pharma_layout_letter()</a></code> to a line plot.</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gridify_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gridify.html">gridify</a></span><span class="op">(</span></span>
 <span>  object <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -920,27 +959,27 @@ PDF file.</p>
 <p>Then we pass the <code>gridify</code> object to the
 <code><a href="../reference/export_to.html">export_to()</a></code> function. We specify the desired file type and
 name using the <code>to</code> argument.</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/export_to.html">export_to</a></span><span class="op">(</span><span class="va">gridify_obj</span>, to <span class="op">=</span> <span class="st">"output.pdf"</span><span class="op">)</span></span></code></pre></div>
 <p>Instead of just a file name, the <code>to</code> argument can also be
 set to a file path if we want to change the location where the file is
 saved.</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/export_to.html">export_to</a></span><span class="op">(</span><span class="va">gridify_obj</span>, to <span class="op">=</span> <span class="st">"~/folder1/output.pdf"</span><span class="op">)</span></span></code></pre></div>
 <p>To export the object to a PNG file, we specify a file name with the
 <code>.png</code> file extension.</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/export_to.html">export_to</a></span><span class="op">(</span><span class="va">gridify_obj</span>, to <span class="op">=</span> <span class="st">"output.png"</span><span class="op">)</span></span></code></pre></div>
 <p>To export the object to a TIFF file, we specify a file name with the
 <code>.tiff</code> or <code>.tif</code> file extension.</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/export_to.html">export_to</a></span><span class="op">(</span><span class="va">gridify_obj</span>, to <span class="op">=</span> <span class="st">"output.tiff"</span><span class="op">)</span></span></code></pre></div>
 <p>Similarly, to export the object to a JPEG file, we specify a file
 name with the <code>.jpeg</code> or <code>.jpg</code> file extension. We
 can also modify characteristics such as <code>width</code> and
 <code>height</code> by passing them into <code><a href="../reference/export_to.html">export_to()</a></code> after
 the <code>to</code> argument.</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/export_to.html">export_to</a></span><span class="op">(</span><span class="va">gridify_obj</span>, to <span class="op">=</span> <span class="st">"output.jpeg"</span>, width <span class="op">=</span> <span class="fl">2400</span>, height <span class="op">=</span> <span class="fl">1800</span>, res <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">

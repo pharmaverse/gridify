@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gridify</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Simple Layout for a gridify object</h1>
-      <small class="dont-index">Source: <a href="https://github.com/pharmaverse/gridify/blob/v0.7.2/R/simple_layout.R" class="external-link"><code>R/simple_layout.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/pharmaverse/gridify/blob/main/R/simple_layout.R" class="external-link"><code>R/simple_layout.R</code></a></small>
       <div class="d-none name"><code>simple_layout.Rd</code></div>
     </div>
 
@@ -49,6 +49,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">simple_layout</span><span class="op">(</span></span>
 <span>  margin <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>t <span class="op">=</span> <span class="fl">0.1</span>, r <span class="op">=</span> <span class="fl">0.1</span>, b <span class="op">=</span> <span class="fl">0.1</span>, l <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>, units <span class="op">=</span> <span class="st">"npc"</span><span class="op">)</span>,</span>
 <span>  global_gpar <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  background <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">get.gpar</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">fill</span>,</span>
 <span>  scales <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fixed"</span>, <span class="st">"free"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -64,6 +65,11 @@
 <dt id="arg-global-gpar">global_gpar<a class="anchor" aria-label="anchor" href="#arg-global-gpar"></a></dt>
 <dd><p>A gpar object specifying the global graphical parameters.
 Must be the result of a call to <code><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">grid::gpar()</a></code>.</p></dd>
+
+
+<dt id="arg-background">background<a class="anchor" aria-label="anchor" href="#arg-background"></a></dt>
+<dd><p>A string specifying the background fill colour.
+Default <code>grid::get.gpar()$fill</code> for a white background.</p></dd>
 
 
 <dt id="arg-scales">scales<a class="anchor" aria-label="anchor" href="#arg-scales"></a></dt>
@@ -186,6 +192,9 @@ still appear different. To convert point size to pixel size, multiply the point 
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Global graphical parameters:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Are not set</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Background colour:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   white</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Default Cell Info:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   title:</span>
