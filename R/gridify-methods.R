@@ -8,7 +8,6 @@
 #' @param cell A single character string specifying the name of the cell.
 #' @param text A single character string specifying the text of the element.
 #' When setting your string within the `text` argument, you can add new lines by using the newline character, `\n`.
-#' @param x A numeric value specifying the x (horizontal) location of the text element in the cell.
 #' @param mch A positive numeric value specifying the maximum number of characters per line.
 #' The functionality is based on the `strwrap()` function.
 #' By default, it avoids breaking up words and only splits lines when specified.
@@ -110,17 +109,19 @@
 #'   set_cell("footer", "FOOTER", x = 0.2, y = 1, gpar = grid::gpar(col = "blue"))
 setGeneric(
   "set_cell",
-  function(object,
-           cell,
-           text,
-           mch = NULL,
-           x = NULL,
-           y = NULL,
-           hjust = NULL,
-           vjust = NULL,
-           rot = NULL,
-           gpar = NULL,
-           ...) {
+  function(
+    object,
+    cell,
+    text,
+    mch = NULL,
+    x = NULL,
+    y = NULL,
+    hjust = NULL,
+    vjust = NULL,
+    rot = NULL,
+    gpar = NULL,
+    ...
+  ) {
     if (!inherits(object, "gridifyClass")) {
       stop("The first argument in `set_cell` should be a gridifyClass object.")
     }
@@ -130,18 +131,22 @@ setGeneric(
 
 #' @rdname set_cell
 setMethod(
-  "set_cell", "gridifyClass",
-  function(object,
-           cell,
-           text,
-           mch = NULL,
-           x = NULL,
-           y = NULL,
-           hjust = NULL,
-           vjust = NULL,
-           rot = NULL,
-           gpar = NULL,
-           ...) { # Add the text elements to the elements list
+  "set_cell",
+  "gridifyClass",
+  function(
+    object,
+    cell,
+    text,
+    mch = NULL,
+    x = NULL,
+    y = NULL,
+    hjust = NULL,
+    vjust = NULL,
+    rot = NULL,
+    gpar = NULL,
+    ...
+  ) {
+    # Add the text elements to the elements list
     # Validate cell name
     if (!(inherits(cell, "character") && length(cell) == 1)) {
       stop("The cell argument is not a character string")
@@ -156,14 +161,19 @@ setMethod(
 
     # Validate cell text
     if (inherits(text, "character") && length(text) > 1) {
-      stop("The text argument is not a character string, please use '\\n' to concatenate values.")
+      stop(
+        "The text argument is not a character string, please use '\\n' to concatenate values."
+      )
     }
 
     if (!(inherits(text, "character") && length(text) == 1)) {
       stop("The text argument is not a character string.")
     }
 
-    if (!(is.null(mch) || (inherits(mch, "numeric") && length(mch) == 1) && mch > 0)) {
+    if (
+      !(is.null(mch) ||
+        (inherits(mch, "numeric") && length(mch) == 1) && mch > 0)
+    ) {
       stop("The mch argument is not a positive numeric value.")
     }
 
@@ -176,11 +186,15 @@ setMethod(
       stop("The y argument is not a numeric value.")
     }
 
-    if (!(is.null(hjust) || (inherits(hjust, "numeric") && length(hjust) == 1))) {
+    if (
+      !(is.null(hjust) || (inherits(hjust, "numeric") && length(hjust) == 1))
+    ) {
       stop("The hjust argument is not a numeric value.")
     }
 
-    if (!(is.null(vjust) || (inherits(vjust, "numeric") && length(vjust) == 1))) {
+    if (
+      !(is.null(vjust) || (inherits(vjust, "numeric") && length(vjust) == 1))
+    ) {
       stop("The vjust argument is not a numeric value.")
     }
 
@@ -249,8 +263,14 @@ setMethod("print", "gridifyClass", function(x, ...) {
         grid::editGrob(
           OBJECT,
           vp = grid::viewport(
-            height = grid::unit.pmax(grid::unit(height_value, "npc"), grid::unit(1, "inch")),
-            width = grid::unit.pmax(grid::unit(width_value, "npc"), grid::unit(1, "inch"))
+            height = grid::unit.pmax(
+              grid::unit(height_value, "npc"),
+              grid::unit(1, "inch")
+            ),
+            width = grid::unit.pmax(
+              grid::unit(width_value, "npc"),
+              grid::unit(1, "inch")
+            )
           )
         ),
         vp = grid::viewport(
@@ -277,15 +297,23 @@ setMethod("print", "gridifyClass", function(x, ...) {
     elem <- x@elements[[cell]]
     cell_info <- x@layout@cells@cells[[cell]]
     # Skip the elements if there is noting to add
-    if (is.null(elem) && length(cell_info@text) == 0) next
+    if (is.null(elem) && length(cell_info@text) == 0) {
+      next
+    }
 
     # pass the fontsize on local level if needed
     global_fontsize <- x@layout@global_gpar$fontsize
     default_fontsize <- cell_info@gpar$fontsize
     if (inherits(elem$gpar, "gpar")) {
-      elem$gpar$fontsize <- c(elem$gpar$fontsize, default_fontsize, global_fontsize)[1]
+      elem$gpar$fontsize <- c(
+        elem$gpar$fontsize,
+        default_fontsize,
+        global_fontsize
+      )[1]
     } else if (!is.null(global_fontsize) || !is.null(default_fontsize)) {
-      elem$gpar <- grid::gpar(fontsize = c(default_fontsize, global_fontsize)[1])
+      elem$gpar <- grid::gpar(
+        fontsize = c(default_fontsize, global_fontsize)[1]
+      )
     }
 
     label <- c(elem$text, cell_info@text)[1]
@@ -327,7 +355,10 @@ setMethod("print", "gridifyClass", function(x, ...) {
           grid::grobTree(
             tgrob,
             gp = gp_value,
-            vp = grid::viewport(layout.pos.row = row_value, layout.pos.col = col_value)
+            vp = grid::viewport(
+              layout.pos.row = row_value,
+              layout.pos.col = col_value
+            )
           ),
           env = list(
             tgrob = tgrob,
@@ -341,12 +372,20 @@ setMethod("print", "gridifyClass", function(x, ...) {
 
     # Calculate the height of the textGrob when adjust_height is TRUE
     if (x@layout@adjust_height) {
-      grob_height <- grid::convertHeight(grid::grobHeight(eval(tgrob)), "cm", valueOnly = TRUE)
+      grob_height <- grid::convertHeight(
+        grid::grobHeight(eval(tgrob)),
+        "cm",
+        valueOnly = TRUE
+      )
       # Determine the rows the text elements around the output spans
       rows <- cell_info@row
       rows_span <- rows[1]:rows[length(rows)]
       # Update the maximum height for the rows spanned by the text elements
-      max_heights[rows_span] <- pmax(max_heights[rows_span], grob_height, na.rm = TRUE)
+      max_heights[rows_span] <- pmax(
+        max_heights[rows_span],
+        grob_height,
+        na.rm = TRUE
+      )
     }
   }
 
@@ -359,7 +398,12 @@ setMethod("print", "gridifyClass", function(x, ...) {
     line_adjustment <- getOption("gridify.adjust_height.line", 0.10)
     for (i in seq_along(max_heights)) {
       height_type <- height_types[[i]]
-      if (x@layout@adjust_height && height_type %in% supported_types && !is.na(max_heights[i]) && max_heights[i] > 0) {
+      if (
+        x@layout@adjust_height &&
+          height_type %in% supported_types &&
+          !is.na(max_heights[i]) &&
+          max_heights[i] > 0
+      ) {
         adjustment <- if (height_type != "lines") {
           default_adjustment
         } else {
@@ -380,28 +424,45 @@ setMethod("print", "gridifyClass", function(x, ...) {
 
   result <- substitute(
     grid::gTree(
-      children = do.call(grid::gList, outputs_list),
-      vp = grid::viewport(
-        name = "lyt",
-        x = margin4_val,
-        y = margin3_val,
-        just = c("left", "bottom"),
-        width = grid::unit(1, "npc") - margin4_val - margin2_val,
-        height = grid::unit(1, "npc") - margin1_val - margin3_val,
-        gp = global_gpar,
-        layout = grid::grid.layout(
-          nrow = nrow_val,
-          ncol = ncol_val,
-          heights = heights_val,
-          widths = widths_val
+      children = grid::gList(
+        background,
+        grid::gTree(
+          children = do.call(grid::gList, outputs_list),
+          vp = grid::viewport(
+            name = "lyt",
+            x = margin4_val,
+            y = margin3_val,
+            just = c("left", "bottom"),
+            width = grid::unit(1, "npc") - margin4_val - margin2_val,
+            height = grid::unit(1, "npc") - margin1_val - margin3_val,
+            gp = global_gpar,
+            layout = grid::grid.layout(
+              nrow = nrow_val,
+              ncol = ncol_val,
+              heights = heights_val,
+              widths = widths_val
+            )
+          )
         )
       )
     ),
     env = list(
-      margin1_val = as.call(c(quote(grid::unit), list(as.numeric(margin1), grid_unit_type(margin1)))),
-      margin2_val = as.call(c(quote(grid::unit), list(as.numeric(margin2), grid_unit_type(margin2)))),
-      margin3_val = as.call(c(quote(grid::unit), list(as.numeric(margin3), grid_unit_type(margin3)))),
-      margin4_val = as.call(c(quote(grid::unit), list(as.numeric(margin4), grid_unit_type(margin4)))),
+      margin1_val = as.call(c(
+        quote(grid::unit),
+        list(as.numeric(margin1), grid_unit_type(margin1))
+      )),
+      margin2_val = as.call(c(
+        quote(grid::unit),
+        list(as.numeric(margin2), grid_unit_type(margin2))
+      )),
+      margin3_val = as.call(c(
+        quote(grid::unit),
+        list(as.numeric(margin3), grid_unit_type(margin3))
+      )),
+      margin4_val = as.call(c(
+        quote(grid::unit),
+        list(as.numeric(margin4), grid_unit_type(margin4))
+      )),
       nrow_val = x@layout@nrow,
       ncol_val = x@layout@ncol,
       heights_val = as.call(c(
@@ -419,7 +480,18 @@ setMethod("print", "gridifyClass", function(x, ...) {
         )
       )),
       outputs_list = as.call(c(quote(list), pp_list)),
-      global_gpar = gpar_call(x@layout@global_gpar)
+      global_gpar = gpar_call(x@layout@global_gpar),
+      background = substitute(
+        grid::rectGrob(
+          x = 0,
+          y = 0,
+          width = 1,
+          height = 1,
+          just = c("left", "bottom"),
+          gp = grid::gpar(fill = fill_value, col = fill_value)
+        ),
+        env = list(fill_value = x@layout@background)
+      )
     )
   )
 
@@ -478,10 +550,21 @@ setMethod("show_cells", "gridifyClass", function(object) {
   cat("Cells:\n")
   for (cell in names(object@layout@cells@cells)) {
     cell <- trimws(cell)
-    if (!is.null(object@elements[[cell]]) || length(object@layout@cells@cells[[cell]]@text) > 0) {
-      cat(sprintf("  %s: %s\n", cell, ifelse(interactive(), coloured_print("filled", "green"), "filled")))
+    if (
+      !is.null(object@elements[[cell]]) ||
+        length(object@layout@cells@cells[[cell]]@text) > 0
+    ) {
+      cat(sprintf(
+        "  %s: %s\n",
+        cell,
+        ifelse(interactive(), coloured_print("filled", "green"), "filled")
+      ))
     } else {
-      cat(sprintf("  %s: %s\n", cell, ifelse(interactive(), coloured_print("empty", "red"), "empty")))
+      cat(sprintf(
+        "  %s: %s\n",
+        cell,
+        ifelse(interactive(), coloured_print("empty", "red"), "empty")
+      ))
     }
   }
 })
@@ -554,48 +637,97 @@ setMethod("show_spec", "gridifyLayout", function(object) {
   object_col <- object@object@col
 
   cat("\nHeights of rows:\n")
-  cat(sprintf(
-    "  Row %d: %s %s\n", seq_along(heights),
-    as.numeric(heights), grid_unit_type(heights)
-  ), sep = "")
+  cat(
+    sprintf(
+      "  Row %d: %s %s\n",
+      seq_along(heights),
+      as.numeric(heights),
+      grid_unit_type(heights)
+    ),
+    sep = ""
+  )
 
   cat("\nWidths of columns:\n")
-  cat(sprintf(
-    "  Column %d: %s %s\n", seq_along(widths),
-    as.numeric(widths),
-    grid_unit_type(widths)
-  ), sep = "")
+  cat(
+    sprintf(
+      "  Column %d: %s %s\n",
+      seq_along(widths),
+      as.numeric(widths),
+      grid_unit_type(widths)
+    ),
+    sep = ""
+  )
 
   # Show the position of the object
   cat("\nObject Position:\n")
-  cat(sprintf("  Row: %s\n", paste(unique(c(min(object_row), max(object_row))), collapse = "-")))
-  cat(sprintf("  Col: %s\n", paste(unique(c(min(object_col), max(object_col))), collapse = "-")))
+  cat(sprintf(
+    "  Row: %s\n",
+    paste(unique(c(min(object_row), max(object_row))), collapse = "-")
+  ))
+  cat(sprintf(
+    "  Col: %s\n",
+    paste(unique(c(min(object_col), max(object_col))), collapse = "-")
+  ))
 
   cat(sprintf("  Width: %s\n", object@object@width))
   cat(sprintf("  Height: %s\n", object@object@height))
 
   cat("\nObject Row Heights:\n")
   rows_span <- object_row[1]:object_row[length(object_row)]
-  cat(sprintf(
-    "  Row %s: %s %s\n", rows_span,
-    as.numeric(heights[rows_span]),
-    grid_unit_type(heights[rows_span])
-  ), sep = "")
+  cat(
+    sprintf(
+      "  Row %s: %s %s\n",
+      rows_span,
+      as.numeric(heights[rows_span]),
+      grid_unit_type(heights[rows_span])
+    ),
+    sep = ""
+  )
 
   # Show the margin
   cat("\nMargin:\n")
-  cat("  Top:", object@margin[1], paste0(grid_unit_type(object@margin[1]), "\n"))
-  cat("  Right:", object@margin[2], paste0(grid_unit_type(object@margin[2]), "\n"))
-  cat("  Bottom:", object@margin[3], paste0(grid_unit_type(object@margin[3]), "\n"))
-  cat("  Left:", object@margin[4], paste0(grid_unit_type(object@margin[4]), "\n"))
+  cat(
+    "  Top:",
+    object@margin[1],
+    paste0(grid_unit_type(object@margin[1]), "\n")
+  )
+  cat(
+    "  Right:",
+    object@margin[2],
+    paste0(grid_unit_type(object@margin[2]), "\n")
+  )
+  cat(
+    "  Bottom:",
+    object@margin[3],
+    paste0(grid_unit_type(object@margin[3]), "\n")
+  )
+  cat(
+    "  Left:",
+    object@margin[4],
+    paste0(grid_unit_type(object@margin[4]), "\n")
+  )
 
   # Show the global graphical parameters
   cat("\nGlobal graphical parameters:\n")
   if (length(object@global_gpar) == 0) {
     cat("  Are not set\n")
   } else {
-    cat(paste0("  ", names(object@global_gpar), ": ", object@global_gpar, collapse = "\n"), "\n")
+    cat(
+      paste0(
+        "  ",
+        names(object@global_gpar),
+        ": ",
+        object@global_gpar,
+        collapse = "\n"
+      ),
+      "\n"
+    )
   }
+
+  # Show background colour
+  cat("\nBackground colour:\n")
+  cat(paste0("  ", object@background, "\n"))
+  # Show default cell info
 
   cat("\nDefault Cell Info:\n")
   for (cell in names(object@cells@cells)) {
@@ -620,12 +752,22 @@ setMethod("show_spec", "gridifyLayout", function(object) {
         if (length(gpar_arguments)) {
           cat(
             "\n    gpar - ",
-            paste(sprintf("%s:%s, ", names(gpar_arguments), gpar_arguments), collapse = ""),
+            paste(
+              sprintf("%s:%s, ", names(gpar_arguments), gpar_arguments),
+              collapse = ""
+            ),
             sep = ""
           )
         }
       } else {
-        cat("", layout_slot, ":", methods::slot(cell_obj, layout_slot), ", ", sep = "")
+        cat(
+          "",
+          layout_slot,
+          ":",
+          paste(methods::slot(cell_obj, layout_slot), collapse = "-"),
+          ", ",
+          sep = ""
+        )
       }
     }
     cat("\n")
@@ -830,8 +972,6 @@ setMethod("show", "gridifyLayout", function(object) {
 #'   \item If a vector of file names (one per object) is provided, each gridify object is
 #'   written to its corresponding file.
 #' }
-#' @inherit font_issue note
-#'
 #' @return No value is returned; the function is called for its side effect of writing output to a file.
 #'
 #' @examples
@@ -903,7 +1043,9 @@ setMethod("show", "gridifyLayout", function(object) {
 #' }
 #'
 #' @export
-setGeneric("export_to", function(x, to, device = NULL, ...) standardGeneric("export_to"))
+setGeneric("export_to", function(x, to, device = NULL, ...) {
+  standardGeneric("export_to")
+})
 
 #' @rdname export_to
 #' @export
@@ -914,7 +1056,10 @@ setMethod("export_to", "gridifyClass", function(x, to, device = NULL, ...) {
 
   dir_name <- dirname(to)
   if (!(dir.exists(dir_name))) {
-    stop(sprintf("The directory `%s` specified by `to` does not exist.", dir_name))
+    stop(sprintf(
+      "The directory `%s` specified by `to` does not exist.",
+      dir_name
+    ))
   }
 
   if (!(is.null(device) || is.function(device))) {
@@ -951,7 +1096,8 @@ setMethod("export_to", "gridifyClass", function(x, to, device = NULL, ...) {
     dev_args <- utils::modifyList(default_args, user_args)
     dev_args$file <- to
 
-    dev_func <- switch(ext,
+    dev_func <- switch(
+      ext,
       png = grDevices::png,
       jpeg = grDevices::jpeg,
       jpg = grDevices::jpeg,
@@ -973,7 +1119,9 @@ setMethod("export_to", "gridifyClass", function(x, to, device = NULL, ...) {
 #' @rdname export_to
 #' @export
 setMethod("export_to", "list", function(x, to, device = NULL, ...) {
-  if (!all(vapply(x, function(elem) inherits(elem, "gridifyClass"), logical(1)))) {
+  if (
+    !all(vapply(x, function(elem) inherits(elem, "gridifyClass"), logical(1)))
+  ) {
     stop("All elements of the list must be 'gridifyClass' objects.")
   }
 
@@ -1013,7 +1161,8 @@ setMethod("export_to", "list", function(x, to, device = NULL, ...) {
       do.call(
         device,
         utils::modifyList(
-          list(file = to, width = 11.69, height = 8.27, onefile = TRUE), list(...)
+          list(file = to, width = 11.69, height = 8.27, onefile = TRUE),
+          list(...)
         )
       )
       on.exit(grDevices::dev.off(), add = TRUE)
@@ -1022,7 +1171,9 @@ setMethod("export_to", "list", function(x, to, device = NULL, ...) {
         print(obj)
       }
     } else {
-      stop("For a list of gridify objects and a single file path, the `to` extension has to be pdf.")
+      stop(
+        "For a list of gridify objects and a single file path, the `to` extension has to be pdf."
+      )
     }
   } else if (length(to) == length(x)) {
     # Each plot goes to a separate file path in `to`
@@ -1030,7 +1181,9 @@ setMethod("export_to", "list", function(x, to, device = NULL, ...) {
       export_to(x[[i]], to[[i]], ...)
     }
   } else {
-    stop("`to` must be either a single pdf file path or a character vector matching the length of `x`.")
+    stop(
+      "`to` must be either a single pdf file path or a character vector matching the length of `x`."
+    )
   }
 })
 
@@ -1038,5 +1191,7 @@ setMethod("export_to", "list", function(x, to, device = NULL, ...) {
 #' @rdname export_to
 #' @export
 setMethod("export_to", "ANY", function(x, to, ...) {
-  stop("export_to is supported for gridifyClass or list of gridifyClass objects.")
+  stop(
+    "export_to is supported for gridifyClass or list of gridifyClass objects."
+  )
 })

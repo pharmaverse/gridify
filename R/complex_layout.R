@@ -8,6 +8,8 @@
 #' @param margin A unit object specifying the margins around the output. Default is 10% of the output area on all sides.
 #' @param global_gpar A gpar object specifying the global graphical parameters.
 #'  Must be the result of a call to `grid::gpar()`.
+#' @param background A string specifying the background fill colour.
+#' Default `grid::get.gpar()$fill` for a white background.
 #' @param scales A string, either `"free"` or `"fixed"`.
 #' By default, `"fixed"` ensures that text elements (titles, footers, etc.)
 #' retain a static height, preventing text overlap while maintaining a
@@ -76,9 +78,11 @@
 #' @rdname complex_layout
 #' @export
 complex_layout <- function(
-    margin = grid::unit(c(t = 0.1, r = 0.1, b = 0.1, l = 0.1), units = "npc"),
-    global_gpar = grid::gpar(),
-    scales = c("fixed", "free")) {
+  margin = grid::unit(c(t = 0.1, r = 0.1, b = 0.1, l = 0.1), units = "npc"),
+  global_gpar = grid::gpar(),
+  background = grid::get.gpar()$fill,
+  scales = c("fixed", "free")
+) {
   scales <- match.arg(scales, c("fixed", "free"))
 
   heights <- if (scales == "free") {
@@ -96,6 +100,7 @@ complex_layout <- function(
     heights = heights,
     widths = grid::unit(rep(1, 3) / 3, units = "npc"),
     global_gpar = global_gpar,
+    background = background,
     margin = margin,
     adjust_height = TRUE,
     object = gridifyObject(row = 4, col = c(1, 3)),

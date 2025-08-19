@@ -4,13 +4,16 @@
 \alias{pharma_layout_A4}
 \title{Pharma Layout (A4) for a gridify object}
 \usage{
-pharma_layout_A4(global_gpar = NULL)
+pharma_layout_A4(global_gpar = NULL, background = grid::get.gpar()$fill)
 }
 \arguments{
 \item{global_gpar}{A list specifying global graphical parameters to change in the layout.
 Default is NULL, however the defaults in the layout, inherited from \code{pharma_layout_base()},
 are: \verb{fontfamily = "Serif", fontsize = 9 and lineheight = 0.95},
 which can be overwritten alongside other graphical parameters found by \code{grid::get.gpar()}.}
+
+\item{background}{A character string specifying the background fill colour.
+Default \code{grid::get.gpar()$fill} for a white background.}
 }
 \value{
 A \code{gridifyLayout} object with the structure defined for A4 paper size.

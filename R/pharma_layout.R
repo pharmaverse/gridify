@@ -31,6 +31,8 @@ NULL
 #'  Default is NULL,
 #'  however the defaults in the layout are: `fontfamily = "Serif", fontsize = 9 and lineheight = 0.95`,
 #'  which can be overwritten alongside other graphical parameters found by `grid::get.gpar()`.
+#' @param background A string specifying the background fill colour.
+#' Default `grid::get.gpar()$fill` for a white background.
 #' @param adjust_height A logical value indicating whether to adjust the height of the layout. Default is `TRUE`.
 #'
 #' @return A `gridifyLayout` object that defines the general structure and parameters for a pharma layout.
@@ -72,11 +74,17 @@ NULL
 #' @rdname pharma_layout_base
 #' @export
 pharma_layout_base <- function(
-    margin = grid::unit(c(t = 1, r = 1, b = 1, l = 1), units = "inches"),
-    global_gpar = NULL,
-    adjust_height = TRUE) {
+  margin = grid::unit(c(t = 1, r = 1, b = 1, l = 1), units = "inches"),
+  global_gpar = NULL,
+  background = grid::get.gpar()$fill,
+  adjust_height = TRUE
+) {
   default_gpar <- list(fontfamily = "serif", fontsize = 9, lineheight = 0.95)
-  global_gpar <- if (!is.null(global_gpar)) utils::modifyList(default_gpar, global_gpar) else default_gpar
+  global_gpar <- if (!is.null(global_gpar)) {
+    utils::modifyList(default_gpar, global_gpar)
+  } else {
+    default_gpar
+  }
 
   base_options <- grid::get.gpar()
   global_gpar <- utils::modifyList(base_options, global_gpar)
@@ -90,6 +98,7 @@ pharma_layout_base <- function(
     ),
     widths = grid::unit(rep(1, 3) / 3, units = "npc"),
     global_gpar = global_gpar,
+    background = background,
     margin = margin,
     adjust_height = adjust_height,
     object = gridifyObject(row = 10, col = c(1, 3)),
@@ -97,7 +106,13 @@ pharma_layout_base <- function(
       header_left_1 = gridifyCell(row = 1, col = 1, x = 0, hjust = 0),
       header_left_2 = gridifyCell(row = 2, col = 1, x = 0, hjust = 0),
       header_left_3 = gridifyCell(row = 3, col = 1, x = 0, hjust = 0),
-      header_right_1 = gridifyCell(row = 1, col = 3, text = "CONFIDENTIAL", x = 1, hjust = 1),
+      header_right_1 = gridifyCell(
+        row = 1,
+        col = 3,
+        text = "CONFIDENTIAL",
+        x = 1,
+        hjust = 1
+      ),
       header_right_2 = gridifyCell(row = 2, col = 3, x = 1, hjust = 1),
       header_right_3 = gridifyCell(row = 3, col = 3, x = 1, hjust = 1),
       output_num = gridifyCell(row = 4, col = 2),
@@ -110,7 +125,11 @@ pharma_layout_base <- function(
       footer_left = gridifyCell(row = 14, col = 1, x = 0, hjust = 0),
       footer_right = gridifyCell(row = 14, col = 3, x = 1, hjust = 1),
       watermark = gridifyCell(
-        row = 10, col = 2, x = 0.5, y = 0.5, rot = 45,
+        row = 10,
+        col = 2,
+        x = 0.5,
+        y = 0.5,
+        rot = 45,
         gpar = grid::gpar(fontsize = 80, alpha = 0.3)
       )
     )
@@ -125,7 +144,8 @@ pharma_layout_base <- function(
 #'  Default is NULL, however the defaults in the layout, inherited from `pharma_layout_base()`,
 #'  are: `fontfamily = "Serif", fontsize = 9 and lineheight = 0.95`,
 #'  which can be overwritten alongside other graphical parameters found by `grid::get.gpar()`.
-#'
+#' @param background A character string specifying the background fill colour.
+#' Default `grid::get.gpar()$fill` for a white background.
 #' @details
 #' The margins for the A4 layout are:
 #' * top = 1 inch
@@ -170,9 +190,13 @@ pharma_layout_base <- function(
 #' @seealso [pharma_layout], [pharma_layout_base()], [pharma_layout_letter()]
 #' @rdname pharma_layout_A4
 #' @export
-pharma_layout_A4 <- function(global_gpar = NULL) {
+pharma_layout_A4 <- function(
+  global_gpar = NULL,
+  background = grid::get.gpar()$fill
+) {
   pharma_layout_base(
     global_gpar = global_gpar,
+    background = background,
     margin = grid::unit(c(t = 1, r = 1.69, b = 1, l = 1), units = "inches")
   )
 }
@@ -186,7 +210,8 @@ pharma_layout_A4 <- function(global_gpar = NULL) {
 #'  Default is NULL, however the defaults in the layout, inherited from `pharma_layout_base()`,
 #'  are: `fontfamily = "Serif", fontsize = 9 and lineheight = 0.95`,
 #'  which can be overwritten alongside other graphical parameters found by `grid::get.gpar()`.
-#'
+#' @param background A character string specifying the background fill colour.
+#' Default `grid::get.gpar()$fill` for a white background.
 #' @details
 #' The margins for the letter layout are:
 #' * top = 1 inch
@@ -231,9 +256,13 @@ pharma_layout_A4 <- function(global_gpar = NULL) {
 #' @seealso [pharma_layout], [pharma_layout_base()], [pharma_layout_A4()]
 #' @rdname pharma_layout_letter
 #' @export
-pharma_layout_letter <- function(global_gpar = NULL) {
+pharma_layout_letter <- function(
+  global_gpar = NULL,
+  background = grid::get.gpar()$fill
+) {
   pharma_layout_base(
     global_gpar = global_gpar,
+    background = background,
     margin = grid::unit(c(t = 1, r = 1, b = 1.23, l = 1), units = "inches")
   )
 }

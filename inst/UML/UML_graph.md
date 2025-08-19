@@ -57,6 +57,7 @@ classDiagram
         +widths: unit
         +margin: unit
         +global_gpar: gpar
+        +background: character
         +adjust_height: logical
         +object: gridifyObject
         +cells: gridifyCells

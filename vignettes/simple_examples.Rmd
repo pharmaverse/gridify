@@ -451,6 +451,30 @@ g <- g %>%
 print(g)
 ```
 
+
+## Background Colour Example
+
+Here is an example of how to set the background colour using the `background` argument in `simple_layout()`. By default, it uses `grid::get.gpar()$fill` (white background). In this example, we set the background colour to `"beige"`.
+
+The `background` argument works across all built-in layout functions, including `simple_layout()`, `complex_layout()`, `pharma_layout_base()`, `pharma_layout_A4()`, and `pharma_layout_letter()`. It can also be applied in any custom layouts you create (`vignette("create_custom_layout", package = "gridify")`).
+
+**Note:** When using `ggplot2`, you may also need to set the plot's background colour to match the layout's background.
+
+```{r}
+figure_obj <- ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg, y = wt)) +
+   ggplot2::theme(
+    plot.background = ggplot2::element_rect(fill = "beige", colour = NA),  # Entire plot background
+    panel.background = ggplot2::element_rect(fill = "beige", colour = NA),     # Panel (where data is plotted)
+    panel.border = ggplot2::element_rect(colour = "black", fill = NA)) +
+  ggplot2::geom_line()
+
+g <- gridify(figure_obj, layout = simple_layout(background = "beige")) %>%
+  set_cell("title", "Title") %>%
+  set_cell("footer", "Footer")
+
+print(g)
+```
+
 ## `set_cell()` Arguments
 
 As well as adjusting the individual graphical parameters as shown above, we can also use `set_cell()` to customise

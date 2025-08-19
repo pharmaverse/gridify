@@ -7,6 +7,7 @@
 pharma_layout_base(
   margin = grid::unit(c(t = 1, r = 1, b = 1, l = 1), units = "inches"),
   global_gpar = NULL,
+  background = grid::get.gpar()$fill,
   adjust_height = TRUE
 )
 }
@@ -18,6 +19,9 @@ Default is \code{grid::unit(c(1, 1, 1, 1), "inches")}.}
 Default is NULL,
 however the defaults in the layout are: \verb{fontfamily = "Serif", fontsize = 9 and lineheight = 0.95},
 which can be overwritten alongside other graphical parameters found by \code{grid::get.gpar()}.}
+
+\item{background}{A string specifying the background fill colour.
+Default \code{grid::get.gpar()$fill} for a white background.}
 
 \item{adjust_height}{A logical value indicating whether to adjust the height of the layout. Default is \code{TRUE}.}
 }

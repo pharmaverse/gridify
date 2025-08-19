@@ -7,6 +7,7 @@
 complex_layout(
   margin = grid::unit(c(t = 0.1, r = 0.1, b = 0.1, l = 0.1), units = "npc"),
   global_gpar = grid::gpar(),
+  background = grid::get.gpar()$fill,
   scales = c("fixed", "free")
 )
 }
@@ -15,6 +16,9 @@ complex_layout(
 
 \item{global_gpar}{A gpar object specifying the global graphical parameters.
 Must be the result of a call to \code{grid::gpar()}.}
+
+\item{background}{A string specifying the background fill colour.
+Default \code{grid::get.gpar()$fill} for a white background.}
 
 \item{scales}{A string, either \code{"free"} or \code{"fixed"}.
 By default, \code{"fixed"} ensures that text elements (titles, footers, etc.)

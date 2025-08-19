@@ -22,6 +22,8 @@ Class for creating a layout for a gridify object.
 
 \item{\code{global_gpar}}{A \code{grid::gpar()} object specifying the global graphical parameters.}
 
+\item{\code{background}}{A string with background colour.}
+
 \item{\code{adjust_height}}{A logical value indicating whether to adjust the height of the object.
 Only applies for cells with height defined in cm, mm, inch or lines units.}
 

@@ -5,10 +5,6 @@
 #'
 #' @return a character string with ANSI codes surrounding it.
 #' @keywords internal
-#' @examples
-#' \dontrun{
-#' cat(gridify:::coloured_print("This is a test", colour = "blue"))
-#' }
 coloured_print <- function(text, colour = "green") {
   # Note ANSI colour codes
   colour_codes <- list(

@@ -15,10 +15,16 @@ test_that("all layout functions return a gridifyLayout", {
   }
 })
 
-test_that("all layout functions have any or some of arguments: margin, global_gpar, scales, and adjust_height", {
+test_that("all layout funs have any or some of args: margin, global_gpar, background, scales, adjust_height", {
   for (layout in layouts) {
     args <- formalArgs(asNamespace("gridify")[[layout]])
-    expect_true(is.null(args) || all(args %in% c("margin", "global_gpar", "scales", "adjust_height")))
+    expect_true(
+      is.null(args) ||
+        all(
+          args %in%
+            c("margin", "global_gpar", "background", "scales", "adjust_height")
+        )
+    )
   }
 })
 
@@ -35,5 +41,20 @@ test_that("scales argument works correctly", {
     layout_func <- asNamespace("gridify")[[layout]]
     expect_silent(layout_func(scales = "free"))
     expect_silent(layout_func(scales = "fixed"))
+  }
+})
+
+test_that("background argument works correctly", {
+  for (layout in layouts) {
+    layout_func <- asNamespace("gridify")[[layout]]
+    expect_silent(layout_func(background = "lightgrey"))
+    expect_silent(layout_func(background = NA_character_))
+  }
+})
+
+test_that("global_gpar argument works correctly", {
+  for (layout in layouts) {
+    layout_func <- asNamespace("gridify")[[layout]]
+    expect_silent(layout_func(global_gpar = grid::gpar(col = "black")))
   }
 })
