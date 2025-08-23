@@ -11,6 +11,9 @@
 ^\.github$
 ^\.devcontainer$
 ^Rplots\.pdf$
-
+^\.pdf$
+^\.png$
+^\.jpeg$
+^\.tiff$
 ^doc$
 ^Meta$
