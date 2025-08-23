@@ -100,7 +100,7 @@ gridify_obj <- gridify(
   set_cell("footer_right", "Page xx of nn") \%>\%
   set_cell("watermark", "DRAFT")
 
-\dontrun{
+\dontest{
 export_to(gridify_obj, to = "output.png")
 export_to(gridify_obj, to = "output.png", width = 2400, height = 1800, res = 300)
 
