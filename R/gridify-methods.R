@@ -170,10 +170,7 @@ setMethod(
       stop("The text argument is not a character string.")
     }
 
-    if (
-      !(is.null(mch) ||
-        (inherits(mch, "numeric") && length(mch) == 1) && mch > 0)
-    ) {
+    if (!(is.null(mch) || (inherits(mch, "numeric") && length(mch) == 1) && mch > 0)) {
       stop("The mch argument is not a positive numeric value.")
     }
 
@@ -1007,40 +1004,116 @@ setMethod("show", "gridifyLayout", function(object) {
 #'   set_cell("footer_right", "Page xx of nn") %>%
 #'   set_cell("watermark", "DRAFT")
 #'
-#' \dontrun{
-#' export_to(gridify_obj, to = "output.png")
-#' export_to(gridify_obj, to = "output.png", width = 2400, height = 1800, res = 300)
+#' # Export a result to different file types
 #'
-#' export_to(gridify_obj, to = "output.jpeg")
-#' export_to(gridify_obj, to = "output.jpeg", width = 2400, height = 1800, res = 300)
+#' # Different file export formats require specific capabilities in your R installation.
+#' # Use capabilities() to check which formats are supported in your R build.
 #'
-#' export_to(gridify_obj, to = "output.tiff")
-#' export_to(gridify_obj, to = "output.tiff", width = 2400, height = 1800, res = 300)
-#'
-#' export_to(gridify_obj, to = "outputA4.pdf")
-#' export_to(gridify_obj, to = "outputA4long.pdf", width = 8.3, height = 11.7)
-#'
-#' # Use different pdf device
+#' # PNG
+#' temp_png_default <- tempfile(fileext = ".png")
 #' export_to(
 #'   gridify_obj,
-#'   to = "outputA4long.pdf", device = grDevices::cairo_pdf, width = 8.3, height = 11.7
+#'   to = temp_png_default
 #' )
+#'
+#' temp_png_custom <- tempfile(fileext = ".png")
+#' export_to(
+#'   gridify_obj,
+#'   to = temp_png_custom,
+#'   width = 2400,
+#'   height = 1800,
+#'   res = 300
+#' )
+#'
+#' # JPEG
+#' temp_jpeg_default <- tempfile(fileext = ".jpeg")
+#' export_to(
+#'   gridify_obj,
+#'   to = temp_jpeg_default
+#' )
+#'
+#' temp_jpeg_custom <- tempfile(fileext = ".jpeg")
+#' export_to(
+#'   gridify_obj,
+#'   to = temp_jpeg_custom,
+#'   width = 2400,
+#'   height = 1800,
+#'   res = 300
+#' )
+#'
+#' # TIFF
+#' temp_tiff_default <- tempfile(fileext = ".tiff")
+#' export_to(
+#'   gridify_obj,
+#'   to = temp_tiff_default
+#' )
+#'
+#' temp_tiff_custom <- tempfile(fileext = ".tiff")
+#' export_to(
+#'   gridify_obj,
+#'   to = temp_tiff_custom,
+#'   width = 2400,
+#'   height = 1800,
+#'   res = 300
+#' )
+#'
+#' # PDF
+#' temp_pdf_A4 <- tempfile(fileext = ".pdf")
+#' export_to(
+#'   gridify_obj,
+#'   to = temp_pdf_A4
+#' )
+#'
+#' temp_pdf_A4long <- tempfile(fileext = ".pdf")
+#' export_to(
+#'   gridify_obj,
+#'   to = temp_pdf_A4long,
+#'   width = 8.3,
+#'   height = 11.7
+#' )
+#'
+#' # Use different pdf device - cairo_pdf
+#' temp_pdf_A4long_cairo <- tempfile(fileext = ".pdf")
+#' export_to(
+#'   gridify_obj,
+#'   to = temp_pdf_A4long_cairo,
+#'   device = grDevices::cairo_pdf,
+#'   width = 8.3,
+#'   height = 11.7
+#' )
+#'
+#' # Multiple Objects - a list
 #'
 #' gridify_list <- list(gridify_obj, gridify_obj)
 #'
-#' export_to(gridify_list, to = "multipageA4.pdf")
-#' export_to(gridify_list, to = "multipageA4long.pdf", width = 8.3, height = 11.7)
-#' export_to(gridify_list, to = "multipageA4long.pdf", width = 8.3, height = 11.7)
-#'
-#' export_to(gridify_list, to = c("page1.png", "page2.png"))
+#' temp_pdf_multipageA4 <- tempfile(fileext = ".pdf")
 #' export_to(
 #'   gridify_list,
-#'   to = c("page1_96res.png", "page2_96res.png"),
+#'   to = temp_pdf_multipageA4
+#' )
+#'
+#' temp_pdf_multipageA4long <- tempfile(fileext = ".pdf")
+#' export_to(
+#'   gridify_list,
+#'   to = temp_pdf_multipageA4long,
+#'   width = 8.3,
+#'   height = 11.7
+#' )
+#'
+#' temp_png_multi <- c(tempfile(fileext = ".png"), tempfile(fileext = ".png"))
+#' export_to(
+#'   gridify_list,
+#'   to = temp_png_multi
+#' )
+#'
+#' temp_png_multi_custom <- c(tempfile(fileext = ".png"), tempfile(fileext = ".png"))
+#' export_to(
+#'   gridify_list,
+#'   to = temp_png_multi_custom,
 #'   width = 800,
 #'   height = 600,
 #'   res = 96
 #' )
-#' }
 #'
 #' @export
 setGeneric("export_to", function(x, to, device = NULL, ...) {

@@ -462,10 +462,11 @@ The `background` argument works across all built-in layout functions, including 
 
 ```{r}
 figure_obj <- ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg, y = wt)) +
-   ggplot2::theme(
+  ggplot2::theme(
     plot.background = ggplot2::element_rect(fill = "beige", colour = NA),  # Entire plot background
     panel.background = ggplot2::element_rect(fill = "beige", colour = NA),     # Panel (where data is plotted)
-    panel.border = ggplot2::element_rect(colour = "black", fill = NA)) +
+    panel.border = ggplot2::element_rect(colour = "black", fill = NA)
+  ) +
   ggplot2::geom_line()
 
 g <- gridify(figure_obj, layout = simple_layout(background = "beige")) %>%
