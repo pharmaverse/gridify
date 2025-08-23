@@ -1004,12 +1004,10 @@ setMethod("show", "gridifyLayout", function(object) {
 #'   set_cell("footer_right", "Page xx of nn") %>%
 #'   set_cell("watermark", "DRAFT")
 #'
-#' \donttest{
 #' # Export a result to different file types
 #'
 #' # Different file export formats require specific capabilities in your R installation.
 #' # Use capabilities() to check which formats are supported in your R build.
-#'
 #'
 #' # PNG
 #' temp_png_default <- tempfile(fileext = ".png")
@@ -1116,7 +1114,6 @@ setMethod("show", "gridifyLayout", function(object) {
 #'   height = 600,
 #'   res = 96
 #' )
-#' }
 #'
 #' @export
 setGeneric("export_to", function(x, to, device = NULL, ...) {
