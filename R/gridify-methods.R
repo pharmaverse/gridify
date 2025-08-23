@@ -1008,6 +1008,11 @@ setMethod("show", "gridifyLayout", function(object) {
 #'   set_cell("watermark", "DRAFT")
 #'
 #' \donttest{
+#' # Export a result to different file types
+#' 
+#' # Different file export formats require specific capabilities in your R installation.
+#' # Use capabilities() to check which formats are supported in your R build.
+#' 
 #' export_to(gridify_obj, to = "output.png")
 #' export_to(gridify_obj, to = "output.png", width = 2400, height = 1800, res = 300)
 #'
