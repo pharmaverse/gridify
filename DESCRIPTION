@@ -1,7 +1,7 @@
 Type: Package
 Package: gridify
 Title: Enrich Figures and Tables with Custom Headers and Footers and More
-Version: 0.7.3
+Version: 0.7.4
 Authors@R: c(
     person("Maciej", "Nasinski", , "Maciej.Nasinski@ucb.com", role = c("aut", "cre")),
     person("Alexandra", "Wall", , "Alexandra.Wall@ucb.com", role = "aut"),
@@ -17,7 +17,8 @@ Authors@R: c(
   )
 Description: A simple and flexible tool designed to create enriched figures and tables by providing a way to add text 
     around them through predefined or custom layouts. 
-    Any input which is convertible to 'grob' is supported, like 'ggplot', 'gt' or 'flextable'.
+    Any input which is convertible to 'grob' is supported, like 'ggplot', 'gt' or 'flextable'. 
+    Based on base R 'grid' graphics, for more details see Paul Murrell (2018) <doi:10.1201/9780429422768>.
 License: Apache License 2.0
 URL: https://pharmaverse.github.io/gridify/
 BugReports: https://github.com/pharmaverse/gridify/issues
