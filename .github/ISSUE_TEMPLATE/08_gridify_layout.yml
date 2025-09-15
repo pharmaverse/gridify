@@ -128,4 +128,3 @@ body:
       placeholder: "Paste your R code here..."
     validations:
       required: false
-

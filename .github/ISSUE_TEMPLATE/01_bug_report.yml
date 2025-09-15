@@ -33,3 +33,4 @@ body:
       placeholder: "Please give us as many details as you can! The faster we can recreate the bug, the faster we can get a fix in the works.  Warning, Error Messages and Screenshots are also great."
     validations:
       required: false
+      

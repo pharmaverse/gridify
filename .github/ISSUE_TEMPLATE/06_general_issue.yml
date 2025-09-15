@@ -25,3 +25,4 @@ body:
       placeholder: "Example:  All changes since last release are highlighted in Blog Post and posted to Linked In"
     validations:
       required: false
+      
