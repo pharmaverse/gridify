@@ -41,4 +41,3 @@ body:
       placeholder: "We love example code and it will speed up the process! REMINDER: no patient level data or company sensitive information should be shared via this open public issue"
     validations:
       required: false
-      
