@@ -2,6 +2,8 @@
 
 [![R-CMD-check](https://github.com/pharmaverse/gridify/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pharmaverse/gridify/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/pharmaverse/gridify/graph/badge.svg)](https://app.codecov.io/gh/pharmaverse/gridify)
+[![pharmaverse gridify Badge](http://pharmaverse.org/shields/gridify.svg)](https://pharmaverse.org)
+[![CRAN status](https://www.r-pkg.org/badges/version/gridify)](https://CRAN.R-project.org/package=gridify)
 
 ## Overview
 
