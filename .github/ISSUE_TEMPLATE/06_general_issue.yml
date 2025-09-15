@@ -1,5 +1,5 @@
 name: General Issue
-description: Issue that is difficult to fit into bug, feature or documentation issue.
+description: Issue that is difficult to fit into bug or feature issue.
 title: "General Issue: <Insert Issue Title Here>"
 labels: ["general issue"]
 assignees:
