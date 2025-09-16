@@ -53,12 +53,6 @@ Or you can install the newest development version from Pharmaverse GitHub (examp
 remotes::install_github("pharmaverse/gridify", build_manual = TRUE)
 ```
 
-or from the source after `git clone`, for example:
-
-```r
-devtools::install("gridify")
-```
-
 Then load **gridify**:
 
 ```{r}

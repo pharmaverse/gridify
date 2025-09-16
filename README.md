@@ -76,6 +76,7 @@ tab <- gt::gt(head(mtcars, n = 10))  |>
     table_body.hlines.color = "white",
     table.font.size = 12
   )
+
 # Use `gridify()` to create a `gridify` object
 gridify_object <- gridify(
   object = tab,
