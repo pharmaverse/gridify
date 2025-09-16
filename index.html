@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">gridify</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.4.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,7 +62,7 @@
 <img src="logo.png" class="logo" alt=""><h1 id="gridify-">gridify <a class="anchor" aria-label="anchor" href="#gridify-"></a>
 </h1>
 </div>
-<p><a href="https://github.com/pharmaverse/gridify/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/pharmaverse/gridify/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a> <a href="https://app.codecov.io/gh/pharmaverse/gridify" class="external-link"><img src="https://codecov.io/gh/pharmaverse/gridify/graph/badge.svg" alt="Codecov test coverage"></a></p>
+<p><a href="https://github.com/pharmaverse/gridify/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/pharmaverse/gridify/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a> <a href="https://app.codecov.io/gh/pharmaverse/gridify" class="external-link"><img src="https://codecov.io/gh/pharmaverse/gridify/graph/badge.svg" alt="Codecov test coverage"></a> <a href="https://pharmaverse.org" class="external-link"><img src="http://pharmaverse.org/shields/gridify.svg" alt="pharmaverse gridify Badge"></a> <a href="https://CRAN.R-project.org/package=gridify" class="external-link"><img src="https://www.r-pkg.org/badges/version/gridify" alt="CRAN status"></a></p>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
@@ -76,8 +76,11 @@ Whilst <strong>rtables</strong> are not directly supported, we can use <strong>r
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>If <code>gridify</code> is not yet on CRAN, you can install it from Pharmaverse GitHub (example):</p>
+<p>You can install the newest release version from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"gridify"</span><span class="op">)</span></span></code></pre></div>
+<p>Or you can install the newest development version from Pharmaverse GitHub (example):</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"pharmaverse/gridify"</span>, build_manual <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -89,10 +92,11 @@ Whilst <strong>rtables</strong> are not directly supported, we can use <strong>r
 <li>Create your object (<code>ggplot</code>, <code>gt</code> etc.)</li>
 <li>Choose a layout (predefined or custom). Use <code><a href="reference/get_layouts.html">get_layouts()</a></code> to see the predefined options</li>
 <li>Use <code><a href="reference/gridify.html">gridify()</a></code> to create a <code>gridify</code> object</li>
+<li>Print the <code>gridify</code> object to see empty cells</li>
 <li>Use <code><a href="reference/set_cell.html">set_cell()</a></code> to fill in the various text elements in the layout (headers, footers etc.)</li>
 </ol>
 <p>The following example uses a table created by the <code>gt</code> package and the <code>gridify</code> layout <code><a href="reference/pharma_layout_base.html">pharma_layout_base()</a></code>.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pharmaverse.github.io/gridify/">gridify</a></span><span class="op">)</span></span>
 <span><span class="co"># install.packages("gt")</span></span>
 <span><span class="co"># gt needs gtable</span></span>
@@ -108,16 +112,18 @@ Whilst <strong>rtables</strong> are not directly supported, we can use <strong>r
 <span>    table.font.size <span class="op">=</span> <span class="fl">12</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
+<span><span class="co"># Use `gridify()` to create a `gridify` object</span></span>
 <span><span class="va">gridify_object</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gridify.html">gridify</a></span><span class="op">(</span></span>
 <span>  object <span class="op">=</span> <span class="va">tab</span>,</span>
+<span>  <span class="co"># Choose a layout (predefined or custom)</span></span>
 <span>  layout <span class="op">=</span> <span class="fu"><a href="reference/pharma_layout_base.html">pharma_layout_base</a></span><span class="op">(</span></span>
 <span>    margin <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span><span class="op">)</span>, <span class="st">"inches"</span><span class="op">)</span>,</span>
 <span>    global_gpar <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontfamily <span class="op">=</span> <span class="st">"serif"</span>, fontsize <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span></span>
+<span><span class="co"># Print the `gridify` object to see empty cells</span></span>
 <span><span class="va">gridify_object</span></span>
-<span></span>
+<span><span class="co"># Use `set_cell()` to fill in the various text elements in the layout (headers etc.)</span></span>
 <span><span class="va">gridify_object_fill</span> <span class="op">&lt;-</span> <span class="va">gridify_object</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"header_left_1"</span>, <span class="st">"My Company"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"header_left_2"</span>, <span class="st">"&lt;PROJECT&gt; / &lt;INDICATION&gt;"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -179,6 +185,7 @@ Whilst <strong>rtables</strong> are not directly supported, we can use <strong>r
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
+<li><a href="https://cloud.r-project.org/package=gridify" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/pharmaverse/gridify/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/pharmaverse/gridify/issues" class="external-link">Report a bug</a></li>
 </ul>
