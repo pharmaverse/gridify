@@ -2,6 +2,8 @@
 
 [![R-CMD-check](https://github.com/pharmaverse/gridify/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pharmaverse/gridify/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/pharmaverse/gridify/graph/badge.svg)](https://app.codecov.io/gh/pharmaverse/gridify)
+[![pharmaverse gridify Badge](http://pharmaverse.org/shields/gridify.svg)](https://pharmaverse.org)
+[![CRAN status](https://www.r-pkg.org/badges/version/gridify)](https://CRAN.R-project.org/package=gridify)
 
 ## Overview
 
@@ -32,9 +34,15 @@ inputs are converted to a `grob` object in `gridify` and the result of using
 
 ## Installation
 
-If `gridify` is not yet on CRAN, you can install it from Pharmaverse GitHub (example):
+You can install the newest release version from CRAN:
 
-``` r
+```r
+install.packages("gridify")
+```
+
+Or you can install the newest development version from Pharmaverse GitHub (example):
+
+```r
 # install.packages("remotes")
 remotes::install_github("pharmaverse/gridify", build_manual = TRUE)
 ```
@@ -46,13 +54,14 @@ The workflow of the package is as follows:
 1.  Create your object (`ggplot`, `gt` etc.)
 2.  Choose a layout (predefined or custom). Use `get_layouts()` to see the predefined options
 3.  Use `gridify()` to create a `gridify` object
-4.  Use `set_cell()` to fill in the various text elements in the layout
+4.  Print the `gridify` object to see empty cells
+5.  Use `set_cell()` to fill in the various text elements in the layout
     (headers, footers etc.)
 
 The following example uses a table created by the `gt` package and the
 `gridify` layout `pharma_layout_base()`.
 
-``` r
+```r
 library(gridify)
 # install.packages("gt")
 # gt needs gtable
@@ -68,16 +77,18 @@ tab <- gt::gt(head(mtcars, n = 10))  |>
     table.font.size = 12
   )
 
+# Use `gridify()` to create a `gridify` object
 gridify_object <- gridify(
   object = tab,
+  # Choose a layout (predefined or custom)
   layout = pharma_layout_base(
     margin = grid::unit(c(0.5, 0.5, 0.5, 0.5), "inches"),
     global_gpar = grid::gpar(fontfamily = "serif", fontsize = 10)
   )
 )
-
+# Print the `gridify` object to see empty cells
 gridify_object
-
+# Use `set_cell()` to fill in the various text elements in the layout (headers etc.)
 gridify_object_fill <- gridify_object |>
   set_cell("header_left_1", "My Company") |>
   set_cell("header_left_2", "<PROJECT> / <INDICATION>") |>

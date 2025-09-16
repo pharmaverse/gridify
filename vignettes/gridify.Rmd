@@ -40,16 +40,17 @@ Because `gridify` is based on a graphical system, even tables become graphical o
 
 ## Installation
 
-If `gridify` is not yet on CRAN, you can install it from Pharmaverse GitHub (example):
+You can install the newest release version from CRAN:
 
 ```r
-devtools::install_github("pharmaverse/gridify", dependencies = TRUE, build_manual = TRUE, build_vignettes = TRUE)
+install.packages("gridify")
 ```
 
-or from the source after `git clone`, for example:
+Or you can install the newest development version from Pharmaverse GitHub (example):
 
 ```r
-devtools::install("gridify")
+# install.packages("remotes")
+remotes::install_github("pharmaverse/gridify", build_manual = TRUE)
 ```
 
 Then load **gridify**:
