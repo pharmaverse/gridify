@@ -24,7 +24,7 @@ URL: https://pharmaverse.github.io/gridify/
 BugReports: https://github.com/pharmaverse/gridify/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Imports: 
     grid,
     methods
@@ -51,6 +51,7 @@ Collate:
     pharma_layout.R
     get_layouts.R
     layout_issues.R
+    pagination_utils.R
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Language: en-GB
