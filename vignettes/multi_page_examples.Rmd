@@ -190,9 +190,10 @@ Large tables can be difficult to display on a single page, with the shrunken dim
 library(gt)
 ```
 
-### Splitting By Rows for PDF or DOCX
+### Splitting By Rows for PDF
 
-If you are dealing with an extensive table, displaying all the data on a single page can make it difficult to read. This is where splitting the table based on the number of rows is an effective solution. Let's see how this can be implemented.
+If you are dealing with an extensive table, displaying all the data on a single page can make it difficult to read. 
+This is where splitting the table based on the number of rows is an effective solution. Let's see how this can be implemented.
 
 #### Using the `paginate_table()` Helper Function (Recommended)
 
@@ -207,8 +208,7 @@ rows_per_page <- 10
 pages <- paginate_table(
   df,
   rows_per_page = rows_per_page,
-  fill_last_page = TRUE,  # Optional: fills last page with empty rows for consistent positioning
-  page_col = NULL         # Optional: set to NULL to avoid adding a page_number column
+  fill_last_page = TRUE  # Optional: fills last page with empty rows for consistent positioning
 )
 
 number_of_pages <- length(pages)

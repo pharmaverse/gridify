@@ -4,12 +4,7 @@
 \alias{paginate_table}
 \title{Split a data frame into pages for multi-page tables}
 \usage{
-paginate_table(
-  data,
-  rows_per_page,
-  fill_last_page = FALSE,
-  page_col = "page_number"
-)
+paginate_table(data, rows_per_page, fill_last_page = FALSE)
 }
 \arguments{
 \item{data}{A data frame to split into pages.}
@@ -19,13 +14,9 @@ paginate_table(
 \item{fill_last_page}{Logical. Whether to fill the last page with empty rows to match \code{rows_per_page}.
 Default is \code{FALSE}. When \code{TRUE}, empty rows are added to the last page so all pages have
 the same number of rows, which helps with consistent vertical positioning.}
-
-\item{page_col}{Character string. Name of the column to add that indicates page number.
-Default is \code{"page_number"}. Set to \code{NULL} to not add a page column.}
 }
 \value{
-A list of data frames, one for each page. If \code{page_col} is not \code{NULL}, each data frame
-will include a column with the page number.
+A list of data frames, one for each page.
 }
 \description{
 A lightweight utility function to split a data frame into pages based on the number of rows per page.
@@ -50,7 +41,7 @@ nrow(pages_filled[[1]])  # 10 rows
 nrow(pages_filled[[length(pages_filled)]])  # Also 10 rows (filled with empty rows)
 
 # Without page column
-pages_no_col <- paginate_table(mtcars, rows_per_page = 10, page_col = NULL)
+pages_no_col <- paginate_table(mtcars, rows_per_page = 10)
 
 # Complete workflow example (not run)
 library(gridify)

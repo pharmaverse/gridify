@@ -24,28 +24,10 @@ test_that("paginate_table fills last page when requested", {
   expect_equal(last_page[10, 1], " ")
 })
 
-test_that("paginate_table adds page column by default", {
+test_that("paginate_table works without page column", {
   pages <- paginate_table(mtcars, rows_per_page = 10)
 
-  expect_true("page_number" %in% colnames(pages[[1]]))
-  expect_equal(unique(pages[[1]]$page_number), 1)
-  expect_equal(unique(pages[[2]]$page_number), 2)
-  expect_equal(unique(pages[[3]]$page_number), 3)
-  expect_equal(unique(pages[[4]]$page_number), 4)
-})
-
-test_that("paginate_table works without page column", {
-  pages <- paginate_table(mtcars, rows_per_page = 10, page_col = NULL)
-
-  expect_false("page_number" %in% colnames(pages[[1]]))
   expect_equal(ncol(pages[[1]]), ncol(mtcars))
-})
-
-test_that("paginate_table works with custom page column name", {
-  pages <- paginate_table(mtcars, rows_per_page = 10, page_col = "my_page")
-
-  expect_true("my_page" %in% colnames(pages[[1]]))
-  expect_false("page_number" %in% colnames(pages[[1]]))
 })
 
 test_that("paginate_table validates inputs correctly", {
@@ -68,11 +50,6 @@ test_that("paginate_table validates inputs correctly", {
     paginate_table(mtcars, 10, fill_last_page = "yes"),
     "`fill_last_page` must be TRUE or FALSE"
   )
-
-  expect_error(
-    paginate_table(mtcars, 10, page_col = c("page1", "page2")),
-    "`page_col` must be NULL or a single character string"
-  )
 })
 
 test_that("paginate_table handles edge cases", {
@@ -94,7 +71,7 @@ test_that("paginate_table handles edge cases", {
 })
 
 test_that("paginate_table preserves data integrity", {
-  pages <- paginate_table(mtcars, rows_per_page = 10, page_col = NULL)
+  pages <- paginate_table(mtcars, rows_per_page = 10)
 
   # Recombine all pages (excluding filled rows)
   combined <- do.call(rbind, pages)

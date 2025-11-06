@@ -9,12 +9,9 @@
 #' @param fill_last_page Logical. Whether to fill the last page with empty rows to match `rows_per_page`.
 #'   Default is `FALSE`. When `TRUE`, empty rows are added to the last page so all pages have
 #'   the same number of rows, which helps with consistent vertical positioning.
-#' @param page_col Character string. Name of the column to add that indicates page number.
-#'   Default is `"page_number"`. Set to `NULL` to not add a page column.
 #'
-#' @return A list of data frames, one for each page. If `page_col` is not `NULL`, each data frame
-#'   will include a column with the page number.
-#'
+#' @return A list of data frames, one for each page. 
+#' 
 #' @details
 #' This is a simple utility to help with the common task of paginating large tables.
 #' After splitting the data, you can use a loop to create multiple `gridify` objects
@@ -36,7 +33,7 @@
 #' nrow(pages_filled[[length(pages_filled)]])  # Also 10 rows (filled with empty rows)
 #'
 #' # Without page column
-#' pages_no_col <- paginate_table(mtcars, rows_per_page = 10, page_col = NULL)
+#' pages_no_col <- paginate_table(mtcars, rows_per_page = 10)
 #'
 #' # Complete workflow example (not run)
 #' library(gridify)
@@ -64,8 +61,7 @@
 paginate_table <- function(
     data,
     rows_per_page,
-    fill_last_page = FALSE,
-    page_col = "page_number"
+    fill_last_page = FALSE
 ) {
     # Validate inputs
     if (!is.data.frame(data)) {
@@ -86,38 +82,20 @@ paginate_table <- function(
         stop("`fill_last_page` must be TRUE or FALSE.")
     }
 
-    if (
-        !(is.null(page_col) ||
-            (is.character(page_col) && length(page_col) == 1))
-    ) {
-        stop("`page_col` must be NULL or a single character string.")
-    }
-
     # Calculate number of pages
     number_of_rows <- nrow(data)
     number_of_pages <- ceiling(number_of_rows / rows_per_page)
 
-    # Add page number column if requested
-    if (!is.null(page_col)) {
-        data[[page_col]] <- rep(
-            seq_len(number_of_pages),
-            each = rows_per_page,
-            length.out = number_of_rows
-        )
 
-        # Split by page
-        pages <- split(data, data[[page_col]])
-    } else {
-        # Create page assignments without adding column
-        page_assignments <- rep(
-            seq_len(number_of_pages),
-            each = rows_per_page,
-            length.out = number_of_rows
-        )
+    # Create page assignments without adding column
+    page_assignments <- rep(
+        seq_len(number_of_pages),
+        each = rows_per_page,
+        length.out = number_of_rows
+    )
 
-        # Split by page
-        pages <- split(data, page_assignments)
-    }
+    # Split by page
+    pages <- split(data, page_assignments)
 
     # Fill last page if requested
     if (fill_last_page) {
