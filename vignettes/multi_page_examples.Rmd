@@ -216,40 +216,6 @@ number_of_pages <- length(pages)
 
 This is the recommended approach as it's simpler and handles edge cases automatically.
 
-#### Manual Splitting (Alternative Method)
-
-Alternatively, you can split the table manually if you need more control:
-
-```{r, eval = FALSE}
-# Allocate each row to a page
-df$page_number <- rep(
-  1:number_of_pages,
-  each = rows_per_page,
-  length.out = nrow(df)
-)
-
-# Split original table into smaller pages
-pages <- split(df, df$page_number)
-```
-
-### OPTIONAL - Fill last table with empty rows
-
-When using `paginate_table()`, simply set `fill_last_page = TRUE` (as shown above).
-
-For manual splitting, if the last table doesn't meet the `rows_per_page` specification, it will appear as if it was placed in the middle of the page.
-For it to be placed at the top, the following code will add empty rows to the last table until there are `rows_per_page` rows.
-
-```{r, eval = FALSE}
-last_page <- pages[[number_of_pages]]
-last_page_nrows <- nrow(last_page)
-if (last_page_nrows < rows_per_page) {
-  rows_difference <- rows_per_page - last_page_nrows
-  append_table <- data.frame(matrix(" ", nrow = rows_difference, ncol = ncol(df)))
-  colnames(append_table) <- colnames(df)
-  pages[[number_of_pages]] <- rbind(last_page, append_table)
-}
-```
-
 Finally, we generate each page of the output, by converting each table into a `gtable` with the `gt` package then looping over the `gridify` function. 
 
 ```{r, fig.width=7.2, fig.height=7}
