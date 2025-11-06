@@ -39,7 +39,6 @@
 #' pages_no_col <- paginate_table(mtcars, rows_per_page = 10, page_col = NULL)
 #'
 #' # Complete workflow example (not run)
-#' \dontrun{
 #' library(gridify)
 #' library(gt)
 #' library(magrittr)
@@ -58,8 +57,8 @@
 #' })
 #'
 #' # Export as multi-page PDF
-#' export_to(gridify_list, "my_table.pdf")
-#' }
+#' temp_my_multipage_table <- tempfile(fileext = ".pdf")
+#' export_to(gridify_list, temp_my_multipage_table)
 #'
 #' @export
 paginate_table <- function(
