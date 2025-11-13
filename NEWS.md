@@ -1,5 +1,7 @@
-# gridify 0.7.4.9000
+# gridify 0.7.5
 
+* Added new `paginate_table()` helper function to simplify splitting data frames into pages for multi-page tables.
+* Updated multi-page vignette to demonstrate the new `paginate_table()` function.
 * Updated `README.md` file.
 
 # gridify 0.7.4

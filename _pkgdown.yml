@@ -43,6 +43,10 @@ reference:
      - pharma_layout_letter
      - layout_issue
 
+  - subtitle: gridify utils
+    contents:
+     - paginate_table
+
   - title: gridify custom layout development
   - subtitle: functions
     contents:
