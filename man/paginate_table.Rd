@@ -89,6 +89,8 @@ pages_combined_filled <- paginate_table(
 
 library(gridify)
 library(gt)
+# (to use |> version 4.1.0 of R is required, for lower versions we recommend \%>\% from magrittr)
+library(magrittr)
 
 # Regular Example with gt
 
@@ -100,7 +102,7 @@ font_type <- "serif"
 
 # Create gridify objects for each page
 gridify_list <- lapply(seq_along(pages), function(page) {
-  gt_table <- gt::gt(pages[[page]]) |>
+  gt_table <- gt::gt(pages[[page]]) \%>\%
     gt::tab_options(
       table.width = pct(80),
       data_row.padding = px(row_height_pixels),
@@ -111,8 +113,8 @@ gridify_list <- lapply(seq_along(pages), function(page) {
   gridify(
     gt_table,
     layout = pharma_layout_A4(global_gpar = grid::gpar(fontfamily = font_type))
-  ) |>
-    set_cell("title_1", "My Multi-Page Table") |>
+  ) \%>\%
+    set_cell("title_1", "My Multi-Page Table") \%>\%
     set_cell("footer_right", paste("Page", page, "of", length(pages)))
 })
 
@@ -130,7 +132,7 @@ font_type <- "serif"
 
 # Create gridify objects for each page
 gridify_list <- lapply(seq_along(pages), function(page) {
-  gt_table <- gt::gt(pages[[page]]) |>
+  gt_table <- gt::gt(pages[[page]]) \%>\%
     gt::tab_options(
       table.width = pct(80),
       data_row.padding = px(row_height_pixels),
@@ -141,9 +143,9 @@ gridify_list <- lapply(seq_along(pages), function(page) {
   gridify(
     gt_table,
     layout = pharma_layout_A4(global_gpar = grid::gpar(fontfamily = font_type))
-  ) |>
-    set_cell("title_1", "My Multi-Page Table") |>
-    set_cell("by_line", sprintf("cyl is equal to \%s", names(pages)[page])) |>
+  ) \%>\%
+    set_cell("title_1", "My Multi-Page Table") \%>\%
+    set_cell("by_line", sprintf("cyl is equal to \%s", names(pages)[page])) \%>\%
     set_cell("footer_right", paste("Page", page, "of", length(pages)))
 })
 
