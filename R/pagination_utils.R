@@ -179,62 +179,49 @@ paginate_table <- function(
     stop("`fill_empty` must be NULL or a single character string.")
   }
 
-  # Split data based on method
-  if (!is.null(split_by) && is.null(rows_per_page)) {
+    # Split data based on method
+  if (!is.null(split_by)) {
     # Split by column values only - keep names
-    pages <- split(data, data[[split_by]], drop = TRUE)
-  } else if (!is.null(split_by) && !is.null(rows_per_page)) {
-    # Split by column first, then paginate within each group
     groups <- split(data, data[[split_by]], drop = TRUE)
-    group_names <- names(groups)
-
-    pages <- list()
-    page_names <- character()
-
-    for (i in seq_along(groups)) {
-      group <- groups[[i]]
-      group_name <- group_names[i]
-      group_rows <- nrow(group)
-
-      if (group_rows <= rows_per_page) {
-        # Group fits in one page
-        pages <- c(pages, list(group))
-        page_names <- c(page_names, group_name)
-      } else {
-        # Split group into multiple pages
-        n_pages <- ceiling(group_rows / rows_per_page)
-        page_assignments <- rep(
-          seq_len(n_pages),
-          each = rows_per_page,
-          length.out = group_rows
-        )
-        group_pages <- split(group, page_assignments)
-        pages <- c(pages, group_pages)
-        # Repeat group name for each page in this group
-        page_names <- c(page_names, rep(group_name, n_pages))
-      }
-    }
-
-    names(pages) <- page_names
-  } else {
-    # Split by rows per page only
-    number_of_rows <- nrow(data)
-    number_of_pages <- ceiling(number_of_rows / rows_per_page)
-
-    page_assignments <- rep(
-      seq_len(number_of_pages),
-      each = rows_per_page,
-      length.out = number_of_rows
-    )
-
-    pages <- split(data, page_assignments)
-    names(pages) <- NULL
+    # if rows_per_page is null then take max number of rows of the groups
+    if(is.null(rows_per_page)) rows_per_page <- max(unlist(lapply(groups, nrow)))
+  } else { 
+    # don't split by column, only have 1 element in list
+    groups <- list(data)
   }
+  group_names <- names(groups)
+  
+  pages <- list()
+  page_names <- character()
+
+  for(i in seq_along(groups)){
+    group <- groups[[i]]
+    group_name <- group_names[i]
+    group_rows <- nrow(group)
+    
+    if (group_rows <= rows_per_page) {
+      # Group fits in one page
+      pages <- c(pages, list(group))
+      page_names <- c(page_names, group_name)
+    } else {
+      # Split group into multiple pages
+      n_pages <- ceiling(group_rows / rows_per_page)
+      page_assignments <- rep(
+        seq_len(n_pages),
+        each = rows_per_page,
+        length.out = group_rows
+      )
+      group_pages <- split(group, page_assignments)
+      pages <- c(pages, group_pages)
+      # Repeat group name for each page in this group
+      page_names <- c(page_names, rep(group_name, n_pages))
+      
+    }
+  }
+  names(pages) <- if (!is.null(split_by)) page_names else NULL
 
   # Fill pages if requested
   if (!is.null(fill_empty)) {
-    # Calculate target rows for filling (max page size)
-    target_rows <- max(sapply(pages, nrow))
 
     pages <- lapply(pages, function(page) {
       page_nrows <- nrow(page)
