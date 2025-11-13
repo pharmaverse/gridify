@@ -222,15 +222,14 @@ paginate_table <- function(
   }
   names(pages) <- if (!is.null(split_by)) page_names else NULL
 
-  target_rows <- max(sapply(pages, nrow))
   # Fill pages if requested
   if (!is.null(fill_empty)) {
 
     pages <- lapply(pages, function(page) {
       page_nrows <- nrow(page)
 
-      if (page_nrows < target_rows) {
-        rows_difference <- target_rows - page_nrows
+      if (page_nrows < rows_per_page) {
+        rows_difference <- rows_per_page - page_nrows
 
         # Create empty rows with specified fill value
         empty_df <- data.frame(
