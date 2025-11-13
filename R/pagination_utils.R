@@ -94,8 +94,8 @@
 #' gridify_list <- lapply(seq_along(pages), function(page) {
 #'   gt_table <- gt::gt(pages[[page]]) %>%
 #'     gt::tab_options(
-#'       table.width = pct(80),
-#'       data_row.padding = px(row_height_pixels),
+#'       table.width = gt::pct(80),
+#'       data_row.padding = gt::px(row_height_pixels),
 #'       table.font.size = font_size,
 #'       table.font.names = font_type
 #'     )
@@ -124,8 +124,8 @@
 #' gridify_list <- lapply(seq_along(pages), function(page) {
 #'   gt_table <- gt::gt(pages[[page]]) %>%
 #'     gt::tab_options(
-#'       table.width = pct(80),
-#'       data_row.padding = px(row_height_pixels),
+#'       table.width = gt::pct(80),
+#'       data_row.padding = gt::px(row_height_pixels),
 #'       table.font.size = font_size,
 #'       table.font.names = font_type
 #'     )
