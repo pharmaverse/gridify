@@ -41,9 +41,6 @@ body:
 
         ```r
         library(gridify)
-        library(gt)
-        library(random.cdisc.data)
-
         example_custom_layout <- gridifyLayout(
             nrow = 3,
             ncol = 4,
@@ -66,64 +63,7 @@ body:
               footer_powered = gridifyCell(row = 3, col = 4, x = 0, hjust = 0)
             )
           )
-
-        gg <- gt::gt(
-          cadsl |>
-            dplyr::group_by(ARM, REGION1)|>
-            dplyr::summarise(
-              `MEAN AGE` = round(mean(AGE), 2), 
-              `MEAN BMRKR1` = round(mean(BMRKR1), 2)
-            )
-        ) |>
-          gt::tab_options(
-            table.width = gt::pct(80),  # Increased from 10% to 80%
-            data_row.padding = gt::px(10),
-            table_body.hlines.color = "black",table.font.color = "black", 
-            table.font.weight = "bold",row_group.font.weight = "bold",
-            table.font.size = 14,
-            # Add complementary blue background styling
-            table.background.color = "white",  # Slightly lighter blue than layout
-            heading.background.color = "white",
-            column_labels.background.color = "white",
-            table_body.border.top.color = "white",
-            table_body.border.bottom.color = "white"
-          ) |>
-          # Use tab_style() to set font colors to white for visibility on blue background
-          gt::tab_style(
-            style = gt::cell_text(color = "black", weight = "bold"),
-            locations = gt::cells_column_labels()
-          ) |>
-          gt::tab_style(
-            style = gt::cell_text(color = "#00158F", weight = "bold"),
-            locations = gt::cells_column_labels()
-          ) |>
-          gt::tab_style(
-            style = gt::cell_text(color = "#00158F", weight = "bold"),
-            locations = gt::cells_row_groups()
-          )
-
-        gridify_object <- gridify(
-          object = gg,
-          layout = example_custom_layout
-        )
-
-        gridify_object_fill <- gridify_object |>
-          set_cell("title", "Gridify's Creative Call") |> #, gpar = grid::gpar(col = "#B8E2F4")) |>
-          set_cell("poem", "'When standard layouts feel too plain,
-        And your reports need that custom flair,
-        Gridify invites you to design and share,
-        A layout that shows how much you care.
-        With flexible styling for every text,
-        Create something bold, something complex,
-        Scan the QR code, propose your best,
-        Join the community, pass the creative test.
-        From corporate branding to research needs,
-        Your custom layout plants the seeds,
-        For others seeking that perfect frame,
-        To showcase data and stake their claim.'\nAnonymous", gpar = grid::gpar(fontface = "bold.italic")) |>
-          set_cell("footer_company", "UCB team") |> #, gpar = grid::gpar(col = "#B8E2F4")) |>
-          set_cell("footer_powered", "Powered by gridify", gpar = grid::gpar(fontsize = 18, fontface = "bold")) |>
-          print()
         ```
     validations:
       required: false
+
