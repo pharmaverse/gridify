@@ -2,6 +2,8 @@
 
 ## gridify 0.7.5
 
+CRAN release: 2025-11-13
+
 - Added new
   [`paginate_table()`](https://pharmaverse.github.io/gridify/reference/paginate_table.md)
   helper function to simplify splitting data frames into pages for
