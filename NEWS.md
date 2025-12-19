@@ -1,3 +1,7 @@
+# gridify 0.7.6
+
+* Require a new stable `rtables` version, caused by `rtables` CRAN errors. 
+
 # gridify 0.7.5
 
 * Added new `paginate_table()` helper function to simplify splitting data frames into pages for multi-page tables.
