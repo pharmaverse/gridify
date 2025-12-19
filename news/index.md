@@ -1,5 +1,10 @@
 # Changelog
 
+## gridify 0.7.6
+
+- Require a new stable `rtables` version, caused by `rtables` CRAN
+  errors.
+
 ## gridify 0.7.5
 
 CRAN release: 2025-11-13

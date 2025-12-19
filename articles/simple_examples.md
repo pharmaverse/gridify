@@ -370,10 +370,10 @@ rtabl <- rtables::basic_table(main_footer = " ") %>%
 ```
 
 Then we convert the `rtable` to a `flextable` using the function
-[`tt_to_flextable()`](https://insightsengineering.github.io/rtables.officer/latest-release/reference/tt_to_flextable.html)
+[`tt_to_flextable()`](https://insightsengineering.github.io/rtables.officer/latest-tag/reference/tt_to_flextable.html)
 from the `rtables.officer` package. We specify `theme = NULL` to prevent
 the addition of borders which
-[`tt_to_flextable()`](https://insightsengineering.github.io/rtables.officer/latest-release/reference/tt_to_flextable.html)
+[`tt_to_flextable()`](https://insightsengineering.github.io/rtables.officer/latest-tag/reference/tt_to_flextable.html)
 adds by default.
 
 ``` r

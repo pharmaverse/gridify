@@ -65,7 +65,7 @@ library(magrittr)
 Below is a minimal example using `ggplot2` for demonstration. The same
 approach works for `gt`, `flextable`, or base R figures.  
 For `rtables`, convert them into a `flextable` using
-[`rtables.officer::tt_to_flextable()`](https://insightsengineering.github.io/rtables.officer/latest-release/reference/tt_to_flextable.html)
+[`rtables.officer::tt_to_flextable()`](https://insightsengineering.github.io/rtables.officer/latest-tag/reference/tt_to_flextable.html)
 before following this approach.
 
 ### 1. Create a Figure
@@ -383,7 +383,7 @@ final_grob
 #>             "cm", "null", "cm", "lines", "cm", "cm")), widths = grid::unit(c(0.33, 
 #>         0.33, 0.33), c("npc", "npc", "npc")))))))
 #> attr(,"env")
-#> <environment: 0x5620c885dee0>
+#> <environment: 0x55ec567b6300>
 ```
 
 `gridify` uses meta-programming to capture all `grid` calls needed to
