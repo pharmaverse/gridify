@@ -1,3 +1,8 @@
+# gridify 0.7.7
+
+* Updated `README.md` file.
+* Fixed description how to convert pixels to points.
+
 # gridify 0.7.6
 
 * Require a new stable `rtables` version, caused by `rtables` CRAN errors. 
