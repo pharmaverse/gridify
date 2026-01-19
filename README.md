@@ -74,7 +74,10 @@ tab <- gt::gt(head(mtcars, n = 10))  |>
     table.width = gt::pct(100),
     data_row.padding = gt::px(10),
     table_body.hlines.color = "white",
-    table.font.size = 12
+    # By default in gt font size is in pixels
+    # Multiply by 96/72 to get points
+    table.font.size = 10 * 96 / 72,
+    table.font.names = "sans"
   )
 
 # Use `gridify()` to create a `gridify` object
@@ -83,7 +86,7 @@ gridify_object <- gridify(
   # Choose a layout (predefined or custom)
   layout = pharma_layout_base(
     margin = grid::unit(c(0.5, 0.5, 0.5, 0.5), "inches"),
-    global_gpar = grid::gpar(fontfamily = "serif", fontsize = 10)
+    global_gpar = grid::gpar(fontfamily = "sans", fontsize = 10)
   )
 )
 # Print the `gridify` object to see empty cells
