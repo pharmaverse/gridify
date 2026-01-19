@@ -1,4 +1,4 @@
-# gridify 0.7.7
+# gridify 0.7.6.9000
 
 * Updated `README.md` file.
 * Fixed description how to convert pixels to points.
