@@ -32,7 +32,8 @@ We will cover the use of `simple_layout()`, `complex_layout()`, `pharma_layout_b
 `pharma_layout_letter()`, and show how to add these layouts to `ggplot2` figures, base R figures, `flextables`, and `gt` tables.
 
 `gridify` does not support `rtables` directly, but we will demonstrate how users can implement `gridify` with `rtables` 
-by converting them to `flextables`.
+by converting them to `flextables` (with **rtables.officer**).
+
 
 ## Examples with Figures
 
@@ -312,7 +313,7 @@ aesthetics.
 
 Here we build a simple `rtable` using the `iris` dataset.
 
-```{r, message = FALSE}
+```{r, eval=FALSE}
 library(rtables)
 rtabl <- rtables::basic_table(main_footer = " ") %>%
   rtables::split_cols_by("Species") %>%
@@ -333,7 +334,7 @@ rtabl <- rtables::basic_table(main_footer = " ") %>%
 Then we convert the `rtable` to a `flextable` using the function `tt_to_flextable()` from the `rtables.officer` package. 
 We specify `theme = NULL` to prevent the addition of borders which `tt_to_flextable()` adds by default.
 
-```{r}
+```{r, eval=FALSE}
 library(rtables.officer)
 
 ft <- rtables.officer::tt_to_flextable(rtabl, theme = NULL)
@@ -341,13 +342,13 @@ ft <- rtables.officer::tt_to_flextable(rtabl, theme = NULL)
 
 Next we adjust some of the aesthetics of the `flextable`.
 
-```{r}
+```{r, eval=FALSE}
 ft <- flextable::font(ft, fontname = "serif", part = "all")
 ```
 
 Finally we pass the `flextable` to `gridify()` and apply `pharma_layout_A4()`, before printing the table.
 
-```{r, fig.width = 7, fig.height = 5.5}
+```{r, eval=FALSE, fig.width = 7, fig.height = 5.5}
 g <- gridify(ft, layout = pharma_layout_A4()) %>%
   set_cell("header_left_1", "My Company") %>%
   set_cell("header_left_2", "PROJECT") %>%
