@@ -118,7 +118,7 @@ When specifying font sizes, the \code{gt} package interprets values as having th
 unit pixels (\code{px}), whilst the \code{grid} package, on which \code{gridify} is built,
 assumes points (\code{pt}). As a result, even if you set the font sizes in both
 \code{gt} and \code{gridify} (using \code{grid::gpar()}) to the same number, they may
-still appear different. To convert point size to pixel size, multiply the point size by 4/3.
+still appear different. To convert point size to pixel size, multiply the point size by \code{96 / 72}.
 }
 \examples{
 complex_layout()

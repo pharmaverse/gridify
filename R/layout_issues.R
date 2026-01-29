@@ -71,7 +71,7 @@
 #' unit pixels (`px`), whilst the `grid` package, on which `gridify` is built,
 #' assumes points (`pt`). As a result, even if you set the font sizes in both
 #' `gt` and `gridify` (using `grid::gpar()`) to the same number, they may
-#' still appear different. To convert point size to pixel size, multiply the point size by 4/3.
+#' still appear different. To convert point size to pixel size, multiply the point size by `96 / 72`.
 #'
 #' @name layout_issue
 NULL
