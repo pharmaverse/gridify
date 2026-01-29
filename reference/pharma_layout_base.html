@@ -155,7 +155,7 @@ Try resizing your window:</p>
 unit pixels (<code>px</code>), whilst the <code>grid</code> package, on which <code>gridify</code> is built,
 assumes points (<code>pt</code>). As a result, even if you set the font sizes in both
 <code>gt</code> and <code>gridify</code> (using <code><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">grid::gpar()</a></code>) to the same number, they may
-still appear different. To convert point size to pixel size, multiply the point size by 4/3.</p>
+still appear different. To convert point size to pixel size, multiply the point size by <code>96 / 72</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

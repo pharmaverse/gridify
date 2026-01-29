@@ -79,7 +79,7 @@ built, assumes points (`pt`). As a result, even if you set the font
 sizes in both `gt` and `gridify` (using
 [`grid::gpar()`](https://rdrr.io/r/grid/gpar.html)) to the same number,
 they may still appear different. To convert point size to pixel size,
-multiply the point size by 4/3.
+multiply the point size by `96 / 72`.
 
 ## Available Layouts
 

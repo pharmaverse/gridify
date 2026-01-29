@@ -109,7 +109,10 @@
 <span>    table.width <span class="op">=</span> <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/pct.html" class="external-link">pct</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>,</span>
 <span>    data_row.padding <span class="op">=</span> <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/px.html" class="external-link">px</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>,</span>
 <span>    table_body.hlines.color <span class="op">=</span> <span class="st">"white"</span>,</span>
-<span>    table.font.size <span class="op">=</span> <span class="fl">12</span></span>
+<span>    <span class="co"># gt font size is in pixels</span></span>
+<span>    <span class="co"># Multiply points by 96/72 to get pixels</span></span>
+<span>    table.font.size <span class="op">=</span> <span class="fl">10</span> <span class="op">*</span> <span class="fl">96</span> <span class="op">/</span> <span class="fl">72</span>,</span>
+<span>    table.font.names <span class="op">=</span> <span class="st">"sans"</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Use `gridify()` to create a `gridify` object</span></span>
@@ -118,7 +121,7 @@
 <span>  <span class="co"># Choose a layout (predefined or custom)</span></span>
 <span>  layout <span class="op">=</span> <span class="fu"><a href="reference/pharma_layout_base.html">pharma_layout_base</a></span><span class="op">(</span></span>
 <span>    margin <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span><span class="op">)</span>, <span class="st">"inches"</span><span class="op">)</span>,</span>
-<span>    global_gpar <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontfamily <span class="op">=</span> <span class="st">"serif"</span>, fontsize <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span>    global_gpar <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontfamily <span class="op">=</span> <span class="st">"sans"</span>, fontsize <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co"># Print the `gridify` object to see empty cells</span></span>
