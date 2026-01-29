@@ -1,5 +1,10 @@
 # Changelog
 
+## gridify 0.7.6.9000
+
+- Removed `rtables` examples as installation of `rtables.officer`
+  requires R \>= 4.4.0.
+
 ## gridify 0.7.6
 
 - Require a new stable `rtables` version, caused by `rtables` CRAN

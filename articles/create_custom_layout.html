@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gridify</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.6.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,7 +94,7 @@ added. Each cell is then defined by the rows and columns it spans.</p>
 <span><span class="co"># In the simple_layout there are three rows and one column</span></span>
 <span><span class="co"># creating a grid of three cells vertically.</span></span>
 <span><span class="fu"><a href="../reference/show_layout.html">show_layout</a></span><span class="op">(</span><span class="fu"><a href="../reference/simple_layout.html">simple_layout</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="create_custom_layout_files/figure-html/layout-basics-1.png" class="r-plt" width="672"></p>
+<p><img src="create_custom_layout_files/figure-html/layout-basics-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="example-layout">Example Layout<a class="anchor" aria-label="anchor" href="#example-layout"></a>
@@ -126,7 +126,7 @@ added. Each cell is then defined by the rows and columns it spans.</p>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"company"</span>, <span class="st">"Company Ltd"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"title"</span>, <span class="st">"This is my title"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer"</span>, <span class="st">"This is a very long footer with lots of words"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="create_custom_layout_files/figure-html/example-layout-1.png" class="r-plt" width="672"></p>
+<p><img src="create_custom_layout_files/figure-html/example-layout-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="nrow-and-ncol">Nrow and Ncol<a class="anchor" aria-label="anchor" href="#nrow-and-ncol"></a>
@@ -294,7 +294,7 @@ element, with any remaining space allocated to the object.</p>
 <span><span class="co">#&gt;     row:3, col:1, text:NULL, mch:Inf, x:0.5, y:0.5, hjust:0.5, vjust:0.5, rot:0,</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/show_layout.html">show_layout</a></span><span class="op">(</span><span class="fu"><a href="../reference/simple_layout.html">simple_layout</a></span><span class="op">(</span>scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="create_custom_layout_files/figure-html/show-scales-argument-free-1.png" class="r-plt" width="672"></p>
+<p><img src="create_custom_layout_files/figure-html/show-scales-argument-free-1.png" class="r-plt" alt="" width="672"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/simple_layout.html">simple_layout</a></span><span class="op">(</span>scales <span class="op">=</span> <span class="st">"fixed"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; gridifyLayout object</span></span>
@@ -340,7 +340,7 @@ element, with any remaining space allocated to the object.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># As no lines were defined, the object takes up the whole space below</span></span>
 <span><span class="fu"><a href="../reference/show_layout.html">show_layout</a></span><span class="op">(</span><span class="fu"><a href="../reference/simple_layout.html">simple_layout</a></span><span class="op">(</span>scales <span class="op">=</span> <span class="st">"fixed"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="create_custom_layout_files/figure-html/show-scales-argument-fixed-1.png" class="r-plt" width="672"></p>
+<p><img src="create_custom_layout_files/figure-html/show-scales-argument-fixed-1.png" class="r-plt" alt="" width="672"></p>
 <p>Below is an example of how to add scales to a custom layout with
 options being <code>npc</code> or <code>lines</code>.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
@@ -416,7 +416,7 @@ options being <code>npc</code> or <code>lines</code>.</p>
 <span><span class="co">#&gt;   footer:</span></span>
 <span><span class="co">#&gt;     row:3, col:1, text:NULL, mch:Inf, x:0.5, y:0.5, hjust:0.5, vjust:0.5, rot:0,</span></span>
 <span><span class="fu"><a href="../reference/show_layout.html">show_layout</a></span><span class="op">(</span><span class="fu">scales_example_layout</span><span class="op">(</span>scales <span class="op">=</span> <span class="st">"npc"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="create_custom_layout_files/figure-html/how-add-scales-custom-layout-1.png" class="r-plt" width="672"></p>
+<p><img src="create_custom_layout_files/figure-html/how-add-scales-custom-layout-1.png" class="r-plt" alt="" width="672"></p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">scales_example_layout</span><span class="op">(</span>scales <span class="op">=</span> <span class="st">"lines"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; gridifyLayout object</span></span>
@@ -460,7 +460,7 @@ options being <code>npc</code> or <code>lines</code>.</p>
 <span><span class="co">#&gt;   footer:</span></span>
 <span><span class="co">#&gt;     row:3, col:1, text:NULL, mch:Inf, x:0.5, y:0.5, hjust:0.5, vjust:0.5, rot:0,</span></span>
 <span><span class="fu"><a href="../reference/show_layout.html">show_layout</a></span><span class="op">(</span><span class="fu">scales_example_layout</span><span class="op">(</span>scales <span class="op">=</span> <span class="st">"lines"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="create_custom_layout_files/figure-html/how-add-scales-custom-layout-2.png" class="r-plt" width="672"></p>
+<p><img src="create_custom_layout_files/figure-html/how-add-scales-custom-layout-2.png" class="r-plt" alt="" width="672"></p>
 <p>As you can see from the above example, the <code><a href="../reference/show_layout.html">show_layout()</a></code>
 function doesn’t always show the complete picture. This is especially
 visible when <code>lines</code> are set to have a height of 0 and space
@@ -594,7 +594,7 @@ the calls to <code><a href="../reference/set_cell.html">set_cell()</a></code>.</
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"title"</span>, <span class="st">"This is a title"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="co"># graphics specs can be overwritten in set_cell</span></span>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer"</span>, <span class="st">"This is a footer"</span>, gpar <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"purple"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="create_custom_layout_files/figure-html/default-graphical-parameters-1.png" class="r-plt" width="672"></p>
+<p><img src="create_custom_layout_files/figure-html/default-graphical-parameters-1.png" class="r-plt" alt="" width="672"></p>
 <p>The text element fonts can also be customized easily as per the user
 requirements.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
@@ -627,7 +627,7 @@ requirements.</p>
 <span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"title"</span>, <span class="st">"This is a title"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer"</span>, <span class="st">"This is a footer"</span>, gpar <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontface <span class="op">=</span> <span class="st">"bold.italic"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="create_custom_layout_files/figure-html/default-graphical-parameters-text-1.png" class="r-plt" width="672"></p>
+<p><img src="create_custom_layout_files/figure-html/default-graphical-parameters-text-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="default-cell-text">Default cell text<a class="anchor" aria-label="anchor" href="#default-cell-text"></a>
@@ -669,7 +669,7 @@ and overwrite the default.</p>
 <span><span class="co">#&gt;   company: filled</span></span>
 <span><span class="co">#&gt;   title: filled</span></span>
 <span><span class="co">#&gt;   footer: filled</span></span></code></pre></div>
-<p><img src="create_custom_layout_files/figure-html/default-cell-text-1.png" class="r-plt" width="672"></p>
+<p><img src="create_custom_layout_files/figure-html/default-cell-text-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="adding-a-watermark">Adding a Watermark<a class="anchor" aria-label="anchor" href="#adding-a-watermark"></a>
@@ -703,7 +703,7 @@ large and the rotation to 45 degrees.</p>
 <span>  layout <span class="op">=</span> <span class="va">new_layout</span></span>
 <span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"watermark"</span>, <span class="st">"DRAFT"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="create_custom_layout_files/figure-html/adding-watermark-1.png" class="r-plt" width="672"></p>
+<p><img src="create_custom_layout_files/figure-html/adding-watermark-1.png" class="r-plt" alt="" width="672"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

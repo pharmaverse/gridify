@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">gridify</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.6.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,8 +69,8 @@
 <p>In the pharmaceutical industry, and many other fields that rely heavily on data reporting, there is often a need to create figures and tables with specific graphical arrangements. These could be titles, subtitles, captions, footnotes, and other text elements that provide important context to the data being shown.</p>
 <p>However, creating the headers and footers etc. and correctly positioning them around the output can be challenging, often requiring fine-tuning. This can be time-consuming and can lead to inconsistencies in the way the figures and tables are presented across different projects.</p>
 <p><code>gridify</code> builds on the base R <code>grid</code> package and makes it easy to add flexible and customizable information around a figure or table using a pre-defined or custom layout. The <code>gridify</code> package works with all of the following input types, creating consistency when using various different inputs:</p>
-<p><strong>grob</strong>, <strong>gtable</strong>, <strong>ggplot</strong>, <strong>flextable</strong>, <strong>gt</strong>, <strong>base R plots (by formula)</strong><br>
-Whilst <strong>rtables</strong> are not directly supported, we can use <strong>rtables</strong> with <code>gridify</code> by first converting them to <strong>flextable</strong>.</p>
+<p><strong>grob</strong>, <strong>gtable</strong>, <strong>ggplot</strong>, <strong>flextable</strong>, <strong>gt</strong>, <strong>base R plots (by formula)</strong></p>
+<p>Whilst <strong>rtables</strong> are not directly supported, we can use <strong>rtables</strong> with <code>gridify</code> by first converting them to <strong>flextable</strong> (with <strong>rtables.officer</strong>).</p>
 <p>As <code>gridify</code> is based on the graphical tool <strong>grid</strong>, any figure or table inputs are converted to a <code>grob</code> object in <code>gridify</code> and the result of using <code>gridify</code> is always a graphical image.</p>
 </div>
 <div class="section level2">

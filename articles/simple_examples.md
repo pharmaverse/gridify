@@ -17,7 +17,7 @@ and show how to add these layouts to `ggplot2` figures, base R figures,
 
 `gridify` does not support `rtables` directly, but we will demonstrate
 how users can implement `gridify` with `rtables` by converting them to
-`flextables`.
+`flextables` (with **rtables.officer**).
 
 ## Examples with Figures
 
@@ -370,16 +370,14 @@ rtabl <- rtables::basic_table(main_footer = " ") %>%
 ```
 
 Then we convert the `rtable` to a `flextable` using the function
-[`tt_to_flextable()`](https://insightsengineering.github.io/rtables.officer/latest-tag/reference/tt_to_flextable.html)
+[`tt_to_flextable()`](https://insightsengineering.github.io/rtables.officer/latest-release/reference/tt_to_flextable.html)
 from the `rtables.officer` package. We specify `theme = NULL` to prevent
 the addition of borders which
-[`tt_to_flextable()`](https://insightsengineering.github.io/rtables.officer/latest-tag/reference/tt_to_flextable.html)
+[`tt_to_flextable()`](https://insightsengineering.github.io/rtables.officer/latest-release/reference/tt_to_flextable.html)
 adds by default.
 
 ``` r
 library(rtables.officer)
-#> Loading required package: rlistings
-#> Loading required package: tibble
 
 ft <- rtables.officer::tt_to_flextable(rtabl, theme = NULL)
 ```
@@ -414,8 +412,6 @@ g <- gridify(ft, layout = pharma_layout_A4()) %>%
 
 print(g)
 ```
-
-![](simple_examples_files/figure-html/unnamed-chunk-20-1.png)
 
 ## Using the `show()` Methods
 

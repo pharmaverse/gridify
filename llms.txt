@@ -28,9 +28,11 @@ the following input types, creating consistency when using various
 different inputs:
 
 **grob**, **gtable**, **ggplot**, **flextable**, **gt**, **base R plots
-(by formula)**  
+(by formula)**
+
 Whilst **rtables** are not directly supported, we can use **rtables**
-with `gridify` by first converting them to **flextable**.
+with `gridify` by first converting them to **flextable** (with
+**rtables.officer**).
 
 As `gridify` is based on the graphical tool **grid**, any figure or
 table inputs are converted to a `grob` object in `gridify` and the

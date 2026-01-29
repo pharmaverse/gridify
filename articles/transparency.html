@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gridify</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.6.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -123,7 +123,7 @@ the scenes:</p>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer_middle"</span>, <span class="st">"Middle Footer"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer_right"</span>, <span class="st">"Right Footer"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="transparency_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" width="672"></p>
+<p><img src="transparency_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" alt="" width="672"></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># The underlying grid call is returned invisibly by the print() method.</span></span>
@@ -172,13 +172,13 @@ the scenes:</p>
 <span><span class="co">#&gt;         0.4), c("cm", "cm", "cm", "null", "cm", "cm")), widths = grid::unit(c(0.33, </span></span>
 <span><span class="co">#&gt;         0.33, 0.33), c("npc", "npc", "npc")))))))</span></span>
 <span><span class="co">#&gt; attr(,"env")</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x55a2a9e44398&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; &lt;environment: 0x55e54be0b398&gt;</span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Retrieve the main object- either a figure or table</span></span>
 <span><span class="va">OBJECT</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">grid_call_behind</span>, <span class="st">"env"</span><span class="op">)</span><span class="op">[[</span><span class="st">"OBJECT"</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="co"># Redraw the graphics by eval of the grid call</span></span>
 <span><span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.draw.html" class="external-link">grid.draw</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eval.html" class="external-link">eval</a></span><span class="op">(</span><span class="va">grid_call_behind</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="transparency_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" width="672"></p>
+<p><img src="transparency_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="" width="672"></p>
 <p>Both of the graphics are the same.</p>
 <p>When you call <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> on a <code>gridify</code> object
 and assign it to a variable, <code>gridify</code> constructs and returns

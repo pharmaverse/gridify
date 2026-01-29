@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gridify</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.6.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,8 +81,8 @@ and show how to add these layouts to <code>ggplot2</code> figures, base
 R figures, <code>flextables</code>, and <code>gt</code> tables.</p>
 <p><code>gridify</code> does not support <code>rtables</code> directly,
 but we will demonstrate how users can implement <code>gridify</code>
-with <code>rtables</code> by converting them to
-<code>flextables</code>.</p>
+with <code>rtables</code> by converting them to <code>flextables</code>
+(with <strong>rtables.officer</strong>).</p>
 </div>
 <div class="section level2">
 <h2 id="examples-with-figures">Examples with Figures<a class="anchor" aria-label="anchor" href="#examples-with-figures"></a>
@@ -122,7 +122,7 @@ before the result is passed to the next function in the pipe.</p>
 <span>      <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">}</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 <div class="section level4">
 <h4 id="simple-layout-example">Simple Layout Example<a class="anchor" aria-label="anchor" href="#simple-layout-example"></a>
@@ -145,7 +145,7 @@ footer to our figure before printing it.</p>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer"</span>, <span class="st">"Footer"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 <div class="section level4">
 <h4 id="complex-layout-example">Complex Layout Example<a class="anchor" aria-label="anchor" href="#complex-layout-example"></a>
@@ -170,7 +170,7 @@ footer to our figure before printing it.</p>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer_right"</span>, <span class="st">"Right Footer"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 <div class="section level4">
 <h4 id="pharma-layout-examples">Pharma Layout Examples<a class="anchor" aria-label="anchor" href="#pharma-layout-examples"></a>
@@ -210,7 +210,7 @@ set by default but can be overwritten.</p>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"watermark"</span>, <span class="st">"Watermark"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 <div class="section level5">
 <h5 id="pharma-layout-letter-example">Pharma Layout Letter Example<a class="anchor" aria-label="anchor" href="#pharma-layout-letter-example"></a>
@@ -236,7 +236,7 @@ cells filled in.</p>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"watermark"</span>, <span class="st">"Draft"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 <div class="section level5">
 <h5 id="pharma-layout-a4-example">Pharma Layout A4 Example<a class="anchor" aria-label="anchor" href="#pharma-layout-a4-example"></a>
@@ -263,7 +263,7 @@ output.</p>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"watermark"</span>, <span class="st">"Draft"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 </div>
 </div>
@@ -294,7 +294,7 @@ a formula using <code>~</code>.</p>
 <span><span class="co">#&gt; Loading required namespace: gridGraphics</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-12-1.png" class="r-plt" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-12-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 </div>
 <div class="section level2">
@@ -334,7 +334,7 @@ dataset.</p>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer_left"</span>, <span class="st">"Program: &lt;PROGRAM NAME&gt;, YYYY-MM-DD at HH:MM"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer_right"</span>, <span class="st">"Page xx of nn"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-14-1.png" class="r-plt" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-14-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 <div class="section level3">
 <h3 id="example-with-a-gt-table">Example with a <code>gt</code> Table<a class="anchor" aria-label="anchor" href="#example-with-a-gt-table"></a>
@@ -365,7 +365,7 @@ dataset.</p>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer_right"</span>, <span class="st">"Page xx of nn"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-16-1.png" class="r-plt" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-16-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 <div class="section level3">
 <h3 id="example-with-an-rtable-via-flextable-conversion">Example with an <code>rtable</code> via <code>flextable</code>
@@ -393,16 +393,14 @@ conversion<a class="anchor" aria-label="anchor" href="#example-with-an-rtable-vi
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu">rtables</span><span class="fu">::</span><span class="fu"><a href="https://insightsengineering.github.io/rtables/latest-tag/reference/build_table.html" class="external-link">build_table</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span></code></pre></div>
 <p>Then we convert the <code>rtable</code> to a <code>flextable</code>
-using the function <code><a href="https://insightsengineering.github.io/rtables.officer/latest-tag/reference/tt_to_flextable.html" class="external-link">tt_to_flextable()</a></code> from the
+using the function <code><a href="https://insightsengineering.github.io/rtables.officer/latest-release/reference/tt_to_flextable.html" class="external-link">tt_to_flextable()</a></code> from the
 <code>rtables.officer</code> package. We specify
 <code>theme = NULL</code> to prevent the addition of borders which
-<code><a href="https://insightsengineering.github.io/rtables.officer/latest-tag/reference/tt_to_flextable.html" class="external-link">tt_to_flextable()</a></code> adds by default.</p>
+<code><a href="https://insightsengineering.github.io/rtables.officer/latest-release/reference/tt_to_flextable.html" class="external-link">tt_to_flextable()</a></code> adds by default.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/insightsengineering/rtables.officer" class="external-link">rtables.officer</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: rlistings</span></span>
-<span><span class="co">#&gt; Loading required package: tibble</span></span>
 <span></span>
-<span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu">rtables.officer</span><span class="fu">::</span><span class="fu"><a href="https://insightsengineering.github.io/rtables.officer/latest-tag/reference/tt_to_flextable.html" class="external-link">tt_to_flextable</a></span><span class="op">(</span><span class="va">rtabl</span>, theme <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">ft</span> <span class="op">&lt;-</span> <span class="fu">rtables.officer</span><span class="fu">::</span><span class="fu"><a href="https://insightsengineering.github.io/rtables.officer/latest-release/reference/tt_to_flextable.html" class="external-link">tt_to_flextable</a></span><span class="op">(</span><span class="va">rtabl</span>, theme <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
 <p>Next we adjust some of the aesthetics of the
 <code>flextable</code>.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
@@ -427,7 +425,6 @@ table.</p>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"watermark"</span>, <span class="st">"DRAFT"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-20-1.png" class="r-plt" width="672"></p>
 </div>
 </div>
 <div class="section level2">
@@ -460,7 +457,7 @@ been filled by the <code>gridify</code> object.</p>
 <span><span class="co">#&gt; Cells:</span></span>
 <span><span class="co">#&gt;   title: empty</span></span>
 <span><span class="co">#&gt;   footer: empty</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-23-1.png" class="r-plt" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-23-1.png" class="r-plt" alt="" width="672"></p>
 <p>As stated in the console output from the above example, we can use
 <code>show_spec(g)</code> to gain further insight into the
 specifications of <code>g</code>’s layout.</p>
@@ -595,7 +592,7 @@ size to <code>12</code>.</p>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"header_right"</span>, <span class="st">"Right Header"</span>, gpar <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"purple"</span>, fontsize <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-27-1.png" class="r-plt" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-27-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 </div>
 <div class="section level2">
@@ -630,7 +627,7 @@ background.</p>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer"</span>, <span class="st">"Footer"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-28-1.png" class="r-plt" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-28-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 <div class="section level2">
 <h2 id="set_cell-arguments">
@@ -665,7 +662,7 @@ number of characters per line to <code>45</code> using the
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer"</span>, <span class="va">long_footer_string</span>, mch <span class="op">=</span> <span class="fl">45</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-29-1.png" class="r-plt" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-29-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 <div class="section level3">
 <h3 id="position-and-rotation">Position and Rotation<a class="anchor" aria-label="anchor" href="#position-and-rotation"></a>
@@ -721,7 +718,7 @@ a rotation of 5 degrees.</p>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer"</span>, <span class="va">long_footer_string</span>, mch <span class="op">=</span> <span class="fl">45</span>, x <span class="op">=</span> <span class="fl">0</span>, hjust <span class="op">=</span> <span class="fl">0</span>, rot <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-30-1.png" class="r-plt" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-30-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 </div>
 <div class="section level2">
@@ -755,7 +752,7 @@ the default <code>scales = "fixed"</code> applied.</p>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer_right"</span>, <span class="st">"Right Footer"</span>, hjust <span class="op">=</span> <span class="fl">0</span>, vjust <span class="op">=</span> <span class="fl">0.5</span>, gpar <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontsize <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">fixed_scales_g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-31-1.png" class="r-plt" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-31-1.png" class="r-plt" alt="" width="672"></p>
 <p>When we apply <code>scales = "free"</code> text elements scale
 dynamically, which may cause overlap if the output space is small.</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
@@ -773,14 +770,14 @@ dynamically, which may cause overlap if the output space is small.</p>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer_right"</span>, <span class="st">"Right Footer"</span>, hjust <span class="op">=</span> <span class="fl">0</span>, vjust <span class="op">=</span> <span class="fl">0.5</span>, gpar <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fontsize <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">free_scales_g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-32-1.png" class="r-plt" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-32-1.png" class="r-plt" alt="" width="672"></p>
 <p>When working with <code>.Rmd</code> or <code>.Qmd</code> files, we
 can also remove the text overlap when <code>scales = "free"</code> by
 adjusting the <code>knitr</code> options <code>fig.width</code> and
 <code>fig.height</code> to expand the output.</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">free_scales_g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-33-1.png" class="r-plt" width="960"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-33-1.png" class="r-plt" alt="" width="960"></p>
 <p>When exporting to <code>.pdf</code>, <code>.png</code> or
 <code>.jpeg</code> we can remove text overlap by adjusting
 <code>width</code> and <code>height</code> whilst using the
@@ -883,7 +880,7 @@ view it with default adjustments.</p>
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer_right"</span>, <span class="st">"Right Footer"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-34-1.png" class="r-plt" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-34-1.png" class="r-plt" alt="" width="672"></p>
 <p>Now we set <code>gridify.adjust_height.line</code> to
 <code>0.7</code> using the <code><a href="https://rdrr.io/r/base/options.html" class="external-link">options()</a></code> function. This
 increases the height of the rows and the space between text
@@ -892,7 +889,7 @@ elements.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>gridify.adjust_height.line <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-35-1.png" class="r-plt" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-35-1.png" class="r-plt" alt="" width="672"></p>
 <p><strong>Example with <code><a href="../reference/pharma_layout_letter.html">pharma_layout_letter()</a></code></strong></p>
 <p>Here is an example of the use of
 <code>gridify.adjust_height.line</code> with
@@ -919,14 +916,14 @@ applying <code><a href="../reference/pharma_layout_letter.html">pharma_layout_le
 <span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer_right"</span>, <span class="st">"Page xx of nn"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-36-1.png" class="r-plt" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-36-1.png" class="r-plt" alt="" width="672"></p>
 <p>Now we set <code>gridify.adjust_height.line</code> to
 <code>0.7</code>.</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>gridify.adjust_height.line <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
-<p><img src="simple_examples_files/figure-html/unnamed-chunk-37-1.png" class="r-plt" width="672"></p>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-37-1.png" class="r-plt" alt="" width="672"></p>
 </div>
 </div>
 </div>
