@@ -2,6 +2,7 @@
 
 * Updated `README.md` file.
 * Updated description how to convert points to pixels, example in `README.md` file.
+* Removed `rtables` examples as installation of `rtables.officer` requires R >= 4.4.0.
 
 # gridify 0.7.6
 

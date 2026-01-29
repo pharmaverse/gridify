@@ -37,8 +37,6 @@ Suggests:
     knitr,
     magrittr,
     rmarkdown,
-    rtables (>= 0.6.15),
-    rtables.officer,
     spelling,
     testthat (>= 3.0.0)
 Collate:
