@@ -2,6 +2,8 @@
 
 ## gridify 0.7.7
 
+CRAN release: 2026-02-05
+
 - Updated `README.md` file.
 - Updated description how to convert points to pixels, example in
   `README.md` file.
