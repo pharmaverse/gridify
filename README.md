@@ -31,7 +31,12 @@ Whilst **rtables** are not directly supported, we can use **rtables** with `grid
 
 As `gridify` is based on the graphical tool **grid**, any figure or table
 inputs are converted to a `grob` object in `gridify` and the result of using
-`gridify` is always a graphical image.
+`gridify` is always a graphical image. This is by design: by unifying
+tables and figures into scalable vector graphics, `gridify` locks the
+layout so it cannot break across environments — no shifting columns, no
+reflowing text. The output is stable enough for final PDF submissions
+(e.g. eCTD) while the text stays clear, searchable, and copy-able at
+any zoom level.
 
 ## Installation
 
@@ -145,9 +150,11 @@ For more information please visit the following vignettes:
 
 `gridify` outputs are graphical — they **cannot be hand-edited** like
 Word or Excel. Once a PDF or PNG is produced, the content is locked:
-nothing to retype, nothing to rephrase. This is useful in validated
-environments where any manual change after
-generation is a compliance issue.
+nothing to retype, nothing to rephrase. Unlike Word/RTF, the layout
+will not reflow or break when opened on a different machine. This is
+useful in validated environments where any manual change after
+generation is a compliance issue, and especially for final eCTD
+submissions where formatting must be pixel-stable.
 
 ### PDF Text is Still Searchable
 
