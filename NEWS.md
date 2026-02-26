@@ -1,3 +1,7 @@
+# gridify 0.7.7.9000
+
+* Added section on pipeline security and PDF searchability to `README.md`, `gridify` vignette, and `transparency` vignette.
+
 # gridify 0.7.7
 
 * Updated `README.md` file.

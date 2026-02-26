@@ -97,8 +97,17 @@ Through meta-programming, `gridify` captures all `grid` calls required to produc
 3. **Audit and Debugging**  
    The ability to retrieve the full `grid` calls makes it straightforward to diagnose layout issues or confirm that all elements are placed correctly.
 
+4. **"No-Touch" Outputs**  
+   `gridify` outputs are graphical — they cannot be hand-edited after generation.
+   Together with the auditable `grid` code, this is helpful in validated workflows (21 CFR Part 11, GxP) where manual changes are not allowed.
+   
+5. **PDF Text is Searchable**  
+   Text in PDFs from `export_to()` is real, selectable text — not a flat image.
+   Reviewers can search (Ctrl+F), copy & paste, and zoom without losing quality.
+
 ## Conclusion
 
-By providing direct access to the underlying `grid` code, `gridify` prioritizes **transparency**. 
+By exposing the underlying `grid` code, `gridify` keeps things **transparent**.
+The outputs are also uneditable yet searchable, which is a practical combination for regulated environments.
 
 For more details on other aspects like reproducibility, consistency, and advanced layouts, check out our package documentation and additional vignettes.
