@@ -99,7 +99,7 @@ Through meta-programming, `gridify` captures all `grid` calls required to produc
 
 4. **"No-Touch" Outputs**  
    `gridify` outputs are graphical — they cannot be hand-edited after generation.
-   Together with the auditable `grid` code, this is helpful in validated workflows (21 CFR Part 11, GxP) where manual changes are not allowed.
+   Together with the auditable `grid` code, this is helpful in validated workflows where manual changes are not allowed.
    
 5. **PDF Text is Searchable**  
    Text in PDFs from `export_to()` is real, selectable text — not a flat image.
