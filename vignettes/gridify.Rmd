@@ -214,7 +214,7 @@ Two things worth knowing about `gridify` outputs in regulated settings:
 
 `gridify` produces graphical objects, not editable documents.
 Unlike Word or Excel, there is nothing to retype or change by hand after the output is generated.
-This matters in validated environments (21 CFR Part 11, GxP) where manual modifications are not allowed.
+This matters in validated environments where manual modifications are not allowed.
 
 ### PDF Text is Searchable
 
