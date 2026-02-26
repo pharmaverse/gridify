@@ -141,17 +141,12 @@ For more information please visit the following vignettes:
   `vignette("transparency", package = "gridify")` - How to extract the
   raw grid code to reproduce a `gridify` object.
 
-## Why `gridify` for Clinical Reporting?
-
-Apart from layouts, `gridify` has two practical properties that matter
-for regulated pharma work:
-
 ### "No-Touch" Pipelines
 
 `gridify` outputs are graphical — they **cannot be hand-edited** like
 Word or Excel. Once a PDF or PNG is produced, the content is locked:
 nothing to retype, nothing to rephrase. This is useful in validated
-environments (21 CFR Part 11, GxP) where any manual change after
+environments where any manual change after
 generation is a compliance issue.
 
 ### PDF Text is Still Searchable
