@@ -1,0 +1,205 @@
+---
+title: "Shiny Integration"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 2
+vignette: >
+  %\VignetteIndexEntry{Shiny Integration}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+editor_options:
+  markdown:
+    wrap: 72
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+## Introduction
+
+`gridify()` returns a grid graphical object, so it should be rendered in Shiny
+using `plotOutput()` and `renderPlot()`.
+
+`gridify_with_settings` is a compact module that wraps this pattern and adds
+height/width sliders with PNG and PDF download buttons.
+
+For more detail on layout options and `set_cell()` usage, see
+`vignette("simple_examples", package = "gridify")`.
+
+## Example with a `ggplot2` figure
+
+Here we create a `ggplot2` figure and wrap it in a `gridify` object with
+`pharma_layout_base()`.
+We then render it in Shiny through `gridify_with_settings_srv()`.
+
+```{r}
+library(shiny)
+library(ggplot2)
+library(gridify)
+
+ui <- fluidPage(
+  titlePanel("gridify + Shiny"),
+  gridify_with_settings_ui("demo")
+)
+
+server <- function(input, output, session) {
+  gridify_r <- reactive({
+    figure_obj <- ggplot2::ggplot(mtcars, aes(x = mpg, y = wt)) +
+      ggplot2::geom_point()
+
+    gridify(
+      object = figure_obj,
+      layout = pharma_layout_base()
+    ) |>
+      set_cell("header_left_1", "My Company") |>
+      set_cell("header_left_2", "<PROJECT> / <INDICATION>") |>
+      set_cell("header_left_3", "<STUDY>") |>
+      set_cell("header_right_2", "<Draft or Final>") |>
+      set_cell("output_num", "<Figure> xx.xx.xx") |>
+      set_cell("title_1", "<Title 1>") |>
+      set_cell("title_2", "<Title 2>") |>
+      set_cell("note", "<Note or Footnotes>") |>
+      set_cell("references", "<References:>") |>
+      set_cell("footer_left", "Program: <PROGRAM NAME>, YYYY-MM-DD at HH:MM") |>
+      set_cell("footer_right", "Page 1 of 1")
+  })
+
+  gridify_with_settings_srv("demo", gridify_r = gridify_r)
+}
+
+shinyApp(ui, server)
+```
+
+## Example with a base R figure
+
+Here we create a base R plot as a formula object and pass it to `gridify()`.
+We then apply `complex_layout()` and render it with
+`gridify_with_settings_srv()`.
+
+```{r}
+library(shiny)
+library(gridify)
+
+ui <- fluidPage(
+  titlePanel("gridify + Shiny + base R"),
+  gridify_with_settings_ui("base_demo")
+)
+
+server <- function(input, output, session) {
+  gridify_r <- reactive({
+    formula_object <- ~ barplot(1:10)
+
+    gridify(
+      object = formula_object,
+      layout = complex_layout()
+    ) |>
+      set_cell("header_left", "Left Header") |>
+      set_cell("header_middle", "Middle Header") |>
+      set_cell("header_right", "Right Header") |>
+      set_cell("title", "Title") |>
+      set_cell("subtitle", "Subtitle") |>
+      set_cell("note", "Note") |>
+      set_cell("footer_left", "Left Footer") |>
+      set_cell("footer_middle", "Middle Footer") |>
+      set_cell("footer_right", "Right Footer")
+  })
+
+  gridify_with_settings_srv("base_demo", gridify_r = gridify_r)
+}
+
+shinyApp(ui, server)
+```
+
+## Example with a `flextable`
+
+Here we create a `flextable` object and pass it to `gridify()` with
+`pharma_layout_letter()`.
+We then render it in Shiny using `gridify_with_settings_srv()`.
+
+```{r}
+library(shiny)
+library(flextable)
+library(gridify)
+
+ui <- fluidPage(
+  titlePanel("gridify + Shiny + flextable"),
+  gridify_with_settings_ui("ft_demo")
+)
+
+server <- function(input, output, session) {
+  gridify_r <- reactive({
+    ft <- flextable::flextable(head(mtcars[1:10]))
+
+    gridify(
+      object = ft,
+      layout = pharma_layout_letter()
+    ) |>
+      set_cell("header_left_1", "My Company") |>
+      set_cell("header_left_2", "<PROJECT> / <INDICATION>") |>
+      set_cell("header_left_3", "<STUDY>") |>
+      set_cell("header_right_2", "<Draft or Final>") |>
+      set_cell("output_num", "<Table> xx.xx.xx") |>
+      set_cell("title_1", "<Title 1>") |>
+      set_cell("title_2", "<Title 2>") |>
+      set_cell("note", "<Note or Footnotes>") |>
+      set_cell("references", "<References:>") |>
+      set_cell("footer_left", "Program: <PROGRAM NAME>, YYYY-MM-DD at HH:MM") |>
+      set_cell("footer_right", "Page 1 of 1")
+  })
+
+  gridify_with_settings_srv("ft_demo", gridify_r = gridify_r)
+}
+
+shinyApp(ui, server)
+```
+
+## Example with a `gt` table
+
+Here we create a `gt` table and pass it to `gridify()` with
+`pharma_layout_letter()`.
+The server then wraps this object with `gridify_with_settings_srv()` for
+interactive rendering and download.
+
+```{r}
+library(shiny)
+library(gt)
+library(gridify)
+
+ui <- fluidPage(
+  titlePanel("gridify + Shiny + gt"),
+  gridify_with_settings_ui("gt_demo")
+)
+
+server <- function(input, output, session) {
+  gridify_r <- reactive({
+    gt_tbl <- gt::gt(head(mtcars[1:10]))
+
+    gridify(
+      object = gt_tbl,
+      layout = pharma_layout_letter()
+    ) |>
+      set_cell("header_left_1", "My Company") |>
+      set_cell("header_left_2", "<PROJECT> / <INDICATION>") |>
+      set_cell("header_left_3", "<STUDY>") |>
+      set_cell("header_right_2", "<Draft or Final>") |>
+      set_cell("output_num", "<Table> xx.xx.xx") |>
+      set_cell("title_1", "<Title 1>") |>
+      set_cell("title_2", "<Title 2>") |>
+      set_cell("note", "<Note or Footnotes>") |>
+      set_cell("references", "<References:>") |>
+      set_cell("footer_left", "Program: <PROGRAM NAME>, YYYY-MM-DD at HH:MM") |>
+      set_cell("footer_right", "Page 1 of 1")
+  })
+
+  gridify_with_settings_srv("gt_demo", gridify_r = gridify_r)
+}
+
+shinyApp(ui, server)
+```
+

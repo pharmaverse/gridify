@@ -38,6 +38,7 @@ Suggests:
     knitr,
     magrittr,
     rmarkdown,
+    shiny,
     spelling,
     testthat (>= 3.0.0)
 Collate:
@@ -49,6 +50,7 @@ Collate:
     complex_layout.R
     pharma_layout.R
     get_layouts.R
+    gridify_with_settings.R
     layout_issues.R
     pagination_utils.R
 VignetteBuilder: knitr
