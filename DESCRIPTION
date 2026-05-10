@@ -1,7 +1,7 @@
 Type: Package
 Package: gridify
 Title: Enrich Figures and Tables with Custom Headers and Footers and More
-Version: 0.7.7
+Version: 0.7.7.9000
 Authors@R: c(
     person("Maciej", "Nasinski", , "Maciej.Nasinski@ucb.com", role = c("aut", "cre")),
     person("Alexandra", "Wall", , "Alexandra.Wall@ucb.com", role = "aut"),
@@ -13,6 +13,7 @@ Authors@R: c(
     person("Agota", "Bodoni", , "Agota.Bodoni@ucb.com", role = "ctb"),
     person("Eilis", "Meldrum-Dolan", , "Eilis.Meldrum-Dolan@ucb.com", role = "ctb"),
     person("Gary", "Cao", , "Gary.Cao@ucb.com", role = "ctb"),
+    person("Monika", "Beh", , "Monika.Beh@ucb.com", role = "ctb"),
     person("UCB S.A., Belgium", role = c("cph", "fnd"))
   )
 Description: A simple and flexible tool designed to create enriched figures and tables by providing a way to add text 
@@ -24,7 +25,6 @@ URL: https://pharmaverse.github.io/gridify/
 BugReports: https://github.com/pharmaverse/gridify/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 Imports: 
     grDevices,
     grid,
@@ -54,3 +54,4 @@ Collate:
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Language: en-GB
+Config/roxygen2/version: 8.0.0

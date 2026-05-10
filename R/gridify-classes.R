@@ -441,6 +441,8 @@ gridifyCells <- function(...) {
 #' @slot col A numeric value, span or sequence specifying the column position of the object.
 #' @slot height A numeric value specifying the height of the object.
 #' @slot width A numeric value specifying the width of the object.
+#' @slot vjust A numeric value in `[0, 1]` specifying the vertical anchoring of the object
+#' within its cell. `0` aligns to the bottom, `0.5` (default) centers it, `1` aligns to the top.
 #' @exportClass gridifyObject
 setClass(
   "gridifyObject",
@@ -448,8 +450,10 @@ setClass(
     row = "numeric",
     col = "numeric",
     height = "numeric",
-    width = "numeric"
-  )
+    width = "numeric",
+    vjust = "numeric"
+  ),
+  prototype = list(vjust = 0.5)
 )
 
 setValidity("gridifyObject", function(object) {
@@ -458,6 +462,9 @@ setValidity("gridifyObject", function(object) {
   }
   if (min(object@col) < 1 || !all(object@col %% 1 == 0)) {
     stop("cell col has to be positive integer.")
+  }
+  if (length(object@vjust) != 1 || object@vjust < 0 || object@vjust > 1) {
+    stop("vjust has to be a single numeric value in [0, 1].")
   }
 
   TRUE
@@ -471,6 +478,8 @@ setValidity("gridifyObject", function(object) {
 #' @param col A numeric value, span or sequence specifying the row position of the object.
 #' @param height A numeric value specifying the height of the object. Default is 1.
 #' @param width A numeric value specifying the width of the object. Default is 1.
+#' @param vjust A numeric value in `[0, 1]` specifying the vertical anchoring of the object
+#' within its cell. `0` aligns to the bottom, `0.5` (default) centers it, `1` aligns to the top.
 #'
 #' @return An instance of the gridifyObject class.
 #'
@@ -478,8 +487,15 @@ setValidity("gridifyObject", function(object) {
 #' @export
 #' @examples
 #' object <- gridifyObject(row = 1, col = 1, height = 1, width = 1)
-gridifyObject <- function(row, col, height = 1, width = 1) {
-  new("gridifyObject", row = row, col = col, height = height, width = width)
+gridifyObject <- function(row, col, height = 1, width = 1, vjust = 0.5) {
+  new(
+    "gridifyObject",
+    row = row,
+    col = col,
+    height = height,
+    width = width,
+    vjust = vjust
+  )
 }
 
 #' gridifyClass class

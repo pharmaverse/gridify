@@ -19,6 +19,9 @@
 #' The `"free"` option makes the row heights proportional,
 #' allowing them to scale dynamically based on the overall output size.
 #' This ensures that the text elements and the output maintain relative proportions.
+#' @param object_vjust A numeric value in `[0, 1]` controlling the vertical anchoring of the
+#' object within its row. `0` aligns to the bottom, `0.5` (default) centers it, `1` aligns
+#' to the top. Useful when the object's row is taller than the object itself.
 #'
 #' @details The layout consists of six rows for headers, titles, object (figure or table), notes, and footnotes.
 #' The object is placed in the fourth row.\cr
@@ -81,7 +84,8 @@ complex_layout <- function(
   margin = grid::unit(c(t = 0.1, r = 0.1, b = 0.1, l = 0.1), units = "npc"),
   global_gpar = grid::gpar(),
   background = grid::get.gpar()$fill,
-  scales = c("fixed", "free")
+  scales = c("fixed", "free"),
+  object_vjust = 0.5
 ) {
   scales <- match.arg(scales, c("fixed", "free"))
 
@@ -103,7 +107,7 @@ complex_layout <- function(
     background = background,
     margin = margin,
     adjust_height = TRUE,
-    object = gridifyObject(row = 4, col = c(1, 3)),
+    object = gridifyObject(row = 4, col = c(1, 3), vjust = object_vjust),
     cells = gridifyCells(
       header_left = gridifyCell(row = 1, col = 1),
       header_middle = gridifyCell(row = 1, col = 2),

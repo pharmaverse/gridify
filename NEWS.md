@@ -1,3 +1,15 @@
+# gridify 0.7.7.9000
+
+* Added vertical anchoring for the gridify object inside its cell via the new
+  `vjust` slot of `gridifyObject()` and the `object_vjust` argument of
+  `simple_layout()`, `complex_layout()`, `pharma_layout_base()`,
+  `pharma_layout_A4()` and `pharma_layout_letter()`.
+  `0` aligns the object to the bottom, `0.5` (default) keeps the previous
+  centered behaviour, and `1` anchors it to the top of the cell. Most useful
+  for fixed-size grobs such as `gt` and `flextable` tables. Reported and
+  proposed by Monika Beh.
+
+
 # gridify 0.7.7
 
 * Updated `README.md` file.

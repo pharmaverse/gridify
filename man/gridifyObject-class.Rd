@@ -17,5 +17,8 @@ Class for creating an object in a gridify layout.
 \item{\code{height}}{A numeric value specifying the height of the object.}
 
 \item{\code{width}}{A numeric value specifying the width of the object.}
+
+\item{\code{vjust}}{A numeric value in \verb{[0, 1]} specifying the vertical anchoring of the object
+within its cell. \code{0} aligns to the bottom, \code{0.5} (default) centers it, \code{1} aligns to the top.}
 }}
 

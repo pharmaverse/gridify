@@ -4,7 +4,7 @@
 \alias{gridifyObject}
 \title{Create a gridifyObject}
 \usage{
-gridifyObject(row, col, height = 1, width = 1)
+gridifyObject(row, col, height = 1, width = 1, vjust = 0.5)
 }
 \arguments{
 \item{row}{A numeric value, span or sequence specifying the row position of the object.}
@@ -14,6 +14,9 @@ gridifyObject(row, col, height = 1, width = 1)
 \item{height}{A numeric value specifying the height of the object. Default is 1.}
 
 \item{width}{A numeric value specifying the width of the object. Default is 1.}
+
+\item{vjust}{A numeric value in \verb{[0, 1]} specifying the vertical anchoring of the object
+within its cell. \code{0} aligns to the bottom, \code{0.5} (default) centers it, \code{1} aligns to the top.}
 }
 \value{
 An instance of the gridifyObject class.

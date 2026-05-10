@@ -4,7 +4,11 @@
 \alias{pharma_layout_letter}
 \title{Pharma Layout (Letter) for a gridify object}
 \usage{
-pharma_layout_letter(global_gpar = NULL, background = grid::get.gpar()$fill)
+pharma_layout_letter(
+  global_gpar = NULL,
+  background = grid::get.gpar()$fill,
+  object_vjust = 0.5
+)
 }
 \arguments{
 \item{global_gpar}{A list specifying global graphical parameters to change in the layout.

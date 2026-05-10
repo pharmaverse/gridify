@@ -17,6 +17,9 @@
 #' The `"free"` option makes the row heights proportional,
 #' allowing them to scale dynamically based on the overall output size.
 #' This ensures that the text elements and the output maintain relative proportions.
+#' @param object_vjust A numeric value in `[0, 1]` controlling the vertical anchoring of the
+#' object within its row. `0` aligns to the bottom, `0.5` (default) centers it, `1` aligns
+#' to the top. Useful when the object's row is taller than the object itself.
 #'
 #' @details The layout consists of three rows, one each for the title, output, and footer.\cr
 #' The heights of the rows in simple_layout with `"free"` scales are 15%, 70% and 15% of the area respectively.\cr
@@ -68,7 +71,8 @@ simple_layout <- function(
   margin = grid::unit(c(t = 0.1, r = 0.1, b = 0.1, l = 0.1), units = "npc"),
   global_gpar = grid::gpar(),
   background = grid::get.gpar()$fill,
-  scales = c("fixed", "free")
+  scales = c("fixed", "free"),
+  object_vjust = 0.5
 ) {
   scales <- match.arg(scales, c("fixed", "free"))
 
@@ -87,7 +91,7 @@ simple_layout <- function(
     global_gpar = global_gpar,
     background = background,
     adjust_height = TRUE,
-    object = gridifyObject(row = 2, col = 1),
+    object = gridifyObject(row = 2, col = 1, vjust = object_vjust),
     cells = gridifyCells(
       title = gridifyCell(row = 1, col = 1),
       footer = gridifyCell(row = 3, col = 1)
