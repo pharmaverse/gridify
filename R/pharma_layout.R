@@ -150,6 +150,9 @@ pharma_layout_base <- function(
 #'  which can be overwritten alongside other graphical parameters found by `grid::get.gpar()`.
 #' @param background A character string specifying the background fill colour.
 #' Default `grid::get.gpar()$fill` for a white background.
+#' @param object_vjust A numeric value in `[0, 1]` controlling the vertical anchoring of the
+#' object within its row. `0` aligns to the bottom, `0.5` (default) centers it, `1` aligns
+#' to the top. Useful when the object's row is taller than the object itself.
 #' @details
 #' The margins for the A4 layout are:
 #' * top = 1 inch
@@ -218,6 +221,9 @@ pharma_layout_A4 <- function(
 #'  which can be overwritten alongside other graphical parameters found by `grid::get.gpar()`.
 #' @param background A character string specifying the background fill colour.
 #' Default `grid::get.gpar()$fill` for a white background.
+#' @param object_vjust A numeric value in `[0, 1]` controlling the vertical anchoring of the
+#' object within its row. `0` aligns to the bottom, `0.5` (default) centers it, `1` aligns
+#' to the top. Useful when the object's row is taller than the object itself.
 #' @details
 #' The margins for the letter layout are:
 #' * top = 1 inch
