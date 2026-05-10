@@ -191,3 +191,115 @@ test_that("length(to) == length(x) check", {
     "`to` must be either a single pdf file path or a character vector matching the length of `x`."
   )
 })
+
+mock_gridify_with_cells <- function() {
+  grb <- grid::rectGrob()
+  obj <- gridify(grb, pharma_layout_base())
+  obj <- set_cell(obj, "header_left_1", "My Company")
+  obj <- set_cell(obj, "title_1", "<Title 1>")
+  obj <- set_cell(obj, "watermark", "DRAFT \"x\" \\ y\nz")
+  obj
+}
+
+test_that("metadata = TRUE writes JSON sidecar for PDF and PNG", {
+  x <- mock_gridify_with_cells()
+
+  for (ext in c("pdf", "png")) {
+    out_file <- file.path(tempdir(), paste0("meta_single.", ext))
+    side <- paste0(out_file, ".json")
+    if (file.exists(side)) file.remove(side)
+
+    expect_no_error(export_to(x, out_file))
+    expect_true(file.exists(out_file))
+    expect_true(file.exists(side))
+
+    parsed <- jsonlite::fromJSON(side)
+    expect_identical(parsed$header_left_1, "My Company")
+    expect_identical(parsed$title_1, "<Title 1>")
+    expect_identical(parsed$watermark, "DRAFT \"x\" \\ y\nz")
+  }
+})
+
+test_that("metadata = FALSE writes no sidecar", {
+  x <- mock_gridify_with_cells()
+  out_file <- file.path(tempdir(), "meta_off.pdf")
+  side <- paste0(out_file, ".json")
+  if (file.exists(side)) file.remove(side)
+
+  expect_no_error(export_to(x, out_file, metadata = FALSE))
+  expect_true(file.exists(out_file))
+  expect_false(file.exists(side))
+})
+
+test_that("metadata writes no sidecar when no cells are set", {
+  x <- mock_gridify()
+  out_file <- file.path(tempdir(), "meta_empty.pdf")
+  side <- paste0(out_file, ".json")
+  if (file.exists(side)) file.remove(side)
+
+  expect_no_error(export_to(x, out_file))
+  expect_true(file.exists(out_file))
+  expect_false(file.exists(side))
+})
+
+test_that("metadata = 'embed' injects PDF /Title and skips sidecar", {
+  x <- mock_gridify_with_cells()
+  out_file <- file.path(tempdir(), "meta_embed.pdf")
+  side <- paste0(out_file, ".json")
+  if (file.exists(side)) file.remove(side)
+
+  expect_no_error(export_to(x, out_file, metadata = "embed"))
+  expect_true(file.exists(out_file))
+  expect_false(file.exists(side))
+
+  raw_bytes <- readBin(out_file, what = "raw", n = file.size(out_file))
+  pdf_bytes <- rawToChar(raw_bytes[raw_bytes != as.raw(0)])
+  expect_true(grepl("header_left_1", pdf_bytes, fixed = TRUE, useBytes = TRUE))
+})
+
+test_that("metadata = 'embed' respects user-supplied title", {
+  x <- mock_gridify_with_cells()
+  out_file <- file.path(tempdir(), "meta_embed_user_title.pdf")
+
+  expect_no_error(export_to(
+    x,
+    out_file,
+    metadata = "embed",
+    title = "MY TITLE"
+  ))
+  raw_bytes <- readBin(out_file, what = "raw", n = file.size(out_file))
+  pdf_bytes <- rawToChar(raw_bytes[raw_bytes != as.raw(0)])
+  expect_true(grepl("MY TITLE", pdf_bytes, fixed = TRUE, useBytes = TRUE))
+  expect_false(grepl("header_left_1", pdf_bytes, fixed = TRUE, useBytes = TRUE))
+})
+
+test_that("metadata sidecar for multi-page PDF is a JSON array", {
+  x_list <- list(mock_gridify_with_cells(), mock_gridify_with_cells())
+  out_file <- file.path(tempdir(), "meta_multi.pdf")
+  side <- paste0(out_file, ".json")
+  if (file.exists(side)) file.remove(side)
+
+  expect_no_error(export_to(x_list, out_file))
+  expect_true(file.exists(side))
+
+  parsed <- jsonlite::fromJSON(side, simplifyVector = FALSE)
+  expect_length(parsed, 2)
+  expect_identical(parsed[[1]]$header_left_1, "My Company")
+  expect_identical(parsed[[2]]$header_left_1, "My Company")
+})
+
+test_that("metadata invalid values are rejected", {
+  x <- mock_gridify()
+  expect_error(
+    export_to(x, file.path(tempdir(), "bad.pdf"), metadata = "yes"),
+    "`metadata` must be TRUE, FALSE or the string \"embed\"\\."
+  )
+  expect_error(
+    export_to(
+      list(x, x),
+      file.path(tempdir(), "bad.pdf"),
+      metadata = 1
+    ),
+    "`metadata` must be TRUE, FALSE or the string \"embed\"\\."
+  )
+})

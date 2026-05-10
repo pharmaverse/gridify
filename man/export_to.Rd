@@ -7,13 +7,13 @@
 \alias{export_to,ANY-method}
 \title{Export gridify objects to a file}
 \usage{
-export_to(x, to, device = NULL, ...)
+export_to(x, to, device = NULL, metadata = TRUE, ...)
 
-\S4method{export_to}{gridifyClass}(x, to, device = NULL, ...)
+\S4method{export_to}{gridifyClass}(x, to, device = NULL, metadata = TRUE, ...)
 
-\S4method{export_to}{list}(x, to, device = NULL, ...)
+\S4method{export_to}{list}(x, to, device = NULL, metadata = TRUE, ...)
 
-\S4method{export_to}{ANY}(x, to, device = NULL, ...)
+\S4method{export_to}{ANY}(x, to, device = NULL, metadata = TRUE, ...)
 }
 \arguments{
 \item{x}{A \code{gridifyClass} object or a list of \code{gridifyClass} objects.}
@@ -23,6 +23,20 @@ The extension determines the output format.}
 
 \item{device}{a function for graphics device.
 By default a file name extension is used to choose a graphics device function. Default \code{NULL}}
+
+\item{metadata}{Controls writing of metadata derived from \code{set_cell()} text values.
+One of:
+\itemize{
+\item \code{TRUE} (default) - write a JSON sidecar file next to the output named \verb{<to>.json}
+containing a named list mapping cell name to its text value (or, for a multi-page PDF
+built from a list of objects, a JSON array of such named lists, one per page).
+No file is written when no cells were set.
+\item \code{FALSE} - do not produce any metadata.
+\item \code{"embed"} - PDF only. Encode the same payload as JSON and pass it as the
+\code{title} argument of the PDF graphics device, embedding it in the PDF \verb{/Title}
+metadata. The user-supplied \code{title} (via \code{...}) takes precedence and disables
+the injection.
+}}
 
 \item{...}{Additional arguments passed to the graphics device functions
 (\code{pdf()}, \code{png()}, \code{tiff()}, \code{jpeg()} or your custom one).

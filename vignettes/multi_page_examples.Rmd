@@ -347,6 +347,11 @@ export_to(
 )
 ```
 
+For multi-page PDFs the JSON sidecar (`<file>.pdf.json`, written by default)
+contains a JSON array with one object per page, listing the `set_cell()` text
+values for each page. Pass `metadata = FALSE` to disable it, or
+`metadata = "embed"` to encode the array in the PDF `/Title` instead.
+
 ### Extending The Multi-Page Example
 
 In pharmaceutical and other industries, presenting tables often requires customization to meet reporting standards. While splitting by rows is a common approach for handling large datasets, it is not the only option. Here are some potential ways in which a table could be split up, where `gridify` could then be used to generate a new page for each table:

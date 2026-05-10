@@ -765,6 +765,25 @@ and `height` by passing them into `export_to()` after the `to` argument.
 export_to(gridify_obj, to = "output.jpeg", width = 2400, height = 1800, res = 300)
 ```
 
+### Metadata
+
+By default `export_to()` also writes a JSON sidecar file next to the output
+(e.g. `output.pdf.json`) containing the text values you set with `set_cell()`.
+This makes it easy to track which header, footer or watermark text was used to
+produce a given figure without parsing the file.
+
+```{r, eval = FALSE}
+# Default: writes both output.pdf and output.pdf.json
+export_to(gridify_obj, to = "output.pdf")
+
+# Disable the sidecar
+export_to(gridify_obj, to = "output.pdf", metadata = FALSE)
+
+# PDF only: embed the same JSON payload in the PDF /Title metadata
+# (no sidecar file is written in this mode)
+export_to(gridify_obj, to = "output.pdf", metadata = "embed")
+```
+
 ## Conclusion
 
 These examples should give you a good understanding of how to use the `gridify` package to add text

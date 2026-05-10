@@ -28,6 +28,7 @@ RoxygenNote: 7.3.3
 Imports: 
     grDevices,
     grid,
+    jsonlite,
     methods
 Suggests:
     flextable (>= 0.8.0),
