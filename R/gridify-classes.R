@@ -443,6 +443,10 @@ gridifyCells <- function(...) {
 #' @slot width A numeric value specifying the width of the object.
 #' @slot vjust A numeric value in `[0, 1]` specifying the vertical anchoring of the object
 #' within its cell. `0` aligns to the bottom, `0.5` (default) centers it, `1` aligns to the top.
+#' Anchoring only takes effect for fixed-size grobs (e.g. `gt::as_gtable()`,
+#' `flextable::gen_grob()`, plain `grid::rectGrob()`). Flexible grobs whose natural height is
+#' meant to fill the container (e.g. `ggplot2::ggplotGrob()`, recorded gTrees from
+#' `grid::grid.grabExpr()`) always span the full row regardless of `vjust`.
 #' @exportClass gridifyObject
 setClass(
   "gridifyObject",
@@ -457,17 +461,27 @@ setClass(
 )
 
 setValidity("gridifyObject", function(object) {
+  errs <- character()
   if (min(object@row) < 1 || !all(object@row %% 1 == 0)) {
-    stop("cell row has to be positive integer.")
+    errs <- c(errs, "cell row has to be positive integer.")
   }
   if (min(object@col) < 1 || !all(object@col %% 1 == 0)) {
-    stop("cell col has to be positive integer.")
+    errs <- c(errs, "cell col has to be positive integer.")
   }
-  if (length(object@vjust) != 1 || object@vjust < 0 || object@vjust > 1) {
-    stop("vjust has to be a single numeric value in [0, 1].")
+  if (
+    length(object@vjust) != 1L ||
+      anyNA(object@vjust) ||
+      !is.finite(object@vjust) ||
+      object@vjust < 0 ||
+      object@vjust > 1
+  ) {
+    errs <- c(
+      errs,
+      "vjust has to be a single finite numeric value in [0, 1]."
+    )
   }
 
-  TRUE
+  if (length(errs)) errs else TRUE
 })
 
 #' Create a gridifyObject
@@ -480,6 +494,9 @@ setValidity("gridifyObject", function(object) {
 #' @param width A numeric value specifying the width of the object. Default is 1.
 #' @param vjust A numeric value in `[0, 1]` specifying the vertical anchoring of the object
 #' within its cell. `0` aligns to the bottom, `0.5` (default) centers it, `1` aligns to the top.
+#' Anchoring only takes effect for fixed-size grobs (e.g. `gt::as_gtable()`,
+#' `flextable::gen_grob()`). Flexible grobs (e.g. `ggplot2::ggplotGrob()`) always fill the
+#' full row regardless of `vjust`.
 #'
 #' @return An instance of the gridifyObject class.
 #'

@@ -77,14 +77,26 @@ test_that("gridifyObject vjust validity and default", {
 
   expect_error(
     gridifyObject(row = 1, col = 1, vjust = -0.1),
-    "vjust has to be a single numeric value in \\[0, 1\\]"
+    "vjust has to be a single finite numeric value in \\[0, 1\\]"
   )
   expect_error(
     gridifyObject(row = 1, col = 1, vjust = 1.5),
-    "vjust has to be a single numeric value in \\[0, 1\\]"
+    "vjust has to be a single finite numeric value in \\[0, 1\\]"
   )
   expect_error(
     gridifyObject(row = 1, col = 1, vjust = c(0, 1)),
-    "vjust has to be a single numeric value in \\[0, 1\\]"
+    "vjust has to be a single finite numeric value in \\[0, 1\\]"
+  )
+  expect_error(
+    gridifyObject(row = 1, col = 1, vjust = NA_real_),
+    "vjust has to be a single finite numeric value in \\[0, 1\\]"
+  )
+  expect_error(
+    gridifyObject(row = 1, col = 1, vjust = NaN),
+    "vjust has to be a single finite numeric value in \\[0, 1\\]"
+  )
+  expect_error(
+    gridifyObject(row = 1, col = 1, vjust = Inf),
+    "vjust has to be a single finite numeric value in \\[0, 1\\]"
   )
 })

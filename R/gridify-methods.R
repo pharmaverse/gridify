@@ -675,7 +675,15 @@ setMethod("show_spec", "gridifyLayout", function(object) {
 
   cat(sprintf("  Width: %s\n", object@object@width))
   cat(sprintf("  Height: %s\n", object@object@height))
-  cat(sprintf("  Vjust: %s\n", object@object@vjust))
+  cat(sprintf(
+    "  Vjust: %s%s\n",
+    object@object@vjust,
+    if (object@object@vjust == 0.5) {
+      " (default; the object fills the full row regardless of grob type)"
+    } else {
+      " (anchors fixed-size grobs; flexible grobs e.g. ggplot still fill the row)"
+    }
+  ))
 
   cat("\nObject Row Heights:\n")
   rows_span <- object_row[1]:object_row[length(object_row)]

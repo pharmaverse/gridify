@@ -16,7 +16,10 @@ gridifyObject(row, col, height = 1, width = 1, vjust = 0.5)
 \item{width}{A numeric value specifying the width of the object. Default is 1.}
 
 \item{vjust}{A numeric value in \verb{[0, 1]} specifying the vertical anchoring of the object
-within its cell. \code{0} aligns to the bottom, \code{0.5} (default) centers it, \code{1} aligns to the top.}
+within its cell. \code{0} aligns to the bottom, \code{0.5} (default) centers it, \code{1} aligns to the top.
+Anchoring only takes effect for fixed-size grobs (e.g. \code{gt::as_gtable()},
+\code{flextable::gen_grob()}). Flexible grobs (e.g. \code{ggplot2::ggplotGrob()}) always fill the
+full row regardless of \code{vjust}.}
 }
 \value{
 An instance of the gridifyObject class.

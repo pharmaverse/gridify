@@ -33,7 +33,8 @@ This ensures that the text elements and the output maintain relative proportions
 
 \item{object_vjust}{A numeric value in \verb{[0, 1]} controlling the vertical anchoring of the
 object within its row. \code{0} aligns to the bottom, \code{0.5} (default) centers it, \code{1} aligns
-to the top. Useful when the object's row is taller than the object itself.}
+to the top. Useful when the object's row is taller than the object itself.
+Has no effect on flexible grobs (e.g. \code{ggplot2::ggplotGrob()}), which always fill the full row.}
 }
 \value{
 A gridifyLayout object.

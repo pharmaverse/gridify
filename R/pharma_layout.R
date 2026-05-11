@@ -37,6 +37,7 @@ NULL
 #' @param object_vjust A numeric value in `[0, 1]` controlling the vertical anchoring of the
 #' object within its row. `0` aligns to the bottom, `0.5` (default) centers it, `1` aligns
 #' to the top. Useful when the object's row is taller than the object itself.
+#' Has no effect on flexible grobs (e.g. `ggplot2::ggplotGrob()`), which always fill the full row.
 #'
 #' @return A `gridifyLayout` object that defines the general structure and parameters for a pharma layout.
 #'
@@ -153,6 +154,7 @@ pharma_layout_base <- function(
 #' @param object_vjust A numeric value in `[0, 1]` controlling the vertical anchoring of the
 #' object within its row. `0` aligns to the bottom, `0.5` (default) centers it, `1` aligns
 #' to the top. Useful when the object's row is taller than the object itself.
+#' Has no effect on flexible grobs (e.g. `ggplot2::ggplotGrob()`), which always fill the full row.
 #' @details
 #' The margins for the A4 layout are:
 #' * top = 1 inch
@@ -224,6 +226,7 @@ pharma_layout_A4 <- function(
 #' @param object_vjust A numeric value in `[0, 1]` controlling the vertical anchoring of the
 #' object within its row. `0` aligns to the bottom, `0.5` (default) centers it, `1` aligns
 #' to the top. Useful when the object's row is taller than the object itself.
+#' Has no effect on flexible grobs (e.g. `ggplot2::ggplotGrob()`), which always fill the full row.
 #' @details
 #' The margins for the letter layout are:
 #' * top = 1 inch

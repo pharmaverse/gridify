@@ -41,7 +41,7 @@ Suggests:
     spelling,
     testthat (>= 3.0.0)
 Collate:
-    grid_utils.R
+    gridify-utils.R
     gridify-classes.R
     gridify-methods.R
     ansi_colour.R
