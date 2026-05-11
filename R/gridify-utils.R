@@ -107,3 +107,24 @@ write_metadata_sidecar <- function(payload, to) {
   writeLines(json, con = side, useBytes = TRUE)
   invisible(side)
 }
+
+#' Resolve the effective `metadata` argument for `export_to()`
+#'
+#' Resolves the `metadata` argument from (in order of precedence):
+#' 1. the value passed by the caller,
+#' 2. the `gridify.export.metadata` global option,
+#' 3. the built-in default `"none"`.
+#'
+#' The result is then validated against the allowed choices via
+#' [match.arg()], so abbreviations are accepted.
+#'
+#' @param metadata the value passed by the user; may be `NULL`.
+#' @return one of `"none"`, `"sidecar"`, `"embed"`.
+#' @keywords internal
+resolve_export_metadata <- function(metadata) {
+  choices <- c("none", "sidecar", "embed")
+  if (is.null(metadata)) {
+    metadata <- getOption("gridify.export.metadata", "none")
+  }
+  match.arg(metadata, choices)
+}
