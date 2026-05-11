@@ -349,7 +349,7 @@ export_to(
 
 For multi-page PDFs the JSON sidecar (`<file>.pdf.json`, written by default)
 contains a JSON array with one object per page, listing the `set_cell()` text
-values for each page. Pass `metadata = FALSE` to disable it, or
+values for each page. Pass `metadata = "none"` to disable it, or
 `metadata = "embed"` to encode the array in the PDF `/Title` instead.
 
 ### Extending The Multi-Page Example

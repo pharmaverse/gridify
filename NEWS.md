@@ -1,11 +1,10 @@
 # gridify 0.7.7.9000
 
 * `export_to()` gains a `metadata` argument that records `set_cell()` text values
-  alongside the exported output. With the default `metadata = TRUE` a JSON
-  sidecar `<file>.json` is written next to the output (no extra dependencies);
-  `metadata = "embed"` (PDF only) injects the same JSON payload as the PDF
-  `/Title` so the metadata travels inside the file. Set `metadata = FALSE` to
-  preserve the previous behaviour.
+  alongside the exported output. With the default `metadata = "sidecar"` a JSON
+  sidecar `<file>.json` is written next to the output; `metadata = "embed"`
+  (PDF only) injects the same JSON payload as the PDF `/Title` so the metadata
+  travels inside the file. Set `metadata = "none"` to disable the feature.
 
 
 # gridify 0.7.7

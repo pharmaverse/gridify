@@ -777,7 +777,7 @@ produce a given figure without parsing the file.
 export_to(gridify_obj, to = "output.pdf")
 
 # Disable the sidecar
-export_to(gridify_obj, to = "output.pdf", metadata = FALSE)
+export_to(gridify_obj, to = "output.pdf", metadata = "none")
 
 # PDF only: embed the same JSON payload in the PDF /Title metadata
 # (no sidecar file is written in this mode)

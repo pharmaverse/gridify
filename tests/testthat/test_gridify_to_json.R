@@ -33,3 +33,40 @@ test_that("gridify_metadata returns empty list for no cells", {
   obj <- gridify(grid::rectGrob(), simple_layout())
   expect_identical(gridify_metadata(obj), stats::setNames(list(), character(0)))
 })
+
+test_that("write_metadata_sidecar writes JSON file and returns its path", {
+  base <- tempfile(fileext = ".pdf")
+  side <- paste0(base, ".json")
+  if (file.exists(side)) file.remove(side)
+
+  payload <- list(a = "x", b = "y")
+  res <- write_metadata_sidecar(payload, base)
+
+  expect_identical(res, side)
+  expect_true(file.exists(side))
+  expect_identical(jsonlite::fromJSON(side), payload)
+})
+
+test_that("write_metadata_sidecar skips empty payloads", {
+  base <- tempfile(fileext = ".pdf")
+  side <- paste0(base, ".json")
+  if (file.exists(side)) file.remove(side)
+
+  expect_null(write_metadata_sidecar(list(), base))
+  expect_null(write_metadata_sidecar(NULL, base))
+  expect_false(file.exists(side))
+})
+
+test_that("write_metadata_sidecar serialises multi-page list payload", {
+  base <- tempfile(fileext = ".pdf")
+  side <- paste0(base, ".json")
+  if (file.exists(side)) file.remove(side)
+
+  payload <- list(list(a = "1"), list(a = "2"))
+  write_metadata_sidecar(payload, base)
+
+  parsed <- jsonlite::fromJSON(side, simplifyVector = FALSE)
+  expect_length(parsed, 2)
+  expect_identical(parsed[[1]]$a, "1")
+  expect_identical(parsed[[2]]$a, "2")
+})

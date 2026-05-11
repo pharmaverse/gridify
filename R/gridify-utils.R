@@ -81,3 +81,29 @@ gridify_to_json <- function(x) {
     na = "null"
   ))
 }
+
+#' Write the JSON metadata sidecar file
+#'
+#' Encodes the metadata `payload` as JSON via [gridify_to_json()] and writes it
+#' to `paste0(to, ".json")`. The file is written with `useBytes = TRUE` so the
+#' UTF-8 bytes produced by `jsonlite::toJSON()` are preserved verbatim.
+#' If `payload` is `NULL` or empty no file is created and `NULL` is returned
+#' (this keeps `export_to()` from producing empty sidecars when no cells were
+#' set).
+#'
+#' @param payload A named list (single page) or list of named lists
+#' (multi-page) of metadata values to serialise.
+#' @param to A length-one character string with the path of the main output
+#' file. The sidecar path is `paste0(to, ".json")`.
+#' @return Invisibly, the path of the sidecar file that was written, or `NULL`
+#' when no file was written.
+#' @keywords internal
+write_metadata_sidecar <- function(payload, to) {
+  if (length(payload) == 0) {
+    return(invisible(NULL))
+  }
+  json <- gridify_to_json(payload)
+  side <- paste0(to, ".json")
+  writeLines(json, con = side, useBytes = TRUE)
+  invisible(side)
+}

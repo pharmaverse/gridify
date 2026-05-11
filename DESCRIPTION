@@ -24,7 +24,6 @@ URL: https://pharmaverse.github.io/gridify/
 BugReports: https://github.com/pharmaverse/gridify/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 Imports: 
     grDevices,
     grid,
@@ -42,7 +41,7 @@ Suggests:
     spelling,
     testthat (>= 3.0.0)
 Collate:
-    grid_utils.R
+    gridify-utils.R
     gridify-classes.R
     gridify-methods.R
     ansi_colour.R
@@ -55,3 +54,4 @@ Collate:
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Language: en-GB
+Config/roxygen2/version: 8.0.0

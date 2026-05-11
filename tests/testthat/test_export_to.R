@@ -201,7 +201,7 @@ mock_gridify_with_cells <- function() {
   obj
 }
 
-test_that("metadata = TRUE writes JSON sidecar for PDF and PNG", {
+test_that("metadata = 'sidecar' (default) writes JSON sidecar for PDF and PNG", {
   x <- mock_gridify_with_cells()
 
   for (ext in c("pdf", "png")) {
@@ -220,13 +220,13 @@ test_that("metadata = TRUE writes JSON sidecar for PDF and PNG", {
   }
 })
 
-test_that("metadata = FALSE writes no sidecar", {
+test_that("metadata = 'none' writes no sidecar", {
   x <- mock_gridify_with_cells()
   out_file <- file.path(tempdir(), "meta_off.pdf")
   side <- paste0(out_file, ".json")
   if (file.exists(side)) file.remove(side)
 
-  expect_no_error(export_to(x, out_file, metadata = FALSE))
+  expect_no_error(export_to(x, out_file, metadata = "none"))
   expect_true(file.exists(out_file))
   expect_false(file.exists(side))
 })
@@ -288,18 +288,27 @@ test_that("metadata sidecar for multi-page PDF is a JSON array", {
   expect_identical(parsed[[2]]$header_left_1, "My Company")
 })
 
+test_that("metadata can be abbreviated via match.arg", {
+  x <- mock_gridify_with_cells()
+  out_file <- file.path(tempdir(), "meta_abbr.pdf")
+  side <- paste0(out_file, ".json")
+  if (file.exists(side)) file.remove(side)
+
+  expect_no_error(export_to(x, out_file, metadata = "s"))
+  expect_true(file.exists(side))
+})
+
 test_that("metadata invalid values are rejected", {
   x <- mock_gridify()
   expect_error(
     export_to(x, file.path(tempdir(), "bad.pdf"), metadata = "yes"),
-    "`metadata` must be TRUE, FALSE or the string \"embed\"\\."
+    "should be one of"
   )
   expect_error(
     export_to(
       list(x, x),
       file.path(tempdir(), "bad.pdf"),
       metadata = 1
-    ),
-    "`metadata` must be TRUE, FALSE or the string \"embed\"\\."
+    )
   )
 })
