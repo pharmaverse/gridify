@@ -347,10 +347,12 @@ export_to(
 )
 ```
 
-For multi-page PDFs the JSON sidecar (`<file>.pdf.json`, written by default)
-contains a JSON array with one object per page, listing the `set_cell()` text
-values for each page. Pass `metadata = "none"` to disable it, or
-`metadata = "embed"` to encode the array in the PDF `/Title` instead.
+For multi-page PDFs, passing `metadata = "sidecar"` writes a JSON sidecar
+(`<file>.pdf.json`) containing a JSON array with one object per page, listing
+the `set_cell()` text values for each page. Pass `metadata = "embed"` to
+encode the array in the PDF `/Title` instead. The default is `"none"` (no
+metadata). Set `options(gridify.export.metadata = "sidecar")` to change the
+default project-wide.
 
 ### Extending The Multi-Page Example
 

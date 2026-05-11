@@ -767,21 +767,28 @@ export_to(gridify_obj, to = "output.jpeg", width = 2400, height = 1800, res = 30
 
 ### Metadata
 
-By default `export_to()` also writes a JSON sidecar file next to the output
-(e.g. `output.pdf.json`) containing the text values you set with `set_cell()`.
-This makes it easy to track which header, footer or watermark text was used to
-produce a given figure without parsing the file.
+`export_to()` can optionally record the text values you set with `set_cell()`
+alongside the output, making it easy to track which header, footer or
+watermark text was used to produce a given figure without parsing the file.
+The feature is opt-in via the `metadata` argument.
 
 ```{r, eval = FALSE}
-# Default: writes both output.pdf and output.pdf.json
+# Default: just the PDF, no metadata is written
 export_to(gridify_obj, to = "output.pdf")
 
-# Disable the sidecar
-export_to(gridify_obj, to = "output.pdf", metadata = "none")
+# Write a JSON sidecar (output.pdf.json) next to the output
+export_to(gridify_obj, to = "output.pdf", metadata = "sidecar")
 
 # PDF only: embed the same JSON payload in the PDF /Title metadata
 # (no sidecar file is written in this mode)
 export_to(gridify_obj, to = "output.pdf", metadata = "embed")
+```
+
+To enable metadata writing globally for a project, set the
+`gridify.export.metadata` option once (e.g. in `.Rprofile`):
+
+```{r, eval = FALSE}
+options(gridify.export.metadata = "sidecar")
 ```
 
 ## Conclusion

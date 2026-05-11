@@ -7,13 +7,13 @@
 \alias{export_to,ANY-method}
 \title{Export gridify objects to a file}
 \usage{
-export_to(x, to, device = NULL, metadata = c("sidecar", "embed", "none"), ...)
+export_to(x, to, device = NULL, metadata = NULL, ...)
 
-\S4method{export_to}{gridifyClass}(x, to, device = NULL, metadata = c("sidecar", "embed", "none"), ...)
+\S4method{export_to}{gridifyClass}(x, to, device = NULL, metadata = NULL, ...)
 
-\S4method{export_to}{list}(x, to, device = NULL, metadata = c("sidecar", "embed", "none"), ...)
+\S4method{export_to}{list}(x, to, device = NULL, metadata = NULL, ...)
 
-\S4method{export_to}{ANY}(x, to, device = NULL, metadata = c("sidecar", "embed", "none"), ...)
+\S4method{export_to}{ANY}(x, to, device = NULL, metadata = NULL, ...)
 }
 \arguments{
 \item{x}{A \code{gridifyClass} object or a list of \code{gridifyClass} objects.}
@@ -27,7 +27,7 @@ By default a file name extension is used to choose a graphics device function. D
 \item{metadata}{Controls writing of metadata derived from \code{set_cell()} text values.
 One of:
 \itemize{
-\item \code{"sidecar"} (default) - write a JSON sidecar file next to the output named \verb{<to>.json}
+\item \code{"sidecar"} - write a JSON sidecar file next to the output named \verb{<to>.json}
 containing a named list mapping cell name to its text value (or, for a multi-page PDF
 built from a list of objects, a JSON array of such named lists, one per page).
 No file is written when no cells were set.
@@ -35,9 +35,14 @@ No file is written when no cells were set.
 \code{title} argument of the PDF graphics device, embedding it in the PDF \verb{/Title}
 metadata. The user-supplied \code{title} (via \code{...}) takes precedence and disables
 the injection. No sidecar file is written.
-\item \code{"none"} - do not produce any metadata.
+\item \code{"none"} (default) - do not produce any metadata.
 }
-Validated with \code{\link[=match.arg]{match.arg()}} so it can be abbreviated.}
+Validated with \code{\link[=match.arg]{match.arg()}} so it can be abbreviated.
+When \code{metadata = NULL} (the default), the value is taken from the
+\code{gridify.export.metadata} global option (see \code{\link[=options]{options()}}), falling back to
+\code{"none"} if unset. This makes it possible to enable the feature globally
+for a project via
+\code{options(gridify.export.metadata = "sidecar")}.}
 
 \item{...}{Additional arguments passed to the graphics device functions
 (\code{pdf()}, \code{png()}, \code{tiff()}, \code{jpeg()} or your custom one).

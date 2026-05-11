@@ -201,7 +201,20 @@ mock_gridify_with_cells <- function() {
   obj
 }
 
-test_that("metadata = 'sidecar' (default) writes JSON sidecar for PDF and PNG", {
+test_that("default metadata writes no sidecar (option unset)", {
+  old <- options(gridify.export.metadata = NULL)
+  on.exit(options(old), add = TRUE)
+  x <- mock_gridify_with_cells()
+  out_file <- file.path(tempdir(), "meta_default.pdf")
+  side <- paste0(out_file, ".json")
+  if (file.exists(side)) file.remove(side)
+
+  expect_no_error(export_to(x, out_file))
+  expect_true(file.exists(out_file))
+  expect_false(file.exists(side))
+})
+
+test_that("metadata = 'sidecar' writes JSON sidecar for PDF and PNG", {
   x <- mock_gridify_with_cells()
 
   for (ext in c("pdf", "png")) {
@@ -209,7 +222,7 @@ test_that("metadata = 'sidecar' (default) writes JSON sidecar for PDF and PNG", 
     side <- paste0(out_file, ".json")
     if (file.exists(side)) file.remove(side)
 
-    expect_no_error(export_to(x, out_file))
+    expect_no_error(export_to(x, out_file, metadata = "sidecar"))
     expect_true(file.exists(out_file))
     expect_true(file.exists(side))
 
@@ -218,6 +231,45 @@ test_that("metadata = 'sidecar' (default) writes JSON sidecar for PDF and PNG", 
     expect_identical(parsed$title_1, "<Title 1>")
     expect_identical(parsed$watermark, "DRAFT \"x\" \\ y\nz")
   }
+})
+
+test_that("gridify.export.metadata option provides the default", {
+  old <- options(gridify.export.metadata = "sidecar")
+  on.exit(options(old), add = TRUE)
+  x <- mock_gridify_with_cells()
+  out_file <- file.path(tempdir(), "meta_option.pdf")
+  side <- paste0(out_file, ".json")
+  if (file.exists(side)) file.remove(side)
+
+  expect_no_error(export_to(x, out_file))
+  expect_true(file.exists(side))
+
+  # Explicit argument still beats the option
+  if (file.exists(side)) file.remove(side)
+  expect_no_error(export_to(x, out_file, metadata = "none"))
+  expect_false(file.exists(side))
+})
+
+test_that("gridify.export.metadata option accepts abbreviations", {
+  old <- options(gridify.export.metadata = "s")
+  on.exit(options(old), add = TRUE)
+  x <- mock_gridify_with_cells()
+  out_file <- file.path(tempdir(), "meta_option_abbr.pdf")
+  side <- paste0(out_file, ".json")
+  if (file.exists(side)) file.remove(side)
+
+  expect_no_error(export_to(x, out_file))
+  expect_true(file.exists(side))
+})
+
+test_that("gridify.export.metadata invalid option value is rejected", {
+  old <- options(gridify.export.metadata = "yes")
+  on.exit(options(old), add = TRUE)
+  x <- mock_gridify_with_cells()
+  expect_error(
+    export_to(x, file.path(tempdir(), "bad.pdf")),
+    "should be one of"
+  )
 })
 
 test_that("metadata = 'none' writes no sidecar", {
@@ -237,7 +289,7 @@ test_that("metadata writes no sidecar when no cells are set", {
   side <- paste0(out_file, ".json")
   if (file.exists(side)) file.remove(side)
 
-  expect_no_error(export_to(x, out_file))
+  expect_no_error(export_to(x, out_file, metadata = "sidecar"))
   expect_true(file.exists(out_file))
   expect_false(file.exists(side))
 })
@@ -279,7 +331,7 @@ test_that("metadata sidecar for multi-page PDF is a JSON array", {
   side <- paste0(out_file, ".json")
   if (file.exists(side)) file.remove(side)
 
-  expect_no_error(export_to(x_list, out_file))
+  expect_no_error(export_to(x_list, out_file, metadata = "sidecar"))
   expect_true(file.exists(side))
 
   parsed <- jsonlite::fromJSON(side, simplifyVector = FALSE)
