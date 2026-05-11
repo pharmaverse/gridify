@@ -254,42 +254,12 @@ setMethod(
 setMethod("print", "gridifyClass", function(x, ...) {
   grid::grid.newpage()
 
-  # Choose the viewport height into which the object's grob is drawn.
-  #
-  # A grob is "flexible" when its contents are designed to fill whatever
-  # container they are placed in, rather than having a meaningful natural
-  # height. For such grobs we keep the historical behaviour and let the
-  # viewport span the full row. Two flavours are detected:
-  #   * gtables that contain `null` units in their `heights` —
-  #     e.g. `ggplot2::ggplotGrob()`.
-  #   * recorded gTrees produced by `grid::grid.grabExpr()` (used internally
-  #     for the `formula` input type via `gridGraphics::grid.echo()`); these
-  #     carry a `childrenvp` describing the recording viewport, and
-  #     `grobHeight()` collapses to 0 outside of it.
-  #
-  # All other grobs have a meaningful `grobHeight()` and are treated as
-  # fixed-size — including `gt::as_gtable()`, `flextable::gen_grob()`, plain
-  # `grid::rectGrob()` / `grid::nullGrob()` etc. For these the viewport is
-  # sized to the grob's natural height so that `vjust` can anchor it within
-  # a taller row.
-  #
-  # The `vjust != 0.5` guard preserves byte-for-byte backwards compatibility
-  # for users who do not opt into the new vertical anchoring behaviour.
-  is_flexible_grob <-
-    (inherits(x@object, "gtable") &&
-      any(grid::unitType(x@object$heights) == "null")) ||
-      (inherits(x@object, "gTree") &&
-        !inherits(x@object, "gtable") &&
-        !is.null(x@object$childrenvp))
-
-  height_expr <- if (x@layout@object@vjust != 0.5 && !is_flexible_grob) {
-    quote(grid::grobHeight(OBJECT))
-  } else {
-    bquote(
-      grid::unit.pmax(grid::unit(.(h), "npc"), grid::unit(1, "inch")),
-      list(h = x@layout@object@height)
-    )
-  }
+  # See object_viewport_height_expr() for the rationale behind this choice.
+  height_expr <- object_viewport_height_expr(
+    grob = x@object,
+    vjust = x@layout@object@vjust,
+    height = x@layout@object@height
+  )
 
   pp_list <- list(
     substitute(
