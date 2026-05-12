@@ -439,7 +439,10 @@ gridifyCells <- function(...) {
 #'
 #' @slot row A numeric value, span or sequence specifying the row position of the object.
 #' @slot col A numeric value, span or sequence specifying the column position of the object.
-#' @slot height A numeric value specifying the height of the object.
+#' @slot height A numeric value specifying the height of the object as a fraction of the row
+#' (interpreted in `npc`). Ignored when `vjust != 0.5` and the grob is fixed-size: in that
+#' case the viewport is sized to `grid::grobHeight()` so the object can be anchored within
+#' a taller row. The 1-inch floor in applies in both cases.
 #' @slot width A numeric value specifying the width of the object.
 #' @slot vjust A numeric value in `[0, 1]` specifying the vertical anchoring of the object
 #' within its cell. `0` aligns to the bottom, `0.5` (default) centers it, `1` aligns to the top.
@@ -490,7 +493,10 @@ setValidity("gridifyObject", function(object) {
 #'
 #' @param row A numeric value, span or sequence specifying the row position of the object.
 #' @param col A numeric value, span or sequence specifying the row position of the object.
-#' @param height A numeric value specifying the height of the object. Default is 1.
+#' @param height A numeric value specifying the height of the object as a fraction of the row
+#' (interpreted in `npc`). Default is 1. Ignored when `vjust != 0.5` and the grob is
+#' fixed-size: in that case the viewport is sized to `grid::grobHeight()` so the object
+#' can be anchored within a taller row.
 #' @param width A numeric value specifying the width of the object. Default is 1.
 #' @param vjust A numeric value in `[0, 1]` specifying the vertical anchoring of the object
 #' within its cell. `0` aligns to the bottom, `0.5` (default) centers it, `1` aligns to the top.

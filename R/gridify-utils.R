@@ -94,7 +94,9 @@ is_flexible_grob <- function(grob) {
 #'
 #' @param grob a grob; used only for flexibility detection.
 #' @param vjust numeric, the layout's object vjust.
-#' @param height numeric, the layout's object height (in npc).
+#' @param height numeric, the layout's object height (in npc). Ignored on the
+#' `grid::grobHeight()` branch (i.e. when `vjust != 0.5` and the grob is
+#' fixed-size); used otherwise.
 #' @return an unevaluated call producing a `grid::unit`.
 #' @keywords internal
 object_viewport_height_expr <- function(grob, vjust, height) {

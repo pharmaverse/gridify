@@ -11,7 +11,10 @@ gridifyObject(row, col, height = 1, width = 1, vjust = 0.5)
 
 \item{col}{A numeric value, span or sequence specifying the row position of the object.}
 
-\item{height}{A numeric value specifying the height of the object. Default is 1.}
+\item{height}{A numeric value specifying the height of the object as a fraction of the row
+(interpreted in \code{npc}). Default is 1. Ignored when \code{vjust != 0.5} and the grob is
+fixed-size: in that case the viewport is sized to \code{grid::grobHeight()} so the object
+can be anchored within a taller row.}
 
 \item{width}{A numeric value specifying the width of the object. Default is 1.}
 
