@@ -758,12 +758,35 @@ gridify(p, layout = make_layout(1)) %>%
 
 The same `object_vjust` argument is also accepted by `simple_layout()`,
 `complex_layout()`, `pharma_layout_base()`, `pharma_layout_A4()` and
-`pharma_layout_letter()`, which is particularly useful for tables (e.g. `gt`,
-`flextable`) whose grobs have an intrinsic size smaller than the row:
+`pharma_layout_letter()`. For fixed-size table grobs (`flextable`, `gt`),
+anchoring to the top is often preferred:
 
-```{r, eval = FALSE}
-gridify(my_table, layout = pharma_layout_A4(object_vjust = 1)) %>%
-  set_cell("title_1", "Table anchored to the top of its cell")
+```{r, fig.height = 5.5}
+# flextable anchored to the top of the object row
+ft_top <- flextable::flextable(head(mtcars[c("mpg", "wt", "cyl")], 4))
+
+gridify(
+  object = ft_top,
+  layout = pharma_layout_letter(object_vjust = 1)
+) %>%
+  set_cell("output_num", "<Table> xx.xx.xx") %>%
+  set_cell("title_1", "Anchored flextable (object_vjust = 1)") %>%
+  set_cell("note", "<Note or Footnotes>") %>%
+  set_cell("footer_left", "Program: <PROGRAM NAME>, YYYY-MM-DD at HH:MM")
+```
+
+```{r, fig.height = 6}
+# gt table anchored to the top of the object row
+gt_top <- gt::gt(head(mtcars[c("mpg", "wt", "cyl")], 4))
+
+gridify(
+  object = gt_top,
+  layout = pharma_layout_letter(object_vjust = 1)
+) %>%
+  set_cell("output_num", "<Table> xx.xx.xx") %>%
+  set_cell("title_1", "Anchored gt table (object_vjust = 1)") %>%
+  set_cell("note", "<Note or Footnotes>") %>%
+  set_cell("footer_left", "Program: <PROGRAM NAME>, YYYY-MM-DD at HH:MM")
 ```
 
 ## Export to PDF, PNG, TIFF, and JPEG {#exporting-section}
