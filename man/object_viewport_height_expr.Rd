@@ -4,32 +4,34 @@
 \alias{object_viewport_height_expr}
 \title{Build the viewport-height expression for the object's grob}
 \usage{
-object_viewport_height_expr(grob, vjust, height)
+object_viewport_height_expr(
+  grob,
+  vjust,
+  height,
+  min_height = grid::unit(1, "inch")
+)
 }
 \arguments{
-\item{grob}{a grob; used only for flexibility detection.}
+\item{grob}{a grob; used only by \code{\link[=use_grob_height_for_object]{use_grob_height_for_object()}}.}
 
 \item{vjust}{numeric, the layout's object vjust.}
 
 \item{height}{numeric, the layout's object height (in npc). Ignored on the
-\code{grid::grobHeight()} branch (i.e. when \code{vjust != 0.5} and the grob is
-fixed-size); used otherwise.}
+\code{grid::grobHeight()} branch (i.e. when \code{\link[=use_grob_height_for_object]{use_grob_height_for_object()}}
+returns \code{TRUE}); used otherwise.}
+
+\item{min_height}{a \code{grid::unit} floor applied via \code{grid::unit.pmax()}.
+Default \code{grid::unit(1, "inch")}.}
 }
 \value{
 an unevaluated call producing a \code{grid::unit}.
 }
 \description{
 Chooses between the grob's natural height (\code{grid::grobHeight()}) and a
-layout-driven height in npc, then floors the result at 1 inch via
-\code{grid::unit.pmax()} so the viewport never collapses.
+layout-driven height in npc, then floors the result via \code{grid::unit.pmax()}
+so the viewport never collapses to zero.
 }
 \details{
-The natural height is used only when the caller has opted into vertical
-anchoring (\code{vjust != 0.5}) and the grob is not flexible
-(see \code{is_flexible_grob()}). The \code{vjust == 0.5} case is preserved for
-byte-for-byte backwards compatibility with the historical
-"fill the row" behaviour.
-
 The returned expression references an unbound symbol \code{OBJECT}; the
 caller is responsible for evaluating it in an environment that binds
 \code{OBJECT} to the grob.

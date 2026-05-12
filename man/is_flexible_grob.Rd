@@ -14,19 +14,21 @@ is_flexible_grob(grob)
 }
 \description{
 A flexible grob is one designed to fill whatever container it is placed
-in, so \code{grid::grobHeight()} cannot be used to size its viewport. Two
-shapes are recognised:
-\itemize{
-\item gtables with at least one \code{null} unit in their \code{heights} —
-e.g. \code{ggplot2::ggplotGrob()}.
-\item recorded gTrees produced by \code{grid::grid.grabExpr()} (used internally
-for the \code{formula} input type via \code{gridGraphics::grid.echo()}); these
-carry a \code{childrenvp} describing the recording viewport, outside of
-which \code{grobHeight()} collapses to 0.
+in, so \code{grid::grobHeight()} cannot be used to size its viewport.
+Detection layers, in order of precedence:
+\enumerate{
+\item an explicit \code{gridify.flexible} attribute on the grob (set by the
+\code{gridify()} constructor for grobs produced via \code{grid::grid.grabExpr()}
+on the \code{formula} input path);
+\item a \code{gtable} with at least one \code{null} unit in its \code{heights}
+(e.g. \code{ggplot2::ggplotGrob()}).
 }
 }
 \details{
 All other grobs (\code{gt::as_gtable()}, \code{flextable::gen_grob()}, plain
-\code{grid::rectGrob()} / \code{grid::nullGrob()}, ...) are treated as fixed-size.
+\code{grid::rectGrob()} / \code{grid::nullGrob()}, user gTrees, ...) are treated as
+fixed-size. The previous heuristic of "any gTree carrying a \code{childrenvp}"
+was dropped because \code{childrenvp} is set for many reasons unrelated to
+container-filling (clip viewports, custom transforms, ...).
 }
 \keyword{internal}

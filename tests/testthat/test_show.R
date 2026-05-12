@@ -496,3 +496,19 @@ test_that("test span row for output height row = c(x, y)", {
     )
   )
 })
+
+test_that("show_spec annotates Vjust line for both default and anchored values", {
+  default_lyt <- simple_layout()
+  out <- capture_output_lines(show_spec(default_lyt))
+  expect_true(any(grepl(
+    "^  Vjust: 0.5 \\(default; the object fills the full row regardless of grob type\\)$",
+    out
+  )))
+
+  anchored_lyt <- simple_layout(object_vjust = 1)
+  out <- capture_output_lines(show_spec(anchored_lyt))
+  expect_true(any(grepl(
+    "^  Vjust: 1 \\(anchors fixed-size grobs; flexible grobs e.g. ggplot still fill the row\\)$",
+    out
+  )))
+})

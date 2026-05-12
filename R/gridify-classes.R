@@ -683,6 +683,11 @@ gridify <- function(
       object <- grid::grid.grabExpr(
         gridGraphics::grid.echo(function() eval(object_expr))
       )
+      # Mark the recorded gTree as flexible: its `grobHeight()` is meaningful
+      # only inside the recording viewport (collapses to 0 elsewhere), so the
+      # viewport must span the full row regardless of `vjust`.
+      # See is_flexible_grob() / object_viewport_height_expr().
+      attr(object, "gridify.flexible") <- TRUE
     } else {
       stop("Please install gridGraphics to use it in gridify.")
     }
