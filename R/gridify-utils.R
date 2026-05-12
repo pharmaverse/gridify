@@ -116,7 +116,12 @@ use_grob_height_for_object <- function(grob, vjust) {
 object_viewport_height_expr <- function(grob,
                                         vjust,
                                         height,
-                                        min_height = grid::unit(1, "inch")) {
+                                        min_height = grid::unit(1, "inches")) {
+  min_height_call <- as.call(c(
+    quote(grid::unit),
+    list(as.numeric(min_height), grid_unit_type(min_height))
+  ))
+
   natural_height <- if (use_grob_height_for_object(grob, vjust)) {
     quote(grid::grobHeight(OBJECT))
   } else {
@@ -124,6 +129,6 @@ object_viewport_height_expr <- function(grob,
   }
   substitute(
     grid::unit.pmax(NH, MIN),
-    list(NH = natural_height, MIN = min_height)
+    list(NH = natural_height, MIN = min_height_call)
   )
 }

@@ -87,9 +87,9 @@ test_that("object_viewport_height_expr default floor is 1 inch", {
   )) {
     e <- object_viewport_height_expr(case$g, case$v, case$h)
     floor_arg <- e[[3]]
-    expect_s3_class(floor_arg, "unit")
-    expect_equal(as.numeric(floor_arg), 1)
-    expect_identical(grid::unitType(floor_arg), "inches")
+    expect_identical(floor_arg[[1]], quote(grid::unit))
+    expect_equal(floor_arg[[2]], 1)
+    expect_identical(floor_arg[[3]], "inches")
   }
 })
 

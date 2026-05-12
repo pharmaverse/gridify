@@ -8,7 +8,7 @@ object_viewport_height_expr(
   grob,
   vjust,
   height,
-  min_height = grid::unit(1, "inch")
+  min_height = grid::unit(1, "inches")
 )
 }
 \arguments{
