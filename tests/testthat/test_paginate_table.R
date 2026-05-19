@@ -60,12 +60,12 @@ test_that("paginate_table validates inputs correctly", {
 
   expect_error(
     paginate_table(mtcars, 10, fill_empty = TRUE),
-    "`fill_empty` must be NULL or a single character string"
+    "`fill_empty` must be NULL, NA, or a single character string"
   )
 
   expect_error(
     paginate_table(mtcars, 10, fill_empty = c("|", "-")),
-    "`fill_empty` must be NULL or a single character string"
+    "`fill_empty` must be NULL, NA, or a single character string"
   )
 
   expect_error(
@@ -197,4 +197,35 @@ test_that("paginate_table split_by handles single group", {
 
   expect_equal(length(pages), 1)
   expect_equal(nrow(pages[[1]]), nrow(df_single))
+})
+
+test_that("paginate_table fill_empty works with Date columns", {
+  df <- data.frame(
+    aval = runif(40, 10, 50),
+    dt = as.Date(rep(c("2025-01-02", "2025-02-03", "2025-03-04", "2025-04-05"), 10))
+  )
+
+  expect_no_error({
+    pages <- paginate_table(data = df, rows_per_page = 7, fill_empty = " ")
+    expect_true(length(pages) > 0)
+    expect_equal(nrow(pages[[length(pages)]]), 7)
+    expect_type(pages[[length(pages)]]$dt, "character")
+    expect_equal(pages[[length(pages)]][7, "dt"], " ")
+  })
+})
+
+test_that("paginate_table supports fill_empty = NA preserving column types", {
+  df <- data.frame(
+    aval = runif(40, 10, 50),
+    dt = as.Date(rep(c("2025-01-02", "2025-02-03", "2025-03-04", "2025-04-05"), 10))
+  )
+
+  pages <- paginate_table(data = df, rows_per_page = 7, fill_empty = NA)
+  last_page <- pages[[length(pages)]]
+
+  expect_equal(nrow(last_page), 7)
+  expect_type(last_page$aval, "double")
+  expect_s3_class(last_page$dt, "Date")
+  expect_true(anyNA(last_page[7, "aval"]))
+  expect_true(anyNA(last_page[7, "dt"]))
 })
