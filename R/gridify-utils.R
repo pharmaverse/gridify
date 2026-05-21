@@ -78,36 +78,27 @@ is_flexible_grob <- function(grob) {
   FALSE
 }
 
-#' Should the object's viewport be sized to the grob's natural height?
-#'
-#' Pure predicate driving [object_viewport_height_expr()]. Returns `TRUE`
-#' when the caller has opted into vertical anchoring (`vjust != 0.5`) and
-#' the grob has a meaningful natural height (i.e. is not flexible, see
-#' [is_flexible_grob()]). The `vjust == 0.5` short-circuit preserves the
-#' historical "fill the row" behaviour for users who did not opt in.
-#'
-#' @param grob a grob.
-#' @param vjust numeric, the layout's object vjust.
-#' @return a single logical.
-#' @keywords internal
-use_grob_height_for_object <- function(grob, vjust) {
-  vjust != 0.5 && !is_flexible_grob(grob)
-}
 
 #' Build the viewport-height expression for the object's grob
 #'
 #' Chooses between the grob's natural height (`grid::grobHeight()`) and a
 #' layout-driven height in npc, then floors the result via `grid::unit.pmax()`
 #' so the viewport never collapses to zero.
+#' 
+#' [use_grob_height_for_object] evaluates to `TRUE` when the caller has opted 
+#' into vertical anchoring (`vjust != 0.5`) and the grob has a meaningful 
+#' natural height (i.e. is not flexible, see [is_flexible_grob()]). 
+#' The `vjust == 0.5` short-circuit preserves the historical "fill the row" 
+#' behaviour for users who did not opt in.
 #'
 #' The returned expression references an unbound symbol `OBJECT`; the
 #' caller is responsible for evaluating it in an environment that binds
 #' `OBJECT` to the grob.
 #'
-#' @param grob a grob; used only by [use_grob_height_for_object()].
+#' @param grob a grob; used to evaluate [use_grob_height_for_object].
 #' @param vjust numeric, the layout's object vjust.
 #' @param height numeric, the layout's object height (in npc). Ignored on the
-#' `grid::grobHeight()` branch (i.e. when [use_grob_height_for_object()]
+#' `grid::grobHeight()` branch (i.e. when [use_grob_height_for_object]
 #' returns `TRUE`); used otherwise.
 #' @param min_height a `grid::unit` floor applied via `grid::unit.pmax()`.
 #' Default `grid::unit(1, "inch")`.
@@ -122,7 +113,8 @@ object_viewport_height_expr <- function(grob,
     list(as.numeric(min_height), grid_unit_type(min_height))
   ))
 
-  natural_height <- if (use_grob_height_for_object(grob, vjust)) {
+  use_grob_height_for_object <- vjust != 0.5 && !is_flexible_grob(grob)
+  natural_height <- if (use_grob_height_for_object) {
     quote(grid::grobHeight(OBJECT))
   } else {
     substitute(grid::unit(h, "npc"), list(h = height))

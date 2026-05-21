@@ -718,6 +718,10 @@ The `object_vjust` argument of the layout helpers (and the `vjust` slot of
 - `object_vjust = 1` — anchored to the top of the row.
 - `object_vjust = 0` — anchored to the bottom of the row.
 
+Note: When the object is a flextable and vjust = 0.5, the table will expand to 
+fill the space. When the object is a flextable and vjust does not equal 0.5, the
+table height will remain fixed and position based on the vjust argument provided.
+
 The example below uses a custom layout with the object occupying only `40%`
 of the available row height so the difference is visible:
 

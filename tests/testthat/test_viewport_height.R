@@ -39,20 +39,6 @@ test_that("is_flexible_grob returns FALSE for a fixed-height gtable", {
   expect_false(is_flexible_grob(gt))
 })
 
-test_that("use_grob_height_for_object encodes the policy", {
-  fixed <- grid::rectGrob()
-  flex <- structure(grid::rectGrob(), gridify.flexible = TRUE)
-
-  # vjust == 0.5 always uses npc height (legacy behaviour).
-  expect_false(use_grob_height_for_object(fixed, 0.5))
-  expect_false(use_grob_height_for_object(flex, 0.5))
-
-  # vjust != 0.5 uses grobHeight only for fixed-size grobs.
-  expect_true(use_grob_height_for_object(fixed, 0))
-  expect_true(use_grob_height_for_object(fixed, 1))
-  expect_false(use_grob_height_for_object(flex, 0))
-  expect_false(use_grob_height_for_object(flex, 1))
-})
 
 test_that("object_viewport_height_expr uses npc height when vjust == 0.5", {
   e <- object_viewport_height_expr(grid::rectGrob(), vjust = 0.5, height = 0.8)
