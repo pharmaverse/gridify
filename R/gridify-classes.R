@@ -483,6 +483,9 @@ setValidity("gridifyObject", function(object) {
       "vjust has to be a single finite numeric value in [0, 1]."
     )
   }
+  if (object@height > 1 ) {
+    errs <- c(errs, "height must be less than or equal to 1.")
+  }
 
   if (length(errs)) errs else TRUE
 })
