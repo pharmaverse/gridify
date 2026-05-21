@@ -728,7 +728,7 @@ p <- ggplot(mtcars, aes(mpg, wt)) +
   geom_point() +
   theme_minimal()
 
-make_layout <- function(object_vjust) {
+make_layout <- function(object_vjust = 0.5) {
   gridifyLayout(
     nrow = 3, ncol = 1,
     heights = grid::unit(c(2, 10, 2), "cm"),
