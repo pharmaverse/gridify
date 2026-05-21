@@ -215,6 +215,7 @@ test_that("default metadata writes no sidecar (option unset)", {
 })
 
 test_that("metadata = 'sidecar' writes JSON sidecar for PDF and PNG", {
+  skip_if_not_installed("jsonlite")
   x <- mock_gridify_with_cells()
 
   for (ext in c("pdf", "png")) {
@@ -294,38 +295,8 @@ test_that("metadata writes no sidecar when no cells are set", {
   expect_false(file.exists(side))
 })
 
-test_that("metadata = 'embed' injects PDF /Title and skips sidecar", {
-  x <- mock_gridify_with_cells()
-  out_file <- file.path(tempdir(), "meta_embed.pdf")
-  side <- paste0(out_file, ".json")
-  if (file.exists(side)) file.remove(side)
-
-  expect_no_error(export_to(x, out_file, metadata = "embed"))
-  expect_true(file.exists(out_file))
-  expect_false(file.exists(side))
-
-  raw_bytes <- readBin(out_file, what = "raw", n = file.size(out_file))
-  pdf_bytes <- rawToChar(raw_bytes[raw_bytes != as.raw(0)])
-  expect_true(grepl("header_left_1", pdf_bytes, fixed = TRUE, useBytes = TRUE))
-})
-
-test_that("metadata = 'embed' respects user-supplied title", {
-  x <- mock_gridify_with_cells()
-  out_file <- file.path(tempdir(), "meta_embed_user_title.pdf")
-
-  expect_no_error(export_to(
-    x,
-    out_file,
-    metadata = "embed",
-    title = "MY TITLE"
-  ))
-  raw_bytes <- readBin(out_file, what = "raw", n = file.size(out_file))
-  pdf_bytes <- rawToChar(raw_bytes[raw_bytes != as.raw(0)])
-  expect_true(grepl("MY TITLE", pdf_bytes, fixed = TRUE, useBytes = TRUE))
-  expect_false(grepl("header_left_1", pdf_bytes, fixed = TRUE, useBytes = TRUE))
-})
-
 test_that("metadata sidecar for multi-page PDF is a JSON array", {
+  skip_if_not_installed("jsonlite")
   x_list <- list(mock_gridify_with_cells(), mock_gridify_with_cells())
   out_file <- file.path(tempdir(), "meta_multi.pdf")
   side <- paste0(out_file, ".json")

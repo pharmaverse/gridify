@@ -2,10 +2,11 @@
 
 * `export_to()` gains a `metadata` argument that records `set_cell()` text values
   alongside the exported output. The default is `metadata = "none"`; pass
-  `"sidecar"` to write a JSON sidecar `<file>.json` next to the output, or
-  `"embed"` (PDF only) to inject the same JSON payload as the PDF `/Title`
-  so the metadata travels inside the file. The default can be changed
-  project-wide by setting `options(gridify.export.metadata = "sidecar")`.
+  `"sidecar"` to write a JSON sidecar `<file>.json` next to the output.
+  The default can be changed project-wide by setting
+  `options(gridify.export.metadata = "sidecar")`.
+* `jsonlite` moved from `Imports` to `Suggests`; it is only required when using
+  `metadata = "sidecar"`.
 
 
 # gridify 0.7.7

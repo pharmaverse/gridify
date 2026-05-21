@@ -74,12 +74,16 @@ gridify_metadata <- function(x) {
 #' @return a length-one character vector with the JSON representation of `x`.
 #' @keywords internal
 gridify_to_json <- function(x) {
-  as.character(jsonlite::toJSON(
-    x,
-    auto_unbox = TRUE,
-    null = "null",
-    na = "null"
-  ))
+  if (requireNamespace("jsonlite", quietly = TRUE)) {
+    as.character(jsonlite::toJSON(
+      x,
+      auto_unbox = TRUE,
+      null = "null",
+      na = "null"
+    ))
+  } else {
+    stop("Please install the 'jsonlite' package to use the gridify_to_json function")
+  }
 }
 
 #' Write the JSON metadata sidecar file
@@ -119,10 +123,10 @@ write_metadata_sidecar <- function(payload, to) {
 #' [match.arg()], so abbreviations are accepted.
 #'
 #' @param metadata the value passed by the user; may be `NULL`.
-#' @return one of `"none"`, `"sidecar"`, `"embed"`.
+#' @return one of `"none"`, `"sidecar"`.
 #' @keywords internal
 resolve_export_metadata <- function(metadata) {
-  choices <- c("none", "sidecar", "embed")
+  choices <- c("none", "sidecar")
   if (is.null(metadata)) {
     metadata <- getOption("gridify.export.metadata", "none")
   }

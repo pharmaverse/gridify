@@ -347,12 +347,19 @@ export_to(
 )
 ```
 
-For multi-page PDFs, passing `metadata = "sidecar"` writes a JSON sidecar
-(`<file>.pdf.json`) containing a JSON array with one object per page, listing
-the `set_cell()` text values for each page. Pass `metadata = "embed"` to
-encode the array in the PDF `/Title` instead. The default is `"none"` (no
-metadata). Set `options(gridify.export.metadata = "sidecar")` to change the
-default project-wide.
+Passing `metadata = "sidecar"` to `export_to()` writes a JSON sidecar next to
+each output file. The exact content depends on how the output is structured:
+
+- **Single multi-page PDF** (a list of objects exported to one `.pdf` path) —
+  one sidecar `<file>.pdf.json` containing a JSON array with one object per
+  page, listing the `set_cell()` text values for that page.
+- **Multiple separate files** (a list of objects exported to a vector of paths,
+  or any single-object export) — one sidecar per file (e.g. `fig1.pdf.json`,
+  `fig2.pdf.json`, …), each containing a single JSON object.
+
+The default is `"none"` (no metadata). Set
+`options(gridify.export.metadata = "sidecar")` to change the default
+project-wide.
 
 ### Extending The Multi-Page Example
 

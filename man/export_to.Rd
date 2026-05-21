@@ -31,10 +31,6 @@ One of:
 containing a named list mapping cell name to its text value (or, for a multi-page PDF
 built from a list of objects, a JSON array of such named lists, one per page).
 No file is written when no cells were set.
-\item \code{"embed"} - PDF only. Encode the same payload as JSON and pass it as the
-\code{title} argument of the PDF graphics device, embedding it in the PDF \verb{/Title}
-metadata. The user-supplied \code{title} (via \code{...}) takes precedence and disables
-the injection. No sidecar file is written.
 \item \code{"none"} (default) - do not produce any metadata.
 }
 Validated with \code{\link[=match.arg]{match.arg()}} so it can be abbreviated.

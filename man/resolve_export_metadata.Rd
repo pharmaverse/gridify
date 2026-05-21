@@ -10,7 +10,7 @@ resolve_export_metadata(metadata)
 \item{metadata}{the value passed by the user; may be \code{NULL}.}
 }
 \value{
-one of \code{"none"}, \code{"sidecar"}, \code{"embed"}.
+one of \code{"none"}, \code{"sidecar"}.
 }
 \description{
 Resolves the \code{metadata} argument from (in order of precedence):

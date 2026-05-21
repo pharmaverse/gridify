@@ -778,10 +778,6 @@ export_to(gridify_obj, to = "output.pdf")
 
 # Write a JSON sidecar (output.pdf.json) next to the output
 export_to(gridify_obj, to = "output.pdf", metadata = "sidecar")
-
-# PDF only: embed the same JSON payload in the PDF /Title metadata
-# (no sidecar file is written in this mode)
-export_to(gridify_obj, to = "output.pdf", metadata = "embed")
 ```
 
 To enable metadata writing globally for a project, set the

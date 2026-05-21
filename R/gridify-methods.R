@@ -948,10 +948,6 @@ setMethod("show", "gridifyLayout", function(object) {
 #'   containing a named list mapping cell name to its text value (or, for a multi-page PDF
 #'   built from a list of objects, a JSON array of such named lists, one per page).
 #'   No file is written when no cells were set.
-#'   \item `"embed"` - PDF only. Encode the same payload as JSON and pass it as the
-#'   `title` argument of the PDF graphics device, embedding it in the PDF `/Title`
-#'   metadata. The user-supplied `title` (via `...`) takes precedence and disables
-#'   the injection. No sidecar file is written.
 #'   \item `"none"` (default) - do not produce any metadata.
 #' }
 #' Validated with [match.arg()] so it can be abbreviated.
@@ -1185,14 +1181,6 @@ setMethod(
     dev_args <- utils::modifyList(default_args, user_args)
     dev_args$file <- to
 
-    if (
-      metadata == "embed" &&
-        length(payload) > 0 &&
-        is.null(dev_args$title)
-    ) {
-      dev_args$title <- gridify_to_json(payload)
-    }
-
     if (is.null(device)) {
       device <- grDevices::pdf
     }
@@ -1288,15 +1276,6 @@ setMethod(
         list(file = to, width = 11.69, height = 8.27, onefile = TRUE),
         user_args
       )
-      if (
-        metadata == "embed" &&
-          length(payload) > 0 &&
-          any(lengths(payload) > 0) &&
-          is.null(dev_args$title)
-      ) {
-        dev_args$title <- gridify_to_json(payload)
-      }
-
       do.call(device, dev_args)
       on.exit(grDevices::dev.off(), add = TRUE)
 

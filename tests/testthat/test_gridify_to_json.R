@@ -1,4 +1,5 @@
 test_that("gridify_to_json round-trips basic payloads", {
+  skip_if_not_installed("jsonlite")
   expect_identical(
     jsonlite::fromJSON(gridify_to_json(list(a = "x", b = "y"))),
     list(a = "x", b = "y")
@@ -16,6 +17,7 @@ test_that("gridify_to_json unboxes scalars", {
 })
 
 test_that("gridify_to_json escapes special characters", {
+  skip_if_not_installed("jsonlite")
   s <- "DRAFT \"x\" \\ y\nz"
   json <- gridify_to_json(list(w = s))
   expect_identical(jsonlite::fromJSON(json)$w, s)
@@ -35,6 +37,7 @@ test_that("gridify_metadata returns empty list for no cells", {
 })
 
 test_that("write_metadata_sidecar writes JSON file and returns its path", {
+  skip_if_not_installed("jsonlite")
   base <- tempfile(fileext = ".pdf")
   side <- paste0(base, ".json")
   if (file.exists(side)) file.remove(side)
@@ -58,6 +61,7 @@ test_that("write_metadata_sidecar skips empty payloads", {
 })
 
 test_that("write_metadata_sidecar serialises multi-page list payload", {
+  skip_if_not_installed("jsonlite")
   base <- tempfile(fileext = ".pdf")
   side <- paste0(base, ".json")
   if (file.exists(side)) file.remove(side)
