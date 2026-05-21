@@ -12,12 +12,12 @@ object_viewport_height_expr(
 )
 }
 \arguments{
-\item{grob}{a grob; used only by \code{\link[=use_grob_height_for_object]{use_grob_height_for_object()}}.}
+\item{grob}{a grob; used to evaluate \link{use_grob_height_for_object}.}
 
 \item{vjust}{numeric, the layout's object vjust.}
 
 \item{height}{numeric, the layout's object height (in npc). Ignored on the
-\code{grid::grobHeight()} branch (i.e. when \code{\link[=use_grob_height_for_object]{use_grob_height_for_object()}}
+\code{grid::grobHeight()} branch (i.e. when \link{use_grob_height_for_object}
 returns \code{TRUE}); used otherwise.}
 
 \item{min_height}{a \code{grid::unit} floor applied via \code{grid::unit.pmax()}.
@@ -32,6 +32,12 @@ layout-driven height in npc, then floors the result via \code{grid::unit.pmax()}
 so the viewport never collapses to zero.
 }
 \details{
+\link{use_grob_height_for_object} evaluates to \code{TRUE} when the caller has opted
+into vertical anchoring (\code{vjust != 0.5}) and the grob has a meaningful
+natural height (i.e. is not flexible, see \code{\link[=is_flexible_grob]{is_flexible_grob()}}).
+The \code{vjust == 0.5} short-circuit preserves the historical "fill the row"
+behaviour for users who did not opt in.
+
 The returned expression references an unbound symbol \code{OBJECT}; the
 caller is responsible for evaluating it in an environment that binds
 \code{OBJECT} to the grob.

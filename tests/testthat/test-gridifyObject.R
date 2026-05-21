@@ -67,6 +67,16 @@ test_that("gridifyObject setValidity tests", {
     ),
     "cell col has to be positive integer"
   )
+  
+  expect_error(
+    new("gridifyObject",
+        row = 1,
+        col = 1,
+        height = 2,
+        width = 1
+    ),
+    "height must be less than or equal to 1."
+  )
 })
 
 test_that("gridifyObject vjust validity and default", {
