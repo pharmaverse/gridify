@@ -85,7 +85,7 @@ is_flexible_grob <- function(grob) {
 #' layout-driven height in npc, then floors the result via `grid::unit.pmax()`
 #' so the viewport never collapses to zero.
 #' 
-#' [use_grob_height_for_object] evaluates to `TRUE` when the caller has opted 
+#' `use_grob_height_for_object evaluates` to `TRUE` when the caller has opted 
 #' into vertical anchoring (`vjust != 0.5`) and the grob has a meaningful 
 #' natural height (i.e. is not flexible, see [is_flexible_grob()]). 
 #' The `vjust == 0.5` short-circuit preserves the historical "fill the row" 
@@ -95,10 +95,10 @@ is_flexible_grob <- function(grob) {
 #' caller is responsible for evaluating it in an environment that binds
 #' `OBJECT` to the grob.
 #'
-#' @param grob a grob; used to evaluate [use_grob_height_for_object].
+#' @param grob a grob; used to evaluate `use_grob_height_for_object`.
 #' @param vjust numeric, the layout's object vjust.
 #' @param height numeric, the layout's object height (in npc). Ignored on the
-#' `grid::grobHeight()` branch (i.e. when [use_grob_height_for_object]
+#' `grid::grobHeight()` branch (i.e. when `use_grob_height_for_object`
 #' returns `TRUE`); used otherwise.
 #' @param min_height a `grid::unit` floor applied via `grid::unit.pmax()`.
 #' Default `grid::unit(1, "inch")`.
