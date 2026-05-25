@@ -7,6 +7,8 @@ coverage](https://codecov.io/gh/pharmaverse/gridify/graph/badge.svg)](https://ap
 Badge](http://pharmaverse.org/shields/gridify.svg)](https://pharmaverse.org)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/gridify)](https://CRAN.R-project.org/package=gridify)
+[![status:
+active](https://github.com/GIScience/badges/raw/master/status/active.svg)](https://github.com/GIScience/badges#active)
 
 ## Overview
 
