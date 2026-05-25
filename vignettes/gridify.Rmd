@@ -206,6 +206,27 @@ To save `gridify` drawings to files see `vignette("simple_examples", package = "
 - **Custom Layout**: `vignette("create_custom_layout", package = "gridify")`  
 - **Transparency**: `vignette("transparency", package = "gridify")`  
 
+## A Note on Security and Searchability
+
+Two things worth knowing about `gridify` outputs in regulated settings:
+
+### Outputs Cannot Be Hand-Edited
+
+`gridify` produces graphical objects, not editable documents.
+Unlike Word or Excel, there is nothing to retype or change by hand after the output is generated.
+This matters in validated environments where manual modifications are not allowed.
+
+### PDF Text is Searchable
+
+Even though the output is graphical, text in PDFs (via `export_to()`) is **real text** — not a flat image.
+R's vector graphics engine keeps the characters selectable, so reviewers can:
+
+- search with Ctrl+F / Cmd+F,
+- copy & paste text,
+- zoom without losing quality.
+
+In short: the output is locked down but still easy to work with for review.
+
 ## Conclusion
 
 That’s it! `gridify` enables you to consistently position text elements around any figures or tables, all while letting you leverage base R `grid` for maximum control and transparency. 
