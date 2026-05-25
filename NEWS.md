@@ -10,7 +10,6 @@
   is used with a fixed-size grob the viewport is sized to `grid::grobHeight()`
   and the `height` slot of `gridifyObject()` is ignored. Reported and proposed by Monika Beh.
 
-
 # gridify 0.7.7
 
 * Updated `README.md` file.
