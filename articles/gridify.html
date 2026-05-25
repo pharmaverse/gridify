@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Get Started with gridify • gridify</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Get Started with gridify">
 </head>
@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gridify</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.7.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,7 +62,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Get Started with gridify</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/pharmaverse/gridify/blob/v0.7.7/vignettes/gridify.Rmd" class="external-link"><code>vignettes/gridify.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/pharmaverse/gridify/blob/main/vignettes/gridify.Rmd" class="external-link"><code>vignettes/gridify.Rmd</code></a></small>
       <div class="d-none name"><code>gridify.Rmd</code></div>
     </div>
 
@@ -130,7 +130,7 @@ headers, footers, notes, etc.</li>
 demonstration. The same approach works for <code>gt</code>,
 <code>flextable</code>, or base R figures.<br>
 For <code>rtables</code>, convert them into a <code>flextable</code>
-using <code><a href="https://insightsengineering.github.io/rtables.officer/latest-release/reference/tt_to_flextable.html" class="external-link">rtables.officer::tt_to_flextable()</a></code> before following
+using <code>rtables.officer::tt_to_flextable()</code> before following
 this approach.</p>
 <div class="section level3">
 <h3 id="create-a-figure">1. Create a Figure<a class="anchor" aria-label="anchor" href="#create-a-figure"></a>
@@ -464,7 +464,7 @@ displays the final layout in your R session, and invisibly returns the
 <span><span class="co">#&gt;             "cm", "null", "cm", "lines", "cm", "cm")), widths = grid::unit(c(0.33, </span></span>
 <span><span class="co">#&gt;         0.33, 0.33), c("npc", "npc", "npc")))))))</span></span>
 <span><span class="co">#&gt; attr(,"env")</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x55f694f74ef8&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; &lt;environment: 0x55dc404964d8&gt;</span></span></code></pre></div>
 <p><code>gridify</code> uses meta-programming to capture all
 <code>grid</code> calls needed to assemble your layout. That means you
 can retrieve or audit exactly how the figure or table is constructed.

@@ -97,6 +97,7 @@ gridify object to 1 inch for each dimension.
 The following example demonstrates this behaviour Try resizing your
 window:
 
+
     library(grid)
     library(ggplot2)
     grid.newpage()

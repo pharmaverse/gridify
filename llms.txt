@@ -43,6 +43,7 @@ result of using `gridify` is always a graphical image.
 You can install the newest release version from CRAN:
 
 ``` r
+
 install.packages("gridify")
 ```
 
@@ -50,6 +51,7 @@ Or you can install the newest development version from Pharmaverse
 GitHub (example):
 
 ``` r
+
 # install.packages("remotes")
 remotes::install_github("pharmaverse/gridify", build_manual = TRUE)
 ```
@@ -76,6 +78,7 @@ The following example uses a table created by the `gt` package and the
 [`pharma_layout_base()`](https://pharmaverse.github.io/gridify/reference/pharma_layout_base.md).
 
 ``` r
+
 library(gridify)
 # install.packages("gt")
 # gt needs gtable

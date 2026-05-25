@@ -13,6 +13,7 @@ before continuing with this vignette.
 The `magrittr` and `ggplot2` packages will be useful for the examples.
 
 ``` r
+
 library(gridify)
 library(magrittr)
 library(ggplot2)
@@ -48,6 +49,7 @@ In the example below, we have created some dummy metadata based on the
 others are figure specific so have been listed individually.
 
 ``` r
+
 figures_data <- list(
   global = list(
     project = "My Project",
@@ -85,6 +87,7 @@ process this file to get a proper list. You should add additional
 columns to the file to help build each figure.
 
 ``` r
+
 library(readxl)
 
 dat <- readxl::read_excel("PATH TO YOUR FILE")
@@ -100,6 +103,7 @@ arguments that affect the elements of the output, an example of this
 could be:
 
 ``` r
+
 generate_figure <- function(data, var1, var2) {
   ggplot2::ggplot(data, ggplot2::aes(x = !!as.name(var1), y = !!as.name(var2))) +
     ggplot2::geom_line()
@@ -110,6 +114,7 @@ You want to collect all figures in a separate list. Here, the variable
 `figures_list` is a container for our outputs.
 
 ``` r
+
 figures_list <- list()
 ```
 
@@ -117,6 +122,7 @@ Optionally, set global variables, which are usually defined at the top
 of a script.
 
 ``` r
+
 COMPANY <- "My Company"
 STATUS <- "DRAFT"
 ```
@@ -124,6 +130,7 @@ STATUS <- "DRAFT"
 Now you can run a for-loop to generate many `gridify` objects.
 
 ``` r
+
 for (figure_index in seq_along(figures_data$figures)) {
   figure_obj <- generate_figure(mtcars, figures_data$global$var1, figures_data$figures[[figure_index]]$var2)
 
@@ -160,12 +167,14 @@ You can generate a PDF for each figure individually and then combine
 them in software like Acrobat.
 
 ``` r
+
 if (!dir.exists("figures")) {
   dir.create("figures")
 }
 ```
 
 ``` r
+
 export_to(
   figures_list,
   sprintf("./figures/test_Company_A4_layout_%s.pdf", seq_along(figures_list))
@@ -175,6 +184,7 @@ export_to(
 Or you can generate a single PDF file with all figures.
 
 ``` r
+
 export_to(
   figures_list,
   "./figures/test_multi_Company_A4_layout.pdf"
@@ -193,6 +203,7 @@ format. Here is an example of this in practice when creating outputs for
 pdf/docx files.
 
 ``` r
+
 library(gt)
 ```
 
@@ -211,6 +222,7 @@ The `gridify` package provides a lightweight helper function
 to simplify the pagination process:
 
 ``` r
+
 table_cols <- c("cyl", "vs", "am", "drat", "qsec") # Columns that appear in final output
 df <- mtcars[, table_cols]
 rows_per_page <- 10
@@ -233,6 +245,7 @@ into a `gtable` with the `gt` package then looping over the `gridify`
 function.
 
 ``` r
+
 # Define styling parameters
 row_height_pixels <- 10
 font_size <- 12
@@ -290,6 +303,7 @@ is either your `gridify` object or a list of them, and the second is
 either the desired file path (including file name) or a vector of them.
 
 ``` r
+
 if (!dir.exists("tables")) {
   dir.create("tables")
 }
@@ -303,6 +317,7 @@ mentioned earlier, Rmd and Qmd documents are alternatives for saving
 `.Qmd` documents.
 
 ``` r
+
 export_to(
   results_list,
   to = "./tables/multipageA4.pdf"
@@ -323,6 +338,7 @@ To export as a PNG or JPG, you have two options:
 This is done by providing a single name for `to`.
 
 ``` r
+
 export_to(
   results_list[[1]],
   to = "./tables/singlepage.png",
@@ -346,6 +362,7 @@ This is done by providing a list of names for `to`. The lengths of the
 names vector and the `gridify` input must be the same.
 
 ``` r
+
 export_to(
   results_list,
   to = file.path("./tables", sprintf("singlepage%s.png", seq_along(results_list))),
@@ -419,6 +436,7 @@ The R code below has `fig.width = 8` and `fig.height = 45`. Note that
 `"fixed"` scales) and margins in `"inches"`.
 
 ``` r
+
 gt_obj <- gt::gt(Theoph)
 
 g <- gridify(

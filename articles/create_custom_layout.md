@@ -21,6 +21,7 @@ which creates spaces or cells where text elements can then be added.
 Each cell is then defined by the rows and columns it spans.
 
 ``` r
+
 library(gridify)
 # (to use |> version 4.1.0 of R is required, for lower versions we recommend %>% from magrittr)
 library(magrittr)
@@ -37,6 +38,7 @@ show_layout(simple_layout())
 Here is an example layout. All arguments will be explained below.
 
 ``` r
+
 new_layout <- gridifyLayout(
   nrow = 4L,
   ncol = 2L,
@@ -130,6 +132,7 @@ arguments `t`, `r`, `b` and `l` are given values, this is for the top,
 right, bottom and left margins respectively e.g.
 
 ``` r
+
 # a 10% margin on all sides
 grid::unit(c(t = 0.1, r = 0.1, b = 0.1, l = 0.1), units = "npc")
 ```
@@ -142,6 +145,7 @@ gridify object. The background value can be set to the default colour
 (white), or to any specific colour e.g.
 
 ``` r
+
 # set the background colour to be the default
 background <- grid::get.gpar()$fill
 
@@ -166,6 +170,7 @@ cell(s) location. The default values are `1`, which is the equivalent of
 100% of the width/height of the area.
 
 ``` r
+
 # an object that spans only row 3 but both columns 1 and 2
 gridifyObject(row = 3, col = 1:2)
 ```
@@ -194,6 +199,7 @@ required for each text element, with any remaining space allocated to
 the object.
 
 ``` r
+
 simple_layout(scales = "free")
 #> gridifyLayout object
 #> ---------------------
@@ -238,12 +244,14 @@ simple_layout(scales = "free")
 ```
 
 ``` r
+
 show_layout(simple_layout(scales = "free"))
 ```
 
 ![](create_custom_layout_files/figure-html/show-scales-argument-free-1.png)
 
 ``` r
+
 simple_layout(scales = "fixed")
 #> gridifyLayout object
 #> ---------------------
@@ -288,6 +296,7 @@ simple_layout(scales = "fixed")
 ```
 
 ``` r
+
 # As no lines were defined, the object takes up the whole space below
 show_layout(simple_layout(scales = "fixed"))
 ```
@@ -298,6 +307,7 @@ Below is an example of how to add scales to a custom layout with options
 being `npc` or `lines`.
 
 ``` r
+
 scales_example_layout <- function(
     margin = grid::unit(c(t = 0.1, r = 0.1, b = 0.1, l = 0.1), units = "npc"),
     global_gpar = grid::gpar(),
@@ -375,6 +385,7 @@ show_layout(scales_example_layout(scales = "npc"))
 ![](create_custom_layout_files/figure-html/how-add-scales-custom-layout-1.png)
 
 ``` r
+
 scales_example_layout(scales = "lines")
 #> gridifyLayout object
 #> ---------------------
@@ -446,6 +457,7 @@ when adding text elements to the output so make sure they are named
 appropriately.
 
 ``` r
+
 gridifyCells(
   company = gridifyCell(row = 1, col = 2, x = 1, hjust = 1, y = 1, vjust = 1),
   title = gridifyCell(row = 2, col = 1, x = 1, hjust = 0.5),
@@ -533,6 +545,7 @@ the calls to
 [`set_cell()`](https://pharmaverse.github.io/gridify/reference/set_cell.md).
 
 ``` r
+
 new_layout <- gridifyLayout(
   nrow = 3L,
   ncol = 1L,
@@ -567,6 +580,7 @@ The text element fonts can also be customized easily as per the user
 requirements.
 
 ``` r
+
 new_layout <- gridifyLayout(
   nrow = 3L,
   ncol = 1L,
@@ -610,6 +624,7 @@ provided by the end user with
 will take higher priority and overwrite the default.
 
 ``` r
+
 new_layout <- gridifyLayout(
   nrow = 4L,
   ncol = 2L,
@@ -653,6 +668,7 @@ rows and columns and set the transparency of the text, the font size
 large and the rotation to 45 degrees.
 
 ``` r
+
 new_layout <- gridifyLayout(
   nrow = 3L,
   ncol = 1L,

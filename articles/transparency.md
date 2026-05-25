@@ -27,6 +27,7 @@ figure with headers, footers, and additional text elements, all while
 exposing the raw `grid` code used behind the scenes:
 
 ``` r
+
 library(gridify)
 # For the native pipe (|>), R 4.1.0 or higher is recommended.
 # Otherwise, you can use magrittr's %>%.
@@ -58,6 +59,7 @@ grid_call_behind <- gridify(
 ![](transparency_files/figure-html/unnamed-chunk-2-1.png)
 
 ``` r
+
 
 # The underlying grid call is returned invisibly by the print() method.
 # We can inspect or store it for further manipulations:
@@ -105,10 +107,11 @@ grid_call_behind
 #>         0.4), c("cm", "cm", "cm", "null", "cm", "cm")), widths = grid::unit(c(0.33, 
 #>         0.33, 0.33), c("npc", "npc", "npc")))))))
 #> attr(,"env")
-#> <environment: 0x56240f341c48>
+#> <environment: 0x55d56c7efa30>
 ```
 
 ``` r
+
 # Retrieve the main object- either a figure or table
 OBJECT <- attr(grid_call_behind, "env")[["OBJECT"]]
 # Redraw the graphics by eval of the grid call

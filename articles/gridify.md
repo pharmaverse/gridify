@@ -34,6 +34,7 @@ always an image.
 You can install the newest release version from CRAN:
 
 ``` r
+
 install.packages("gridify")
 ```
 
@@ -41,6 +42,7 @@ Or you can install the newest development version from Pharmaverse
 GitHub (example):
 
 ``` r
+
 # install.packages("remotes")
 remotes::install_github("pharmaverse/gridify", build_manual = TRUE)
 ```
@@ -48,6 +50,7 @@ remotes::install_github("pharmaverse/gridify", build_manual = TRUE)
 Then load **gridify**:
 
 ``` r
+
 library(gridify)
 library(magrittr)
 ```
@@ -65,12 +68,12 @@ library(magrittr)
 Below is a minimal example using `ggplot2` for demonstration. The same
 approach works for `gt`, `flextable`, or base R figures.  
 For `rtables`, convert them into a `flextable` using
-[`rtables.officer::tt_to_flextable()`](https://insightsengineering.github.io/rtables.officer/latest-release/reference/tt_to_flextable.html)
-before following this approach.
+`rtables.officer::tt_to_flextable()` before following this approach.
 
 ### 1. Create a Figure
 
 ``` r
+
 library(ggplot2)
 
 basic_plot <- ggplot2::ggplot(mtcars, ggplot2::aes(x = mpg, y = wt)) +
@@ -96,15 +99,16 @@ You can use built-in layouts or create your own (see
 
 The built-in layouts include:
 
-| Function                                                                                            | Description                                                                                                                                                    |
-|-----------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [`simple_layout()`](https://pharmaverse.github.io/gridify/reference/simple_layout.md)               | A layout with two cells: `title` (top) and `footer` (bottom).                                                                                                  |
-| [`complex_layout()`](https://pharmaverse.github.io/gridify/reference/complex_layout.md)             | A multi-cell layout including `header_left`, `header_middle`, `header_right`, `title`, `subtitle`, `note`, `footer_left`, `footer_middle`, and `footer_right`. |
-| [`pharma_layout_base()`](https://pharmaverse.github.io/gridify/reference/pharma_layout_base.md)     | A base layout for pharmaceutical outputs, with predefined cells for headers, footers, titles, subtitles, notes, and references (defaults can be overwritten).  |
-| [`pharma_layout_letter()`](https://pharmaverse.github.io/gridify/reference/pharma_layout_letter.md) | A layout for pharmaceutical letters, with predefined cells for headers, footers, titles, subtitles, notes, and references (defaults can be overwritten).       |
-| [`pharma_layout_A4()`](https://pharmaverse.github.io/gridify/reference/pharma_layout_A4.md)         | Similar to [`pharma_layout_letter()`](https://pharmaverse.github.io/gridify/reference/pharma_layout_letter.md), but for A4 size.                               |
+| Function | Description |
+|----|----|
+| [`simple_layout()`](https://pharmaverse.github.io/gridify/reference/simple_layout.md) | A layout with two cells: `title` (top) and `footer` (bottom). |
+| [`complex_layout()`](https://pharmaverse.github.io/gridify/reference/complex_layout.md) | A multi-cell layout including `header_left`, `header_middle`, `header_right`, `title`, `subtitle`, `note`, `footer_left`, `footer_middle`, and `footer_right`. |
+| [`pharma_layout_base()`](https://pharmaverse.github.io/gridify/reference/pharma_layout_base.md) | A base layout for pharmaceutical outputs, with predefined cells for headers, footers, titles, subtitles, notes, and references (defaults can be overwritten). |
+| [`pharma_layout_letter()`](https://pharmaverse.github.io/gridify/reference/pharma_layout_letter.md) | A layout for pharmaceutical letters, with predefined cells for headers, footers, titles, subtitles, notes, and references (defaults can be overwritten). |
+| [`pharma_layout_A4()`](https://pharmaverse.github.io/gridify/reference/pharma_layout_A4.md) | Similar to [`pharma_layout_letter()`](https://pharmaverse.github.io/gridify/reference/pharma_layout_letter.md), but for A4 size. |
 
 ``` r
+
 pharma_layout_letter()
 #> gridifyLayout object
 #> ---------------------
@@ -211,6 +215,7 @@ function to combine your object (figure or table) with the specified
 layout:
 
 ``` r
+
 grob_object <- gridify(
   object = basic_plot,
   layout = pharma_layout_letter()
@@ -222,6 +227,7 @@ grob_object <- gridify(
 Use the show method (return the object) to check out available cells.
 
 ``` r
+
 grob_object
 #> gridifyClass object
 #> ---------------------
@@ -251,6 +257,7 @@ grob_object
 You can add text to labeled cells (headers, footers, notes, etc.).
 
 ``` r
+
 grob_object <- grob_object %>%
   set_cell("header_left_1", "My Company") %>%
   set_cell("header_left_2", "<PROJECT> / <INDICATION>") %>%
@@ -304,6 +311,7 @@ object displays the final layout in your R session, and invisibly
 returns the `grid` grob:
 
 ``` r
+
 final_grob <- print(grob_object)
 ```
 
@@ -312,6 +320,7 @@ final_grob <- print(grob_object)
 Raw `grid` code behind:
 
 ``` r
+
 final_grob
 #> grid::gTree(children = grid::gList(grid::rectGrob(x = 0, y = 0, 
 #>     width = 1, height = 1, just = c("left", "bottom"), gp = grid::gpar(fill = "transparent", 
@@ -383,7 +392,7 @@ final_grob
 #>             "cm", "null", "cm", "lines", "cm", "cm")), widths = grid::unit(c(0.33, 
 #>         0.33, 0.33), c("npc", "npc", "npc")))))))
 #> attr(,"env")
-#> <environment: 0x55f694f74ef8>
+#> <environment: 0x55dc404964d8>
 ```
 
 `gridify` uses meta-programming to capture all `grid` calls needed to
@@ -397,6 +406,7 @@ transparency and consistency are critical.
 Below is a quick example from the README, using a `gt` table:
 
 ``` r
+
 library(gt)
 
 tab <- gt::gt(head(mtcars)) %>%

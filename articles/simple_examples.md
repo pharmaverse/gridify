@@ -43,6 +43,7 @@ the result is passed to the next function in the pipe.
 Here’s an example:
 
 ``` r
+
 # Load the necessary libraries
 library(ggplot2)
 # (to use |> version 4.1.0 of R is required, for lower versions we recommend %>% from magrittr)
@@ -65,6 +66,7 @@ Here we create a line plot of `mpg` against `wt` using the `mtcars`
 dataset.
 
 ``` r
+
 library(gridify)
 fig_obj <- ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg, y = wt)) +
   ggplot2::geom_line()
@@ -76,6 +78,7 @@ function to apply
 [`simple_layout()`](https://pharmaverse.github.io/gridify/reference/simple_layout.md).
 
 ``` r
+
 g <- gridify(fig_obj, layout = simple_layout())
 ```
 
@@ -84,6 +87,7 @@ Next, we use the
 function to add a title and footer to our figure before printing it.
 
 ``` r
+
 g <- g %>%
   set_cell("title", "Title") %>%
   set_cell("footer", "Footer")
@@ -99,6 +103,7 @@ Here we create a line plot of `mpg` against `wt` using the `mtcars`
 dataset.
 
 ``` r
+
 fig_obj <- ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg, y = wt)) +
   ggplot2::geom_line()
 ```
@@ -109,6 +114,7 @@ to apply
 [`complex_layout()`](https://pharmaverse.github.io/gridify/reference/complex_layout.md).
 
 ``` r
+
 g <- gridify(fig_obj, layout = complex_layout()) %>%
   set_cell("header_left", "Left Header") %>%
   set_cell("header_middle", "Middle Header") %>%
@@ -142,6 +148,7 @@ function to apply
 [`pharma_layout_base()`](https://pharmaverse.github.io/gridify/reference/pharma_layout_base.md).
 
 ``` r
+
 figure_obj <- ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg, y = wt)) +
   ggplot2::geom_line()
 
@@ -175,6 +182,7 @@ Here we apply
 with just the main cells filled in.
 
 ``` r
+
 figure_obj <- ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg, y = wt)) +
   ggplot2::geom_line()
 
@@ -205,6 +213,7 @@ to the prior example. Note the difference in the margin on the right for
 the A4 sized output.
 
 ``` r
+
 figure_obj <- ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg, y = wt)) +
   ggplot2::geom_line()
 
@@ -238,6 +247,7 @@ In this example, we create a simple base R bar plot and convert it to a
 formula using `~`.
 
 ``` r
+
 formula_object <- ~ barplot(1:10)
 ```
 
@@ -247,6 +257,7 @@ and apply
 [`complex_layout()`](https://pharmaverse.github.io/gridify/reference/complex_layout.md).
 
 ``` r
+
 g <- gridify(object = formula_object, layout = complex_layout()) %>%
   set_cell("header_left", "Left Header") %>%
   set_cell("header_middle", "Middle Header") %>%
@@ -276,6 +287,7 @@ by first converting them to `flextables`.
 Here we create a `flextable` using the `mtcars` dataset.
 
 ``` r
+
 # (to use `gridify` with flextables we require the function `as_grob()` to convert flextables into grob
 # objects, which exists in versions >= 0.8.0 of `flextable`)
 
@@ -290,6 +302,7 @@ and apply
 [`pharma_layout_letter()`](https://pharmaverse.github.io/gridify/reference/pharma_layout_letter.md).
 
 ``` r
+
 g <- gridify(object = ft, layout = pharma_layout_letter()) %>%
   set_cell("header_left_1", "My Company") %>%
   set_cell("header_left_2", "<PROJECT> / <INDICATION>") %>%
@@ -312,6 +325,7 @@ g <- gridify(object = ft, layout = pharma_layout_letter()) %>%
 Here we create a `gt` table using the `mtcars` dataset.
 
 ``` r
+
 # (to use `gridify` with gt tables we require the function `as_gtable()` to convert gt tables into
 # grob objects, which exists in versions >= 0.11.0 of `gt`)
 
@@ -326,6 +340,7 @@ and apply
 [`pharma_layout_letter()`](https://pharmaverse.github.io/gridify/reference/pharma_layout_letter.md).
 
 ``` r
+
 g <- gridify(object = gt_obj, layout = pharma_layout_letter()) %>%
   set_cell("header_left_1", "My Company") %>%
   set_cell("header_left_2", "<PROJECT> / <INDICATION>") %>%
@@ -352,6 +367,7 @@ the `rtable` to a `flextable` and then modifying any aesthetics.
 Here we build a simple `rtable` using the `iris` dataset.
 
 ``` r
+
 library(rtables)
 rtabl <- rtables::basic_table(main_footer = " ") %>%
   rtables::split_cols_by("Species") %>%
@@ -370,13 +386,12 @@ rtabl <- rtables::basic_table(main_footer = " ") %>%
 ```
 
 Then we convert the `rtable` to a `flextable` using the function
-[`tt_to_flextable()`](https://insightsengineering.github.io/rtables.officer/latest-release/reference/tt_to_flextable.html)
-from the `rtables.officer` package. We specify `theme = NULL` to prevent
-the addition of borders which
-[`tt_to_flextable()`](https://insightsengineering.github.io/rtables.officer/latest-release/reference/tt_to_flextable.html)
-adds by default.
+`tt_to_flextable()` from the `rtables.officer` package. We specify
+`theme = NULL` to prevent the addition of borders which
+`tt_to_flextable()` adds by default.
 
 ``` r
+
 library(rtables.officer)
 
 ft <- rtables.officer::tt_to_flextable(rtabl, theme = NULL)
@@ -385,6 +400,7 @@ ft <- rtables.officer::tt_to_flextable(rtabl, theme = NULL)
 Next we adjust some of the aesthetics of the `flextable`.
 
 ``` r
+
 ft <- flextable::font(ft, fontname = "serif", part = "all")
 ```
 
@@ -395,6 +411,7 @@ and apply
 before printing the table.
 
 ``` r
+
 g <- gridify(ft, layout = pharma_layout_A4()) %>%
   set_cell("header_left_1", "My Company") %>%
   set_cell("header_left_2", "PROJECT") %>%
@@ -415,8 +432,7 @@ print(g)
 
 ## Using the `show()` Methods
 
-When using `gridify`, we can utilize the
-[`show()`](https://rdrr.io/r/methods/show.html) methods to find out
+When using `gridify`, we can utilize the `show()` methods to find out
 information such as the cells available in a `gridify` object or the
 specifications of a layout object.
 
@@ -425,6 +441,7 @@ Here we take the earlier example where we applied
 to a line plot.
 
 ``` r
+
 fig_obj <- ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg, y = wt)) +
   ggplot2::geom_line()
 
@@ -432,9 +449,10 @@ g <- gridify(fig_obj, layout = simple_layout())
 ```
 
 To access the available cells in a `gridify` object, we can use the
-[`show()`](https://rdrr.io/r/methods/show.html) method.
+`show()` method.
 
 ``` r
+
 show(g)
 ```
 
@@ -443,6 +461,7 @@ cells included in the applied layout, and whether or not they have been
 filled by the `gridify` object.
 
 ``` r
+
 g
 #> gridifyClass object
 #> ---------------------
@@ -460,6 +479,7 @@ As stated in the console output from the above example, we can use
 layout.
 
 ``` r
+
 show_spec(g)
 #> Layout dimensions:
 #>   Number of rows: 3
@@ -506,6 +526,7 @@ We can do the same with
 (and any other layout) if we want to view its specs.
 
 ``` r
+
 simple_layout()
 #> gridifyLayout object
 #> ---------------------
@@ -580,6 +601,7 @@ Here is an example where we set global graphical parameters to a complex
 layout. We set the font colour to `"navy"`, and font size to `12`.
 
 ``` r
+
 figure_obj <- ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg, y = wt)) +
   ggplot2::geom_line()
 
@@ -598,6 +620,7 @@ Now we set individual graphical parameters for the `right_header`. We
 set the font colour to `"purple"` and the font size to `20`.
 
 ``` r
+
 g <- g %>%
   set_cell("header_right", "Right Header", gpar = grid::gpar(col = "purple", fontsize = 20))
 
@@ -629,6 +652,7 @@ It can also be applied in any custom layouts you create
 background colour to match the layout’s background.
 
 ``` r
+
 figure_obj <- ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg, y = wt)) +
   ggplot2::theme(
     plot.background = ggplot2::element_rect(fill = "beige", colour = NA),  # Entire plot background
@@ -666,6 +690,7 @@ applied. We set the footer to a long string, and then set the maximum
 number of characters per line to `45` using the `mch` argument.
 
 ``` r
+
 figure_obj <- ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg, y = wt)) +
   ggplot2::geom_line()
 
@@ -717,6 +742,7 @@ We now take the previous example and apply `x = 0`, `hjust = 0`, and
 left corner of the cell, with a rotation of 5 degrees.
 
 ``` r
+
 g <- gridify(figure_obj, layout = simple_layout()) %>%
   set_cell("title", "Title") %>%
   set_cell("footer", long_footer_string, mch = 45, x = 0, hjust = 0, rot = 5)
@@ -747,6 +773,7 @@ Here is an example of a figure with
 and the default `scales = "fixed"` applied.
 
 ``` r
+
 fixed_scales_g <- gridify(
   object = ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg, y = wt)) +
     ggplot2::geom_line(),
@@ -769,6 +796,7 @@ When we apply `scales = "free"` text elements scale dynamically, which
 may cause overlap if the output space is small.
 
 ``` r
+
 free_scales_g <- gridify(
   object = ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg, y = wt)) +
     ggplot2::geom_line(),
@@ -792,6 +820,7 @@ overlap when `scales = "free"` by adjusting the `knitr` options
 `fig.width` and `fig.height` to expand the output.
 
 ``` r
+
 print(free_scales_g)
 ```
 
@@ -882,6 +911,7 @@ with `scales = "fixed"` to a line plot and print the object to view it
 with default adjustments.
 
 ``` r
+
 g <- gridify(
   object = ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg, y = wt)) +
     ggplot2::geom_line(),
@@ -907,6 +937,7 @@ Now we set `gridify.adjust_height.line` to `0.7` using the
 increases the height of the rows and the space between text elements.
 
 ``` r
+
 options(gridify.adjust_height.line = 0.7)
 
 print(g)
@@ -925,6 +956,7 @@ We set the `gridify.adjust_height.line` option back to the default of
 to a line plot.
 
 ``` r
+
 options(gridify.adjust_height.line = 0.1)
 
 g <- gridify(
@@ -950,6 +982,7 @@ print(g)
 Now we set `gridify.adjust_height.line` to `0.7`.
 
 ``` r
+
 options(gridify.adjust_height.line = 0.7)
 
 print(g)
@@ -971,6 +1004,7 @@ We take the earlier example where we applied
 to a line plot.
 
 ``` r
+
 gridify_obj <- gridify(
   object = ggplot2::ggplot(data = mtcars, ggplot2::aes(x = mpg, y = wt)) +
     ggplot2::geom_line(),
@@ -996,6 +1030,7 @@ function. We specify the desired file type and name using the `to`
 argument.
 
 ``` r
+
 export_to(gridify_obj, to = "output.pdf")
 ```
 
@@ -1003,6 +1038,7 @@ Instead of just a file name, the `to` argument can also be set to a file
 path if we want to change the location where the file is saved.
 
 ``` r
+
 export_to(gridify_obj, to = "~/folder1/output.pdf")
 ```
 
@@ -1010,6 +1046,7 @@ To export the object to a PNG file, we specify a file name with the
 `.png` file extension.
 
 ``` r
+
 export_to(gridify_obj, to = "output.png")
 ```
 
@@ -1017,6 +1054,7 @@ To export the object to a TIFF file, we specify a file name with the
 `.tiff` or `.tif` file extension.
 
 ``` r
+
 export_to(gridify_obj, to = "output.tiff")
 ```
 
@@ -1027,6 +1065,7 @@ characteristics such as `width` and `height` by passing them into
 after the `to` argument.
 
 ``` r
+
 export_to(gridify_obj, to = "output.jpeg", width = 2400, height = 1800, res = 300)
 ```
 
