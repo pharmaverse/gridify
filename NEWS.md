@@ -1,5 +1,17 @@
 # gridify 0.7.7.9000
 
+## New features
+
+* Added support for `fill_empty = NA` in the `paginate_table()` function.
+
+## Bug fixes
+
+* When `fill_empty` in the `paginate_table()` function is a character value, the final paginated table now coerces columns to character before filling empty cells (#20).
+
+## Miscellaneous
+
+* Added the active lifecycle badge to `README.md` file (#17).
+
 # gridify 0.7.7
 
 * Updated `README.md` file.
