@@ -199,10 +199,15 @@ test_that("paginate_table split_by handles single group", {
   expect_equal(nrow(pages[[1]]), nrow(df_single))
 })
 
-test_that("paginate_table fill_empty works with Date columns", {
+test_that("paginate_table fill_empty works with temporal columns", {
   df <- data.frame(
     aval = runif(40, 10, 50),
-    dt = as.Date(rep(c("2025-01-02", "2025-02-03", "2025-03-04", "2025-04-05"), 10))
+    dt = as.Date(rep(c("2025-01-02", "2025-02-03", "2025-03-04", "2025-04-05"), 10)),
+    dttm = seq(
+      as.POSIXct("2025-01-02 12:00:00", tz = "UTC"),
+      by = "day",
+      length.out = 40
+    )
   )
 
   expect_no_error({
@@ -210,14 +215,21 @@ test_that("paginate_table fill_empty works with Date columns", {
     expect_true(length(pages) > 0)
     expect_equal(nrow(pages[[length(pages)]]), 7)
     expect_type(pages[[length(pages)]]$dt, "character")
+    expect_type(pages[[length(pages)]]$dttm, "character")
     expect_equal(pages[[length(pages)]][7, "dt"], " ")
+    expect_equal(pages[[length(pages)]][7, "dttm"], " ")
   })
 })
 
 test_that("paginate_table supports fill_empty = NA preserving column types", {
   df <- data.frame(
     aval = runif(40, 10, 50),
-    dt = as.Date(rep(c("2025-01-02", "2025-02-03", "2025-03-04", "2025-04-05"), 10))
+    dt = as.Date(rep(c("2025-01-02", "2025-02-03", "2025-03-04", "2025-04-05"), 10)),
+    dttm = seq(
+      as.POSIXct("2025-01-02 12:00:00", tz = "UTC"),
+      by = "day",
+      length.out = 40
+    )
   )
 
   pages <- paginate_table(data = df, rows_per_page = 7, fill_empty = NA)
@@ -226,6 +238,10 @@ test_that("paginate_table supports fill_empty = NA preserving column types", {
   expect_equal(nrow(last_page), 7)
   expect_type(last_page$aval, "double")
   expect_s3_class(last_page$dt, "Date")
+  expect_s3_class(last_page$dttm, "POSIXct")
+  expect_s3_class(last_page$dttm, "POSIXt")
+  expect_equal(attr(last_page$dttm, "tzone"), "UTC")
   expect_true(anyNA(last_page[7, "aval"]))
   expect_true(anyNA(last_page[7, "dt"]))
+  expect_true(anyNA(last_page[7, "dttm"]))
 })
