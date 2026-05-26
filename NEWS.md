@@ -8,7 +8,6 @@
 * `jsonlite` moved from `Imports` to `Suggests`; it is only required when using
   `metadata = "sidecar"`.
 
-
 # gridify 0.7.7
 
 * Updated `README.md` file.
