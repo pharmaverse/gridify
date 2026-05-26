@@ -2,11 +2,11 @@
 
 ## New features
 
-* Added support for `fill_empty = NA` in `paginate_table()`.
+* Added support for `fill_empty = NA` in the `paginate_table()` function.
 
 ## Bug fixes
 
-* When `fill_empty` in `paginate_table()` is a character value, the final paginated table now coerces columns to character before filling empty cells (#20).
+* When `fill_empty` in the `paginate_table()` function is a character value, the final paginated table now coerces columns to character before filling empty cells (#20).
 
 ## Miscellaneous
 
