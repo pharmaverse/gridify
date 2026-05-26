@@ -1,5 +1,7 @@
 # gridify 0.7.7.9000
 
+## New features
+
 * Added vertical anchoring for the gridify object inside its cell via the new
   `vjust` slot of `gridifyObject()` and the `object_vjust` argument of
   `simple_layout()`, `complex_layout()`, `pharma_layout_base()`,
@@ -9,6 +11,15 @@
   for fixed-size grobs such as `gt` and `flextable` tables. When `vjust != 0.5`
   is used with a fixed-size grob the viewport is sized to `grid::grobHeight()`
   and the `height` slot of `gridifyObject()` is ignored. Reported and proposed by Monika Beh.
+* Added support for `fill_empty = NA` in the `paginate_table()` function.
+
+## Bug fixes
+
+* When `fill_empty` in the `paginate_table()` function is a character value, the final paginated table now coerces columns to character before filling empty cells (#20).
+
+## Miscellaneous
+
+* Added the active lifecycle badge to `README.md` file (#17).
 
 # gridify 0.7.7
 
