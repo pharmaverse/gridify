@@ -38,7 +38,11 @@ paginate_table(data, rows_per_page = NULL, split_by = NULL, fill_empty = NULL)
   automatically enables filling and uses that value for all cells in the
   empty rows. This helps maintain consistent vertical positioning across
   all pages. The target row count is the maximum page size across all
-  pages.
+  pages. Use `NA` to fill with missing values while preserving original
+  column types. If you need consistent types across all pages, use `NA`.
+  Because `fill_empty` is a character placeholder, pages are coerced to
+  character columns when filling is applied (except when
+  `fill_empty = NA`).
 
 ## Value
 

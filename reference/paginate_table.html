@@ -79,7 +79,11 @@ At least one of <code>rows_per_page</code> or <code>split_by</code> must be prov
 with empty rows to match the target row count. Default is <code>NULL</code> (no filling).
 Providing a value (e.g., <code>"|"</code>, <code>""</code>, or <code>"—"</code>) automatically enables filling and uses that
 value for all cells in the empty rows. This helps maintain consistent vertical positioning
-across all pages. The target row count is the maximum page size across all pages.</p></dd>
+across all pages. The target row count is the maximum page size across all pages.
+Use <code>NA</code> to fill with missing values while preserving original column types.
+If you need consistent types across all pages, use <code>NA</code>.
+Because <code>fill_empty</code> is a character placeholder, pages are coerced to character
+columns when filling is applied (except when <code>fill_empty = NA</code>).</p></dd>
 
 </dl></div>
     <div class="section level2">

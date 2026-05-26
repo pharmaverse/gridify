@@ -2,6 +2,25 @@
 
 ## gridify 0.7.7.9000
 
+### New features
+
+- Added support for `fill_empty = NA` in the
+  [`paginate_table()`](https://pharmaverse.github.io/gridify/reference/paginate_table.md)
+  function.
+
+### Bug fixes
+
+- When `fill_empty` in the
+  [`paginate_table()`](https://pharmaverse.github.io/gridify/reference/paginate_table.md)
+  function is a character value, the final paginated table now coerces
+  columns to character before filling empty cells
+  ([\#20](https://github.com/pharmaverse/gridify/issues/20)).
+
+### Miscellaneous
+
+- Added the active lifecycle badge to `README.md` file
+  ([\#17](https://github.com/pharmaverse/gridify/issues/17)).
+
 ## gridify 0.7.7
 
 CRAN release: 2026-02-05

@@ -182,4 +182,5 @@ Along with the authors and contributors, thanks to the following people
 for their support:
 
 Alberto Montironi, Jonathan Bleier, Cynthia McShea, Nils Penard, Oswald
-Dallimore, Laetitia Lemoine, Daniel Vicencio Perez, Richard Abdy
+Dallimore, Laetitia Lemoine, Daniel Vicencio Perez, Richard Abdy, Sophie
+Lee
