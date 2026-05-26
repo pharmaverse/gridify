@@ -1,5 +1,7 @@
 # gridify 0.7.7.9000
 
+## New features
+
 * `export_to()` gains a `metadata` argument that records `set_cell()` text values
   alongside the exported output. The default is `metadata = "none"`; pass
   `"sidecar"` to write a JSON sidecar `<file>.json` next to the output.
@@ -7,6 +9,16 @@
   `options(gridify.export.metadata = "sidecar")`.
 * `jsonlite` moved from `Imports` to `Suggests`; it is only required when using
   `metadata = "sidecar"`.
+* Added support for `fill_empty = NA` in the `paginate_table()` function.
+
+## Bug fixes
+
+* When `fill_empty` in the `paginate_table()` function is a character value, 
+  the final paginated table now coerces columns to character before filling empty cells (#20).
+
+## Miscellaneous
+
+* Added the active lifecycle badge to `README.md` file (#17).
 
 # gridify 0.7.7
 

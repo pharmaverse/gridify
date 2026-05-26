@@ -23,7 +23,11 @@ At least one of \code{rows_per_page} or \code{split_by} must be provided.}
 with empty rows to match the target row count. Default is \code{NULL} (no filling).
 Providing a value (e.g., \code{"|"}, \code{""}, or \code{"—"}) automatically enables filling and uses that
 value for all cells in the empty rows. This helps maintain consistent vertical positioning
-across all pages. The target row count is the maximum page size across all pages.}
+across all pages. The target row count is the maximum page size across all pages.
+Use \code{NA} to fill with missing values while preserving original column types.
+If you need consistent types across all pages, use \code{NA}.
+Because \code{fill_empty} is a character placeholder, pages are coerced to character
+columns when filling is applied (except when \code{fill_empty = NA}).}
 }
 \value{
 A list of data frames, one for each page. When \code{split_by} is used, the list
