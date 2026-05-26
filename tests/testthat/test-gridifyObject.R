@@ -9,10 +9,19 @@ test_that("gridifyObject can be created with a proper input", {
   )
 })
 
-test_that("gridifyObject has four cells of proper types: row, col, height and width", {
+test_that("gridifyObject has the expected slots and types", {
   class_spec <- getSlots("gridifyObject")
 
-  expect_identical(class_spec, c(row = "numeric", col = "numeric", height = "numeric", width = "numeric"))
+  expect_identical(
+    class_spec,
+    c(
+      row = "numeric",
+      col = "numeric",
+      height = "numeric",
+      width = "numeric",
+      vjust = "numeric"
+    )
+  )
 })
 
 
@@ -57,5 +66,47 @@ test_that("gridifyObject setValidity tests", {
       width = 1
     ),
     "cell col has to be positive integer"
+  )
+  
+  expect_error(
+    new("gridifyObject",
+        row = 1,
+        col = 1,
+        height = 2,
+        width = 1
+    ),
+    "height must be less than or equal to 1."
+  )
+})
+
+test_that("gridifyObject vjust validity and default", {
+  expect_identical(gridifyObject(row = 1, col = 1)@vjust, 0.5)
+
+  expect_silent(gridifyObject(row = 1, col = 1, vjust = 0))
+  expect_silent(gridifyObject(row = 1, col = 1, vjust = 1))
+
+  expect_error(
+    gridifyObject(row = 1, col = 1, vjust = -0.1),
+    "vjust has to be a single finite numeric value in \\[0, 1\\]"
+  )
+  expect_error(
+    gridifyObject(row = 1, col = 1, vjust = 1.5),
+    "vjust has to be a single finite numeric value in \\[0, 1\\]"
+  )
+  expect_error(
+    gridifyObject(row = 1, col = 1, vjust = c(0, 1)),
+    "vjust has to be a single finite numeric value in \\[0, 1\\]"
+  )
+  expect_error(
+    gridifyObject(row = 1, col = 1, vjust = NA_real_),
+    "vjust has to be a single finite numeric value in \\[0, 1\\]"
+  )
+  expect_error(
+    gridifyObject(row = 1, col = 1, vjust = NaN),
+    "vjust has to be a single finite numeric value in \\[0, 1\\]"
+  )
+  expect_error(
+    gridifyObject(row = 1, col = 1, vjust = Inf),
+    "vjust has to be a single finite numeric value in \\[0, 1\\]"
   )
 })

@@ -8,7 +8,8 @@ pharma_layout_base(
   margin = grid::unit(c(t = 1, r = 1, b = 1, l = 1), units = "inches"),
   global_gpar = NULL,
   background = grid::get.gpar()$fill,
-  adjust_height = TRUE
+  adjust_height = TRUE,
+  object_vjust = 0.5
 )
 }
 \arguments{
@@ -24,6 +25,11 @@ which can be overwritten alongside other graphical parameters found by \code{gri
 Default \code{grid::get.gpar()$fill} for a white background.}
 
 \item{adjust_height}{A logical value indicating whether to adjust the height of the layout. Default is \code{TRUE}.}
+
+\item{object_vjust}{A numeric value in \verb{[0, 1]} controlling the vertical anchoring of the
+object within its row. \code{0} aligns to the bottom, \code{0.5} (default) centers it, \code{1} aligns
+to the top. Useful when the object's row is taller than the object itself.
+Has no effect on flexible grobs (e.g. \code{ggplot2::ggplotGrob()}), which always fill the full row.}
 }
 \value{
 A \code{gridifyLayout} object that defines the general structure and parameters for a pharma layout.

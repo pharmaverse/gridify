@@ -439,8 +439,17 @@ gridifyCells <- function(...) {
 #'
 #' @slot row A numeric value, span or sequence specifying the row position of the object.
 #' @slot col A numeric value, span or sequence specifying the column position of the object.
-#' @slot height A numeric value specifying the height of the object.
+#' @slot height A numeric value specifying the height of the object as a fraction of the row
+#' (interpreted in `npc`). Ignored when `vjust != 0.5` and the grob is fixed-size: in that
+#' case the viewport is sized to `grid::grobHeight()` so the object can be anchored within
+#' a taller row. The 1-inch floor in applies in both cases.
 #' @slot width A numeric value specifying the width of the object.
+#' @slot vjust A numeric value in `[0, 1]` specifying the vertical anchoring of the object
+#' within its cell. `0` aligns to the bottom, `0.5` (default) centers it, `1` aligns to the top.
+#' Anchoring only takes effect for fixed-size grobs (e.g. `gt::as_gtable()`,
+#' `flextable::gen_grob()`, plain `grid::rectGrob()`). Flexible grobs whose natural height is
+#' meant to fill the container (e.g. `ggplot2::ggplotGrob()`, recorded gTrees from
+#' `grid::grid.grabExpr()`) always span the full row regardless of `vjust`.
 #' @exportClass gridifyObject
 setClass(
   "gridifyObject",
@@ -448,19 +457,37 @@ setClass(
     row = "numeric",
     col = "numeric",
     height = "numeric",
-    width = "numeric"
-  )
+    width = "numeric",
+    vjust = "numeric"
+  ),
+  prototype = list(vjust = 0.5)
 )
 
 setValidity("gridifyObject", function(object) {
+  errs <- character()
   if (min(object@row) < 1 || !all(object@row %% 1 == 0)) {
-    stop("cell row has to be positive integer.")
+    errs <- c(errs, "cell row has to be positive integer.")
   }
   if (min(object@col) < 1 || !all(object@col %% 1 == 0)) {
-    stop("cell col has to be positive integer.")
+    errs <- c(errs, "cell col has to be positive integer.")
+  }
+  if (
+    length(object@vjust) != 1L ||
+      anyNA(object@vjust) ||
+      !is.finite(object@vjust) ||
+      object@vjust < 0 ||
+      object@vjust > 1
+  ) {
+    errs <- c(
+      errs,
+      "vjust has to be a single finite numeric value in [0, 1]."
+    )
+  }
+  if (object@height > 1 ) {
+    errs <- c(errs, "height must be less than or equal to 1.")
   }
 
-  TRUE
+  if (length(errs)) errs else TRUE
 })
 
 #' Create a gridifyObject
@@ -469,8 +496,16 @@ setValidity("gridifyObject", function(object) {
 #'
 #' @param row A numeric value, span or sequence specifying the row position of the object.
 #' @param col A numeric value, span or sequence specifying the row position of the object.
-#' @param height A numeric value specifying the height of the object. Default is 1.
+#' @param height A numeric value specifying the height of the object as a fraction of the row
+#' (interpreted in `npc`). Default is 1. Ignored when `vjust != 0.5` and the grob is
+#' fixed-size: in that case the viewport is sized to `grid::grobHeight()` so the object
+#' can be anchored within a taller row.
 #' @param width A numeric value specifying the width of the object. Default is 1.
+#' @param vjust A numeric value in `[0, 1]` specifying the vertical anchoring of the object
+#' within its cell. `0` aligns to the bottom, `0.5` (default) centers it, `1` aligns to the top.
+#' Anchoring only takes effect for fixed-size grobs (e.g. `gt::as_gtable()`,
+#' `flextable::gen_grob()`). Flexible grobs (e.g. `ggplot2::ggplotGrob()`) always fill the
+#' full row regardless of `vjust`.
 #'
 #' @return An instance of the gridifyObject class.
 #'
@@ -478,8 +513,15 @@ setValidity("gridifyObject", function(object) {
 #' @export
 #' @examples
 #' object <- gridifyObject(row = 1, col = 1, height = 1, width = 1)
-gridifyObject <- function(row, col, height = 1, width = 1) {
-  new("gridifyObject", row = row, col = col, height = height, width = width)
+gridifyObject <- function(row, col, height = 1, width = 1, vjust = 0.5) {
+  new(
+    "gridifyObject",
+    row = row,
+    col = col,
+    height = height,
+    width = width,
+    vjust = vjust
+  )
 }
 
 #' gridifyClass class
@@ -644,6 +686,11 @@ gridify <- function(
       object <- grid::grid.grabExpr(
         gridGraphics::grid.echo(function() eval(object_expr))
       )
+      # Mark the recorded gTree as flexible: its `grobHeight()` is meaningful
+      # only inside the recording viewport (collapses to 0 elsewhere), so the
+      # viewport must span the full row regardless of `vjust`.
+      # See is_flexible_grob() / object_viewport_height_expr().
+      attr(object, "gridify.flexible") <- TRUE
     } else {
       stop("Please install gridGraphics to use it in gridify.")
     }

@@ -4,7 +4,11 @@
 \alias{pharma_layout_A4}
 \title{Pharma Layout (A4) for a gridify object}
 \usage{
-pharma_layout_A4(global_gpar = NULL, background = grid::get.gpar()$fill)
+pharma_layout_A4(
+  global_gpar = NULL,
+  background = grid::get.gpar()$fill,
+  object_vjust = 0.5
+)
 }
 \arguments{
 \item{global_gpar}{A list specifying global graphical parameters to change in the layout.
@@ -14,6 +18,11 @@ which can be overwritten alongside other graphical parameters found by \code{gri
 
 \item{background}{A character string specifying the background fill colour.
 Default \code{grid::get.gpar()$fill} for a white background.}
+
+\item{object_vjust}{A numeric value in \verb{[0, 1]} controlling the vertical anchoring of the
+object within its row. \code{0} aligns to the bottom, \code{0.5} (default) centers it, \code{1} aligns
+to the top. Useful when the object's row is taller than the object itself.
+Has no effect on flexible grobs (e.g. \code{ggplot2::ggplotGrob()}), which always fill the full row.}
 }
 \value{
 A \code{gridifyLayout} object with the structure defined for A4 paper size.

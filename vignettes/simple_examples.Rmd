@@ -704,6 +704,95 @@ options(gridify.adjust_height.line = 0.7)
 print(g)
 ```
 
+## Vertically Anchoring the Object
+
+By default the object (plot or table) is centered vertically inside its row.
+When the row is taller than the object (e.g., object with a fixed-size table grob, 
+or when the object's `height` is set below `1`), there will be visible empty 
+space above and below it.
+
+The `object_vjust` argument of the layout helpers (and the `vjust` slot of
+`gridifyObject()` for custom layouts) controls this anchoring:
+
+- `object_vjust = 0.5` (default) — centered.
+- `object_vjust = 1` — anchored to the top of the row.
+- `object_vjust = 0` — anchored to the bottom of the row.
+
+Note: When the object is a flextable and vjust = 0.5, the table will expand to 
+fill the space. When the object is a flextable and vjust does not equal 0.5, the
+table height will remain fixed and position based on the vjust argument provided.
+
+The example below uses a custom layout with the object occupying only `40%`
+of the available row height so the difference is visible:
+
+```{r, fig.width = 7, fig.height = 5}
+options(gridify.adjust_height.line = NULL)
+
+p <- ggplot(mtcars, aes(mpg, wt)) +
+  geom_point() +
+  theme_minimal()
+
+make_layout <- function(object_vjust = 0.5) {
+  gridifyLayout(
+    nrow = 3, ncol = 1,
+    heights = grid::unit(c(2, 10, 2), "cm"),
+    widths  = grid::unit(1, "npc"),
+    margin  = grid::unit(c(0.05, 0.05, 0.05, 0.05), "npc"),
+    adjust_height = FALSE,
+    object  = gridifyObject(row = 2, col = 1, height = 0.4, vjust = object_vjust),
+    cells   = gridifyCells(
+      title  = gridifyCell(row = 1, col = 1),
+      footer = gridifyCell(row = 3, col = 1)
+    )
+  )
+}
+
+# Default: object centered in the available space
+gridify(p, layout = make_layout()) %>%
+  set_cell("title", "object_vjust = 0.5 (default, centered)") %>%
+  set_cell("footer", "Footer")
+```
+
+```{r, fig.width = 7, fig.height = 5}
+# Anchored to the top of the row
+gridify(p, layout = make_layout(object_vjust = 1)) %>%
+  set_cell("title", "object_vjust = 1 (anchored to the top)") %>%
+  set_cell("footer", "Footer")
+```
+
+The same `object_vjust` argument is also accepted by `simple_layout()`,
+`complex_layout()`, `pharma_layout_base()`, `pharma_layout_A4()` and
+`pharma_layout_letter()`. For fixed-size table grobs (`flextable`, `gt`),
+anchoring to the top is often preferred:
+
+```{r, fig.height = 5.5}
+# flextable anchored to the top of the object row
+ft_top <- flextable::flextable(head(mtcars[c("mpg", "wt", "cyl")], 4))
+
+gridify(
+  object = ft_top,
+  layout = pharma_layout_letter(object_vjust = 1)
+) %>%
+  set_cell("output_num", "<Table> xx.xx.xx") %>%
+  set_cell("title_1", "Anchored flextable (object_vjust = 1)") %>%
+  set_cell("note", "<Note or Footnotes>") %>%
+  set_cell("footer_left", "Program: <PROGRAM NAME>, YYYY-MM-DD at HH:MM")
+```
+
+```{r, fig.height = 6}
+# gt table anchored to the top of the object row
+gt_top <- gt::gt(head(mtcars[c("mpg", "wt", "cyl")], 4))
+
+gridify(
+  object = gt_top,
+  layout = pharma_layout_letter(object_vjust = 1)
+) %>%
+  set_cell("output_num", "<Table> xx.xx.xx") %>%
+  set_cell("title_1", "Anchored gt table (object_vjust = 1)") %>%
+  set_cell("note", "<Note or Footnotes>") %>%
+  set_cell("footer_left", "Program: <PROGRAM NAME>, YYYY-MM-DD at HH:MM")
+```
+
 ## Export to PDF, PNG, TIFF, and JPEG {#exporting-section}
 
 We can export `gridify` objects to PDF, PNG, TIFF, and JPEG files using the `export_to()` function.

@@ -4,16 +4,25 @@
 \alias{gridifyObject}
 \title{Create a gridifyObject}
 \usage{
-gridifyObject(row, col, height = 1, width = 1)
+gridifyObject(row, col, height = 1, width = 1, vjust = 0.5)
 }
 \arguments{
 \item{row}{A numeric value, span or sequence specifying the row position of the object.}
 
 \item{col}{A numeric value, span or sequence specifying the row position of the object.}
 
-\item{height}{A numeric value specifying the height of the object. Default is 1.}
+\item{height}{A numeric value specifying the height of the object as a fraction of the row
+(interpreted in \code{npc}). Default is 1. Ignored when \code{vjust != 0.5} and the grob is
+fixed-size: in that case the viewport is sized to \code{grid::grobHeight()} so the object
+can be anchored within a taller row.}
 
 \item{width}{A numeric value specifying the width of the object. Default is 1.}
+
+\item{vjust}{A numeric value in \verb{[0, 1]} specifying the vertical anchoring of the object
+within its cell. \code{0} aligns to the bottom, \code{0.5} (default) centers it, \code{1} aligns to the top.
+Anchoring only takes effect for fixed-size grobs (e.g. \code{gt::as_gtable()},
+\code{flextable::gen_grob()}). Flexible grobs (e.g. \code{ggplot2::ggplotGrob()}) always fill the
+full row regardless of \code{vjust}.}
 }
 \value{
 An instance of the gridifyObject class.

@@ -34,6 +34,10 @@ NULL
 #' @param background A string specifying the background fill colour.
 #' Default `grid::get.gpar()$fill` for a white background.
 #' @param adjust_height A logical value indicating whether to adjust the height of the layout. Default is `TRUE`.
+#' @param object_vjust A numeric value in `[0, 1]` controlling the vertical anchoring of the
+#' object within its row. `0` aligns to the bottom, `0.5` (default) centers it, `1` aligns
+#' to the top. Useful when the object's row is taller than the object itself.
+#' Has no effect on flexible grobs (e.g. `ggplot2::ggplotGrob()`), which always fill the full row.
 #'
 #' @return A `gridifyLayout` object that defines the general structure and parameters for a pharma layout.
 #'
@@ -77,7 +81,8 @@ pharma_layout_base <- function(
   margin = grid::unit(c(t = 1, r = 1, b = 1, l = 1), units = "inches"),
   global_gpar = NULL,
   background = grid::get.gpar()$fill,
-  adjust_height = TRUE
+  adjust_height = TRUE,
+  object_vjust = 0.5
 ) {
   default_gpar <- list(fontfamily = "serif", fontsize = 9, lineheight = 0.95)
   global_gpar <- if (!is.null(global_gpar)) {
@@ -101,7 +106,7 @@ pharma_layout_base <- function(
     background = background,
     margin = margin,
     adjust_height = adjust_height,
-    object = gridifyObject(row = 10, col = c(1, 3)),
+    object = gridifyObject(row = 10, col = c(1, 3), vjust = object_vjust),
     cells = gridifyCells(
       header_left_1 = gridifyCell(row = 1, col = 1, x = 0, hjust = 0),
       header_left_2 = gridifyCell(row = 2, col = 1, x = 0, hjust = 0),
@@ -146,6 +151,10 @@ pharma_layout_base <- function(
 #'  which can be overwritten alongside other graphical parameters found by `grid::get.gpar()`.
 #' @param background A character string specifying the background fill colour.
 #' Default `grid::get.gpar()$fill` for a white background.
+#' @param object_vjust A numeric value in `[0, 1]` controlling the vertical anchoring of the
+#' object within its row. `0` aligns to the bottom, `0.5` (default) centers it, `1` aligns
+#' to the top. Useful when the object's row is taller than the object itself.
+#' Has no effect on flexible grobs (e.g. `ggplot2::ggplotGrob()`), which always fill the full row.
 #' @details
 #' The margins for the A4 layout are:
 #' * top = 1 inch
@@ -192,12 +201,14 @@ pharma_layout_base <- function(
 #' @export
 pharma_layout_A4 <- function(
   global_gpar = NULL,
-  background = grid::get.gpar()$fill
+  background = grid::get.gpar()$fill,
+  object_vjust = 0.5
 ) {
   pharma_layout_base(
     global_gpar = global_gpar,
     background = background,
-    margin = grid::unit(c(t = 1, r = 1.69, b = 1, l = 1), units = "inches")
+    margin = grid::unit(c(t = 1, r = 1.69, b = 1, l = 1), units = "inches"),
+    object_vjust = object_vjust
   )
 }
 
@@ -212,6 +223,10 @@ pharma_layout_A4 <- function(
 #'  which can be overwritten alongside other graphical parameters found by `grid::get.gpar()`.
 #' @param background A character string specifying the background fill colour.
 #' Default `grid::get.gpar()$fill` for a white background.
+#' @param object_vjust A numeric value in `[0, 1]` controlling the vertical anchoring of the
+#' object within its row. `0` aligns to the bottom, `0.5` (default) centers it, `1` aligns
+#' to the top. Useful when the object's row is taller than the object itself.
+#' Has no effect on flexible grobs (e.g. `ggplot2::ggplotGrob()`), which always fill the full row.
 #' @details
 #' The margins for the letter layout are:
 #' * top = 1 inch
@@ -258,11 +273,13 @@ pharma_layout_A4 <- function(
 #' @export
 pharma_layout_letter <- function(
   global_gpar = NULL,
-  background = grid::get.gpar()$fill
+  background = grid::get.gpar()$fill,
+  object_vjust = 0.5
 ) {
   pharma_layout_base(
     global_gpar = global_gpar,
     background = background,
-    margin = grid::unit(c(t = 1, r = 1, b = 1.23, l = 1), units = "inches")
+    margin = grid::unit(c(t = 1, r = 1, b = 1.23, l = 1), units = "inches"),
+    object_vjust = object_vjust
   )
 }

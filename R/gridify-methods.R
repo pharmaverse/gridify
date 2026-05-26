@@ -254,16 +254,22 @@ setMethod(
 setMethod("print", "gridifyClass", function(x, ...) {
   grid::grid.newpage()
 
+  # See object_viewport_height_expr() for the rationale behind this choice.
+  height_expr <- object_viewport_height_expr(
+    grob = x@object,
+    vjust = x@layout@object@vjust,
+    height = x@layout@object@height
+  )
+
   pp_list <- list(
     substitute(
       grid::grobTree(
         grid::editGrob(
           OBJECT,
           vp = grid::viewport(
-            height = grid::unit.pmax(
-              grid::unit(height_value, "npc"),
-              grid::unit(1, "inch")
-            ),
+            y = grid::unit(vjust_value, "npc"),
+            just = c(0.5, vjust_value),
+            height = HEIGHT_EXPR,
             width = grid::unit.pmax(
               grid::unit(width_value, "npc"),
               grid::unit(1, "inch")
@@ -276,10 +282,11 @@ setMethod("print", "gridifyClass", function(x, ...) {
         )
       ),
       env = list(
-        height_value = x@layout@object@height,
         width_value = x@layout@object@width,
         nrow_value = x@layout@object@row,
-        ncol_value = x@layout@object@col
+        ncol_value = x@layout@object@col,
+        vjust_value = x@layout@object@vjust,
+        HEIGHT_EXPR = height_expr
       )
     )
   )
@@ -668,6 +675,15 @@ setMethod("show_spec", "gridifyLayout", function(object) {
 
   cat(sprintf("  Width: %s\n", object@object@width))
   cat(sprintf("  Height: %s\n", object@object@height))
+  cat(sprintf(
+    "  Vjust: %s%s\n",
+    object@object@vjust,
+    if (object@object@vjust == 0.5) {
+      " (default; the object fills the full row regardless of grob type)"
+    } else {
+      " (anchors fixed-size grobs; flexible grobs e.g. ggplot still fill the row)"
+    }
+  ))
 
   cat("\nObject Row Heights:\n")
   rows_span <- object_row[1]:object_row[length(object_row)]
