@@ -945,10 +945,12 @@ setMethod("show", "gridifyLayout", function(object) {
 #' One of:
 #' \itemize{
 #'   \item `"sidecar"` - write a JSON sidecar file next to the output named `<to>.json`
-#'   containing a named list mapping cell name to its text value (or, for a multi-page PDF
-#'   built from a list of objects, a JSON array of such named lists, one per page).
-#'   No file is written when no cells were set.
-#'   \item `"none"` (default) - do not produce any metadata.
+#'   containing `schema_version` and `pages`. Each page contains a `cells` object
+#'   mapping cell names to their text values. Single-page and multi-page exports
+#'   use the same structure; multi-page PDFs contain one page entry per exported
+#'   object. Any stale sidecar is removed when no cells were set.
+#'   \item `"none"` (default) - do not produce any metadata and remove any existing
+#'   sidecar for the same output file.
 #' }
 #' Validated with [match.arg()] so it can be abbreviated.
 #' When `metadata = NULL` (the default), the value is taken from the
@@ -1175,6 +1177,11 @@ setMethod(
 
   user_args <- list(...)
   payload <- if (metadata == "none") NULL else gridify_metadata(x)
+  sidecar_json <- if (metadata == "sidecar" && has_metadata_payload(payload)) {
+    gridify_to_json(metadata_sidecar_payload(payload))
+  } else {
+    NULL
+  }
 
   if (ext %in% c("pdf")) {
     default_args <- list(width = 11.69, height = 8.27)
@@ -1188,9 +1195,7 @@ setMethod(
     do.call(device, dev_args)
     on.exit(grDevices::dev.off(), add = TRUE)
     print(x)
-    if (metadata == "sidecar") {
-      write_metadata_sidecar(payload, to)
-    }
+    sync_metadata_sidecar(to, sidecar_json)
   } else if (ext %in% c("png", "jpeg", "jpg", "tiff", "tif")) {
     default_args <- list(width = 600, height = 400)
     dev_args <- utils::modifyList(default_args, user_args)
@@ -1212,9 +1217,7 @@ setMethod(
     on.exit(grDevices::dev.off(), add = TRUE)
     grid::grid.newpage()
     print(x)
-    if (metadata == "sidecar") {
-      write_metadata_sidecar(payload, to)
-    }
+    sync_metadata_sidecar(to, sidecar_json)
   }
 })
 
@@ -1270,6 +1273,11 @@ setMethod(
       } else {
         lapply(x, gridify_metadata)
       }
+      sidecar_json <- if (metadata == "sidecar" && has_metadata_payload(payload)) {
+        gridify_to_json(metadata_sidecar_payload(payload))
+      } else {
+        NULL
+      }
 
       user_args <- list(...)
       dev_args <- utils::modifyList(
@@ -1283,9 +1291,7 @@ setMethod(
         print(obj)
       }
 
-      if (metadata == "sidecar") {
-        write_metadata_sidecar(payload, to)
-      }
+      sync_metadata_sidecar(to, sidecar_json)
     } else {
       stop(
         "For a list of gridify objects and a single file path, the `to` extension has to be pdf."

@@ -36,41 +36,76 @@ test_that("gridify_metadata returns empty list for no cells", {
   expect_identical(gridify_metadata(obj), stats::setNames(list(), character(0)))
 })
 
-test_that("write_metadata_sidecar writes JSON file and returns its path", {
+test_that("has_metadata_payload detects populated payloads", {
+  expect_false(has_metadata_payload(NULL))
+  expect_false(has_metadata_payload(list()))
+  expect_false(has_metadata_payload(list(list(), list())))
+  expect_true(has_metadata_payload(list(a = "x")))
+  expect_true(has_metadata_payload(list(list(), list(a = "x"))))
+})
+
+test_that("metadata_sidecar_payload uses a uniform pages schema", {
+  single <- metadata_sidecar_payload(list(a = "x"))
+  expect_identical(single$schema_version, "1.0.0")
+  expect_length(single$pages, 1)
+  expect_identical(single$pages[[1]]$cells, list(a = "x"))
+
+  multi <- metadata_sidecar_payload(list(list(a = "1"), list(a = "2")))
+  expect_identical(multi$schema_version, "1.0.0")
+  expect_length(multi$pages, 2)
+  expect_identical(multi$pages[[1]]$cells, list(a = "1"))
+  expect_identical(multi$pages[[2]]$cells, list(a = "2"))
+})
+
+test_that("sync_metadata_sidecar writes populated sidecars", {
   skip_if_not_installed("jsonlite")
   base <- tempfile(fileext = ".pdf")
   side <- paste0(base, ".json")
   if (file.exists(side)) file.remove(side)
+  json <- gridify_to_json(metadata_sidecar_payload(list(a = "x")))
 
-  payload <- list(a = "x", b = "y")
-  res <- write_metadata_sidecar(payload, base)
-
-  expect_identical(res, side)
+  expect_identical(sync_metadata_sidecar(base, json), side)
   expect_true(file.exists(side))
-  expect_identical(jsonlite::fromJSON(side), payload)
+  parsed <- jsonlite::fromJSON(side, simplifyVector = FALSE)
+  expect_identical(parsed$schema_version, "1.0.0")
+  expect_identical(parsed$pages[[1]]$cells$a, "x")
 })
 
-test_that("write_metadata_sidecar skips empty payloads", {
-  base <- tempfile(fileext = ".pdf")
-  side <- paste0(base, ".json")
-  if (file.exists(side)) file.remove(side)
-
-  expect_null(write_metadata_sidecar(list(), base))
-  expect_null(write_metadata_sidecar(NULL, base))
-  expect_false(file.exists(side))
-})
-
-test_that("write_metadata_sidecar serialises multi-page list payload", {
+test_that("sync_metadata_sidecar serialises multi-page list payload", {
   skip_if_not_installed("jsonlite")
   base <- tempfile(fileext = ".pdf")
   side <- paste0(base, ".json")
   if (file.exists(side)) file.remove(side)
 
   payload <- list(list(a = "1"), list(a = "2"))
-  write_metadata_sidecar(payload, base)
+  sync_metadata_sidecar(base, gridify_to_json(metadata_sidecar_payload(payload)))
 
   parsed <- jsonlite::fromJSON(side, simplifyVector = FALSE)
-  expect_length(parsed, 2)
-  expect_identical(parsed[[1]]$a, "1")
-  expect_identical(parsed[[2]]$a, "2")
+  expect_identical(parsed$schema_version, "1.0.0")
+  expect_length(parsed$pages, 2)
+  expect_identical(parsed$pages[[1]]$cells$a, "1")
+  expect_identical(parsed$pages[[2]]$cells$a, "2")
 })
+
+test_that("sync_metadata_sidecar uses pre-encoded JSON", {
+  base <- tempfile(fileext = ".pdf")
+  side <- paste0(base, ".json")
+  if (file.exists(side)) file.remove(side)
+
+  expect_identical(sync_metadata_sidecar(base, "{\"a\":\"y\"}"), side)
+  expect_identical(readLines(side, warn = FALSE), "{\"a\":\"y\"}")
+})
+
+test_that("sync_metadata_sidecar removes stale files", {
+  base <- tempfile(fileext = ".pdf")
+  side <- paste0(base, ".json")
+
+  writeLines("stale", side)
+  expect_identical(sync_metadata_sidecar(base), side)
+  expect_false(file.exists(side))
+
+  writeLines("stale", side)
+  expect_identical(sync_metadata_sidecar(base, NULL), side)
+  expect_false(file.exists(side))
+})
+

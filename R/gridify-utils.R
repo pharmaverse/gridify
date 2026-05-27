@@ -86,29 +86,61 @@ gridify_to_json <- function(x) {
   }
 }
 
-#' Write the JSON metadata sidecar file
+#' Build the JSON sidecar metadata structure
 #'
-#' Encodes the metadata `payload` as JSON via [gridify_to_json()] and writes it
-#' to `paste0(to, ".json")`. The file is written with `useBytes = TRUE` so the
-#' UTF-8 bytes produced by `jsonlite::toJSON()` are preserved verbatim.
-#' If `payload` is `NULL` or empty no file is created and `NULL` is returned
-#' (this keeps `export_to()` from producing empty sidecars when no cells were
-#' set).
+#' Wraps single-page and multi-page metadata in the same schema so consumers can
+#' always read metadata from `pages[[i]]$cells`.
 #'
-#' @param payload A named list (single page) or list of named lists
-#' (multi-page) of metadata values to serialise.
-#' @param to A length-one character string with the path of the main output
-#' file. The sidecar path is `paste0(to, ".json")`.
-#' @return Invisibly, the path of the sidecar file that was written, or `NULL`
-#' when no file was written.
+#' @param payload A named list (single page) or list of named lists (multi-page)
+#' of metadata values.
+#' @return A named list containing `schema_version` and `pages`.
 #' @keywords internal
-write_metadata_sidecar <- function(payload, to) {
-  if (length(payload) == 0) {
-    return(invisible(NULL))
+metadata_sidecar_payload <- function(payload) {
+  pages <- if (is.list(payload) && is.null(names(payload))) {
+    payload
+  } else {
+    list(payload)
   }
-  json <- gridify_to_json(payload)
+
+  list(
+    schema_version = "1.0.0",
+    pages = lapply(pages, function(cells) list(cells = cells))
+  )
+}
+
+#' Check whether a metadata payload contains values
+#'
+#' @param payload A metadata payload.
+#' @return `TRUE` when the payload contains at least one metadata value.
+#' @keywords internal
+has_metadata_payload <- function(payload) {
+  if (is.null(payload) || length(payload) == 0) {
+    return(FALSE)
+  }
+  if (is.list(payload) && is.null(names(payload))) {
+    return(any(vapply(payload, has_metadata_payload, logical(1))))
+  }
+  TRUE
+}
+
+#' Synchronise the JSON metadata sidecar file
+#'
+#' Writes `json` to the sidecar when supplied. Otherwise removes any existing
+#' sidecar for `to`, preventing stale metadata from surviving later exports of
+#' the same output file.
+#'
+#' @param to A length-one character string with the path of the main output
+#' file.
+#' @param json Optional pre-encoded JSON metadata.
+#' @return Invisibly, the path of the sidecar file that was written or removed.
+#' @keywords internal
+sync_metadata_sidecar <- function(to, json = NULL) {
   side <- paste0(to, ".json")
-  writeLines(json, con = side, useBytes = TRUE)
+  if (!is.null(json)) {
+    writeLines(json, con = side, useBytes = TRUE)
+  } else if (file.exists(side)) {
+    unlink(side)
+  }
   invisible(side)
 }
 
