@@ -765,6 +765,53 @@ and `height` by passing them into `export_to()` after the `to` argument.
 export_to(gridify_obj, to = "output.jpeg", width = 2400, height = 1800, res = 300)
 ```
 
+### Metadata
+
+`export_to()` can optionally record effective cell text values alongside the
+output, including text from layout defaults and values supplied via
+`set_cell()`. This makes it easy to track which header, footer or watermark
+text was used to produce a given figure without parsing the file.
+The feature is opt-in via the `metadata` argument. The sidecar identifies itself
+as `gridify.sidecar.metadata` and uses the same schema-versioned `pages`
+structure for single-page and multi-page exports.
+
+```{r, eval = FALSE}
+# Default: just the PDF, no metadata is written
+export_to(gridify_obj, to = "output.pdf")
+
+# Write a JSON sidecar (output.pdf.json) next to the output
+export_to(gridify_obj, to = "output.pdf", metadata = "sidecar")
+```
+
+For a single-page export, the JSON sidecar has one page entry:
+
+```json
+{
+  "schema": "gridify.sidecar.metadata",
+  "schema_version": "1.0.0",
+  "pages": [
+    {
+      "cells": {
+        "header_left_1": "My Company",
+        "title_1": "<Title 1>"
+      }
+    }
+  ]
+}
+```
+
+If the same output path is exported later with `metadata = "none"`, or with
+`metadata = "sidecar"` but no effective cell text values, any existing sidecar
+for that output is removed. This prevents an older `output.pdf.json` from being
+mistaken for metadata from the latest export.
+
+To enable metadata writing globally for a project, set the
+`gridify.export.metadata` option once (e.g. in `.Rprofile`):
+
+```{r, eval = FALSE}
+options(gridify.export.metadata = "sidecar")
+```
+
 ## Conclusion
 
 These examples should give you a good understanding of how to use the `gridify` package to add text

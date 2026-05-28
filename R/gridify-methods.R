@@ -941,6 +941,25 @@ setMethod("show", "gridifyLayout", function(object) {
 #' The extension determines the output format.
 #' @param device a function for graphics device.
 #' By default a file name extension is used to choose a graphics device function. Default `NULL`
+#' @param metadata Controls writing of metadata derived from effective cell text
+#' values, including layout defaults and values supplied via [set_cell()].
+#' One of:
+#' \itemize{
+#'   \item `"sidecar"` - write a JSON sidecar file next to the output named `<to>.json`
+#'   containing `schema`, `schema_version` and `pages`. The `schema` value is
+#'   `"gridify.sidecar.metadata"`. Each page contains a `cells` object mapping
+#'   cell names to their text values. Single-page and multi-page exports use the
+#'   same structure; multi-page PDFs contain one page entry per exported object.
+#'   Any stale sidecar is removed when no effective cell text exists.
+#'   \item `"none"` (default) - do not produce any metadata and remove any existing
+#'   sidecar for the same output file.
+#' }
+#' Validated with [match.arg()] so it can be abbreviated.
+#' When `metadata = NULL` (the default), the value is taken from the
+#' `gridify.export.metadata` global option (see [options()]), falling back to
+#' `"none"` if unset. This makes it possible to enable the feature globally
+#' for a project via
+#' `options(gridify.export.metadata = "sidecar")`.
 #' @param ... Additional arguments passed to the graphics device functions
 #' (`pdf()`, `png()`, `tiff()`, `jpeg()` or your custom one).
 #' Default width and height for each export type, respectively:
@@ -1116,16 +1135,24 @@ setMethod("show", "gridifyLayout", function(object) {
 #' )
 #'
 #' @export
-setGeneric("export_to", function(x, to, device = NULL, ...) {
-  standardGeneric("export_to")
-})
+setGeneric(
+  "export_to",
+  function(x, to, device = NULL, metadata = NULL, ...) {
+    standardGeneric("export_to")
+  }
+)
 
 #' @rdname export_to
 #' @export
-setMethod("export_to", "gridifyClass", function(x, to, device = NULL, ...) {
+setMethod(
+  "export_to",
+  "gridifyClass",
+  function(x, to, device = NULL, metadata = NULL, ...) {
   if (!(length(to) == 1 && is.character(to))) {
     stop("`to` must be a single string (file path) for single gridify object.")
   }
+
+  metadata <- resolve_export_metadata(metadata)
 
   dir_name <- dirname(to)
   if (!(dir.exists(dir_name))) {
@@ -1151,6 +1178,12 @@ setMethod("export_to", "gridifyClass", function(x, to, device = NULL, ...) {
   }
 
   user_args <- list(...)
+  payload <- if (metadata == "none") NULL else gridify_metadata(x)
+  sidecar_json <- if (metadata == "sidecar" && has_metadata_payload(payload)) {
+    gridify_to_json(metadata_sidecar_payload(payload))
+  } else {
+    NULL
+  }
 
   if (ext %in% c("pdf")) {
     default_args <- list(width = 11.69, height = 8.27)
@@ -1162,8 +1195,9 @@ setMethod("export_to", "gridifyClass", function(x, to, device = NULL, ...) {
     }
 
     do.call(device, dev_args)
+    on.exit(grDevices::dev.off(), add = TRUE)
     print(x)
-    on.exit(grDevices::dev.off())
+    sync_metadata_sidecar(to, sidecar_json)
   } else if (ext %in% c("png", "jpeg", "jpg", "tiff", "tif")) {
     default_args <- list(width = 600, height = 400)
     dev_args <- utils::modifyList(default_args, user_args)
@@ -1182,21 +1216,26 @@ setMethod("export_to", "gridifyClass", function(x, to, device = NULL, ...) {
       device <- dev_func
     }
     do.call(device, dev_args)
+    on.exit(grDevices::dev.off(), add = TRUE)
     grid::grid.newpage()
     print(x)
-    on.exit(grDevices::dev.off())
+    sync_metadata_sidecar(to, sidecar_json)
   }
 })
 
 
 #' @rdname export_to
 #' @export
-setMethod("export_to", "list", function(x, to, device = NULL, ...) {
+setMethod(
+  "export_to",
+  "list",
+  function(x, to, device = NULL, metadata = NULL, ...) {
   if (
     !all(vapply(x, function(elem) inherits(elem, "gridifyClass"), logical(1)))
   ) {
     stop("All elements of the list must be 'gridifyClass' objects.")
   }
+  metadata <- resolve_export_metadata(metadata)
 
   to_dirs <- dirname(to)
   dir_exists <- dir.exists(to_dirs)
@@ -1231,18 +1270,30 @@ setMethod("export_to", "list", function(x, to, device = NULL, ...) {
         device <- grDevices::pdf
       }
 
-      do.call(
-        device,
-        utils::modifyList(
-          list(file = to, width = 11.69, height = 8.27, onefile = TRUE),
-          list(...)
-        )
+      payload <- if (metadata == "none") {
+        NULL
+      } else {
+        lapply(x, gridify_metadata)
+      }
+      sidecar_json <- if (metadata == "sidecar" && has_metadata_payload(payload)) {
+        gridify_to_json(metadata_sidecar_payload(payload))
+      } else {
+        NULL
+      }
+
+      user_args <- list(...)
+      dev_args <- utils::modifyList(
+        list(file = to, width = 11.69, height = 8.27, onefile = TRUE),
+        user_args
       )
+      do.call(device, dev_args)
       on.exit(grDevices::dev.off(), add = TRUE)
 
       for (obj in x) {
         print(obj)
       }
+
+      sync_metadata_sidecar(to, sidecar_json)
     } else {
       stop(
         "For a list of gridify objects and a single file path, the `to` extension has to be pdf."
@@ -1251,7 +1302,7 @@ setMethod("export_to", "list", function(x, to, device = NULL, ...) {
   } else if (length(to) == length(x)) {
     # Each plot goes to a separate file path in `to`
     for (i in seq_along(x)) {
-      export_to(x[[i]], to[[i]], ...)
+      export_to(x[[i]], to[[i]], device = device, metadata = metadata, ...)
     }
   } else {
     stop(
@@ -1263,7 +1314,7 @@ setMethod("export_to", "list", function(x, to, device = NULL, ...) {
 
 #' @rdname export_to
 #' @export
-setMethod("export_to", "ANY", function(x, to, ...) {
+setMethod("export_to", "ANY", function(x, to, device = NULL, metadata = NULL, ...) {
   stop(
     "export_to is supported for gridifyClass or list of gridifyClass objects."
   )

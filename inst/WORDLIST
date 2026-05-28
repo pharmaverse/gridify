@@ -1,11 +1,9 @@
 Abdy
 Acknowledgments
 Bleier
-centers
 CMD
 Codecov
 Dallimore
-doi
 HersheySerif
 Laetitia
 Lemoine
@@ -22,6 +20,9 @@ Qmd
 RStudio
 Rmd
 TransactionID
+Vicencio
+centers
+doi
 etc
 flextable
 fontfamily
@@ -36,6 +37,7 @@ gridifying
 gt
 gtable
 labeled
+lifecycle
 npc
 pharmaverse
 px
@@ -43,4 +45,3 @@ rd
 rtables
 sprintf
 unitType
-Vicencio

@@ -2,11 +2,22 @@
 
 ## New features
 
+* `export_to()` gains a `metadata` argument that records effective cell text
+  values, including layout defaults and values supplied via `set_cell()`,
+  alongside the exported output. The default is `metadata = "none"`; pass
+  `"sidecar"` to write a JSON sidecar `<file>.json` next to the output.
+  The sidecar identifies itself as `gridify.sidecar.metadata` and uses a
+  schema-versioned `pages` structure for both single-page and multi-page exports.
+  Re-exporting the same output without metadata, or with no effective cell text,
+  removes any stale sidecar for that output.
+  The default can be changed project-wide by setting
+  `options(gridify.export.metadata = "sidecar")`.
 * Added support for `fill_empty = NA` in the `paginate_table()` function.
 
 ## Bug fixes
 
-* When `fill_empty` in the `paginate_table()` function is a character value, the final paginated table now coerces columns to character before filling empty cells (#20).
+* When `fill_empty` in the `paginate_table()` function is a character value, 
+  the final paginated table now coerces columns to character before filling empty cells (#20).
 
 ## Miscellaneous
 
