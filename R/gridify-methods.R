@@ -945,10 +945,11 @@ setMethod("show", "gridifyLayout", function(object) {
 #' One of:
 #' \itemize{
 #'   \item `"sidecar"` - write a JSON sidecar file next to the output named `<to>.json`
-#'   containing `schema_version` and `pages`. Each page contains a `cells` object
-#'   mapping cell names to their text values. Single-page and multi-page exports
-#'   use the same structure; multi-page PDFs contain one page entry per exported
-#'   object. Any stale sidecar is removed when no cells were set.
+#'   containing `schema`, `schema_version` and `pages`. The `schema` value is
+#'   `"gridify.sidecar.metadata"`. Each page contains a `cells` object mapping
+#'   cell names to their text values. Single-page and multi-page exports use the
+#'   same structure; multi-page PDFs contain one page entry per exported object.
+#'   Any stale sidecar is removed when no cells were set.
 #'   \item `"none"` (default) - do not produce any metadata and remove any existing
 #'   sidecar for the same output file.
 #' }

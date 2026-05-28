@@ -770,8 +770,9 @@ export_to(gridify_obj, to = "output.jpeg", width = 2400, height = 1800, res = 30
 `export_to()` can optionally record the text values you set with `set_cell()`
 alongside the output, making it easy to track which header, footer or
 watermark text was used to produce a given figure without parsing the file.
-The feature is opt-in via the `metadata` argument. The sidecar uses the same
-schema-versioned `pages` structure for single-page and multi-page exports.
+The feature is opt-in via the `metadata` argument. The sidecar identifies itself
+as `gridify.sidecar.metadata` and uses the same schema-versioned `pages`
+structure for single-page and multi-page exports.
 
 ```{r, eval = FALSE}
 # Default: just the PDF, no metadata is written
@@ -785,6 +786,7 @@ For a single-page export, the JSON sidecar has one page entry:
 
 ```json
 {
+  "schema": "gridify.sidecar.metadata",
   "schema_version": "1.0.0",
   "pages": [
     {

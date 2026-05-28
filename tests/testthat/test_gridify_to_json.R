@@ -46,11 +46,13 @@ test_that("has_metadata_payload detects populated payloads", {
 
 test_that("metadata_sidecar_payload uses a uniform pages schema", {
   single <- metadata_sidecar_payload(list(a = "x"))
+  expect_identical(single$schema, "gridify.sidecar.metadata")
   expect_identical(single$schema_version, "1.0.0")
   expect_length(single$pages, 1)
   expect_identical(single$pages[[1]]$cells, list(a = "x"))
 
   multi <- metadata_sidecar_payload(list(list(a = "1"), list(a = "2")))
+  expect_identical(multi$schema, "gridify.sidecar.metadata")
   expect_identical(multi$schema_version, "1.0.0")
   expect_length(multi$pages, 2)
   expect_identical(multi$pages[[1]]$cells, list(a = "1"))
@@ -67,6 +69,7 @@ test_that("sync_metadata_sidecar writes populated sidecars", {
   expect_identical(sync_metadata_sidecar(base, json), side)
   expect_true(file.exists(side))
   parsed <- jsonlite::fromJSON(side, simplifyVector = FALSE)
+  expect_identical(parsed$schema, "gridify.sidecar.metadata")
   expect_identical(parsed$schema_version, "1.0.0")
   expect_identical(parsed$pages[[1]]$cells$a, "x")
 })
@@ -81,6 +84,7 @@ test_that("sync_metadata_sidecar serialises multi-page list payload", {
   sync_metadata_sidecar(base, gridify_to_json(metadata_sidecar_payload(payload)))
 
   parsed <- jsonlite::fromJSON(side, simplifyVector = FALSE)
+  expect_identical(parsed$schema, "gridify.sidecar.metadata")
   expect_identical(parsed$schema_version, "1.0.0")
   expect_length(parsed$pages, 2)
   expect_identical(parsed$pages[[1]]$cells$a, "1")

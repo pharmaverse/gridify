@@ -93,7 +93,7 @@ gridify_to_json <- function(x) {
 #'
 #' @param payload A named list (single page) or list of named lists (multi-page)
 #' of metadata values.
-#' @return A named list containing `schema_version` and `pages`.
+#' @return A named list containing `schema`, `schema_version` and `pages`.
 #' @keywords internal
 metadata_sidecar_payload <- function(payload) {
   pages <- if (is.list(payload) && is.null(names(payload))) {
@@ -103,6 +103,7 @@ metadata_sidecar_payload <- function(payload) {
   }
 
   list(
+    schema = "gridify.sidecar.metadata",
     schema_version = "1.0.0",
     pages = lapply(pages, function(cells) list(cells = cells))
   )

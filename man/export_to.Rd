@@ -28,10 +28,11 @@ By default a file name extension is used to choose a graphics device function. D
 One of:
 \itemize{
 \item \code{"sidecar"} - write a JSON sidecar file next to the output named \verb{<to>.json}
-containing \code{schema_version} and \code{pages}. Each page contains a \code{cells} object
-mapping cell names to their text values. Single-page and multi-page exports
-use the same structure; multi-page PDFs contain one page entry per exported
-object. Any stale sidecar is removed when no cells were set.
+containing \code{schema}, \code{schema_version} and \code{pages}. The \code{schema} value is
+\code{"gridify.sidecar.metadata"}. Each page contains a \code{cells} object mapping
+cell names to their text values. Single-page and multi-page exports use the
+same structure; multi-page PDFs contain one page entry per exported object.
+Any stale sidecar is removed when no cells were set.
 \item \code{"none"} (default) - do not produce any metadata and remove any existing
 sidecar for the same output file.
 }

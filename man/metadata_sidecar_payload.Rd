@@ -11,7 +11,7 @@ metadata_sidecar_payload(payload)
 of metadata values.}
 }
 \value{
-A named list containing \code{schema_version} and \code{pages}.
+A named list containing \code{schema}, \code{schema_version} and \code{pages}.
 }
 \description{
 Wraps single-page and multi-page metadata in the same schema so consumers can

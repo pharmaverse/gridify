@@ -228,6 +228,7 @@ test_that("metadata = 'sidecar' writes JSON sidecar for PDF and PNG", {
     expect_true(file.exists(side))
 
     parsed <- jsonlite::fromJSON(side, simplifyVector = FALSE)
+    expect_identical(parsed$schema, "gridify.sidecar.metadata")
     expect_identical(parsed$schema_version, "1.0.0")
     expect_length(parsed$pages, 1)
     expect_identical(parsed$pages[[1]]$cells$header_left_1, "My Company")
@@ -335,6 +336,7 @@ test_that("metadata sidecar for multi-page PDF uses pages schema", {
   expect_true(file.exists(side))
 
   parsed <- jsonlite::fromJSON(side, simplifyVector = FALSE)
+  expect_identical(parsed$schema, "gridify.sidecar.metadata")
   expect_identical(parsed$schema_version, "1.0.0")
   expect_length(parsed$pages, 2)
   expect_identical(parsed$pages[[1]]$cells$header_left_1, "My Company")

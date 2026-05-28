@@ -348,11 +348,13 @@ export_to(
 ```
 
 Passing `metadata = "sidecar"` to `export_to()` writes a JSON sidecar next to
-each output file. The sidecar uses the same schema-versioned `pages` structure
-for single-page and multi-page exports:
+each output file. The sidecar identifies itself as `gridify.sidecar.metadata`
+and uses the same schema-versioned `pages` structure for single-page and
+multi-page exports:
 
 ```json
 {
+  "schema": "gridify.sidecar.metadata",
   "schema_version": "1.0.0",
   "pages": [
     {
