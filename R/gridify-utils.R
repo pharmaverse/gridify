@@ -48,19 +48,26 @@ gpar_call <- function(gpar) {
   as.call(c(quote(grid::gpar), gpar_args(gpar)))
 }
 
-#' Build the metadata payload for a `gridifyClass` object.
+#' Build the metadata payload for a `gridifyClass` object
 #'
-#' Extracts the `text` field from each `set_cell()` element, in the order they
-#' were added. Cells with `NULL` text are skipped.
+#' Extracts the effective text for each layout cell. Values set with
+#' [set_cell()] take precedence over layout default text. Cells with no
+#' effective text are skipped.
 #' @param x a `gridifyClass` object.
 #' @return a named list mapping cell name to its text value.
 #' @keywords internal
 gridify_metadata <- function(x) {
-  elems <- x@elements
-  if (length(elems) == 0) {
+  cells <- x@layout@cells@cells
+  if (length(cells) == 0) {
     return(stats::setNames(list(), character(0)))
   }
-  texts <- lapply(elems, function(el) el[["text"]])
+  texts <- lapply(names(cells), function(cell) {
+    elem <- x@elements[[cell]]
+    cell_info <- cells[[cell]]
+    candidates <- c(elem[["text"]], cell_info@text)
+    if (length(candidates) == 0) NULL else candidates[1]
+  })
+  names(texts) <- names(cells)
   texts[!vapply(texts, is.null, logical(1))]
 }
 

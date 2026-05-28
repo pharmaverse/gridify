@@ -767,9 +767,10 @@ export_to(gridify_obj, to = "output.jpeg", width = 2400, height = 1800, res = 30
 
 ### Metadata
 
-`export_to()` can optionally record the text values you set with `set_cell()`
-alongside the output, making it easy to track which header, footer or
-watermark text was used to produce a given figure without parsing the file.
+`export_to()` can optionally record effective cell text values alongside the
+output, including text from layout defaults and values supplied via
+`set_cell()`. This makes it easy to track which header, footer or watermark
+text was used to produce a given figure without parsing the file.
 The feature is opt-in via the `metadata` argument. The sidecar identifies itself
 as `gridify.sidecar.metadata` and uses the same schema-versioned `pages`
 structure for single-page and multi-page exports.
@@ -800,8 +801,8 @@ For a single-page export, the JSON sidecar has one page entry:
 ```
 
 If the same output path is exported later with `metadata = "none"`, or with
-`metadata = "sidecar"` but no `set_cell()` text values, any existing sidecar for
-that output is removed. This prevents an older `output.pdf.json` from being
+`metadata = "sidecar"` but no effective cell text values, any existing sidecar
+for that output is removed. This prevents an older `output.pdf.json` from being
 mistaken for metadata from the latest export.
 
 To enable metadata writing globally for a project, set the

@@ -23,15 +23,28 @@ test_that("gridify_to_json escapes special characters", {
   expect_identical(jsonlite::fromJSON(json)$w, s)
 })
 
-test_that("gridify_metadata extracts only set_cell text values", {
+test_that("gridify_metadata extracts effective cell text values", {
   obj <- gridify(grid::rectGrob(), pharma_layout_base())
   obj <- set_cell(obj, "header_left_1", "Co")
+  obj <- set_cell(obj, "header_right_1", "Not confidential")
   obj <- set_cell(obj, "title_1", "T1")
   meta <- gridify_metadata(obj)
-  expect_identical(meta, list(header_left_1 = "Co", title_1 = "T1"))
+  expect_identical(
+    meta,
+    list(
+      header_left_1 = "Co",
+      header_right_1 = "Not confidential",
+      title_1 = "T1"
+    )
+  )
 })
 
-test_that("gridify_metadata returns empty list for no cells", {
+test_that("gridify_metadata includes layout default text values", {
+  obj <- gridify(grid::rectGrob(), pharma_layout_base())
+  expect_identical(gridify_metadata(obj), list(header_right_1 = "CONFIDENTIAL"))
+})
+
+test_that("gridify_metadata returns empty list when no effective text exists", {
   obj <- gridify(grid::rectGrob(), simple_layout())
   expect_identical(gridify_metadata(obj), stats::setNames(list(), character(0)))
 })

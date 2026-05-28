@@ -287,6 +287,21 @@ test_that("metadata = 'none' writes no sidecar", {
   expect_false(file.exists(side))
 })
 
+test_that("metadata sidecar includes layout default text", {
+  skip_if_not_installed("jsonlite")
+  x <- gridify(grid::rectGrob(), pharma_layout_base())
+  out_file <- file.path(tempdir(), "meta_defaults.pdf")
+  side <- paste0(out_file, ".json")
+  if (file.exists(side)) file.remove(side)
+
+  expect_no_error(export_to(x, out_file, metadata = "sidecar"))
+  expect_true(file.exists(out_file))
+  expect_true(file.exists(side))
+
+  parsed <- jsonlite::fromJSON(side, simplifyVector = FALSE)
+  expect_identical(parsed$pages[[1]]$cells, list(header_right_1 = "CONFIDENTIAL"))
+})
+
 test_that("metadata = 'none' removes stale sidecar", {
   x <- mock_gridify_with_cells()
   out_file <- file.path(tempdir(), "meta_stale_removed.pdf")

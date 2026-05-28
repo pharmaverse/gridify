@@ -2,7 +2,7 @@
 % Please edit documentation in R/gridify-utils.R
 \name{gridify_metadata}
 \alias{gridify_metadata}
-\title{Build the metadata payload for a \code{gridifyClass} object.}
+\title{Build the metadata payload for a \code{gridifyClass} object}
 \usage{
 gridify_metadata(x)
 }
@@ -13,7 +13,8 @@ gridify_metadata(x)
 a named list mapping cell name to its text value.
 }
 \description{
-Extracts the \code{text} field from each \code{set_cell()} element, in the order they
-were added. Cells with \code{NULL} text are skipped.
+Extracts the effective text for each layout cell. Values set with
+\code{\link[=set_cell]{set_cell()}} take precedence over layout default text. Cells with no
+effective text are skipped.
 }
 \keyword{internal}

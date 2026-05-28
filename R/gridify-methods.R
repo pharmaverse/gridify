@@ -941,7 +941,8 @@ setMethod("show", "gridifyLayout", function(object) {
 #' The extension determines the output format.
 #' @param device a function for graphics device.
 #' By default a file name extension is used to choose a graphics device function. Default `NULL`
-#' @param metadata Controls writing of metadata derived from `set_cell()` text values.
+#' @param metadata Controls writing of metadata derived from effective cell text
+#' values, including layout defaults and values supplied via [set_cell()].
 #' One of:
 #' \itemize{
 #'   \item `"sidecar"` - write a JSON sidecar file next to the output named `<to>.json`
@@ -949,7 +950,7 @@ setMethod("show", "gridifyLayout", function(object) {
 #'   `"gridify.sidecar.metadata"`. Each page contains a `cells` object mapping
 #'   cell names to their text values. Single-page and multi-page exports use the
 #'   same structure; multi-page PDFs contain one page entry per exported object.
-#'   Any stale sidecar is removed when no cells were set.
+#'   Any stale sidecar is removed when no effective cell text exists.
 #'   \item `"none"` (default) - do not produce any metadata and remove any existing
 #'   sidecar for the same output file.
 #' }

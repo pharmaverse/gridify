@@ -24,7 +24,8 @@ The extension determines the output format.}
 \item{device}{a function for graphics device.
 By default a file name extension is used to choose a graphics device function. Default \code{NULL}}
 
-\item{metadata}{Controls writing of metadata derived from \code{set_cell()} text values.
+\item{metadata}{Controls writing of metadata derived from effective cell text
+values, including layout defaults and values supplied via \code{\link[=set_cell]{set_cell()}}.
 One of:
 \itemize{
 \item \code{"sidecar"} - write a JSON sidecar file next to the output named \verb{<to>.json}
@@ -32,7 +33,7 @@ containing \code{schema}, \code{schema_version} and \code{pages}. The \code{sche
 \code{"gridify.sidecar.metadata"}. Each page contains a \code{cells} object mapping
 cell names to their text values. Single-page and multi-page exports use the
 same structure; multi-page PDFs contain one page entry per exported object.
-Any stale sidecar is removed when no cells were set.
+Any stale sidecar is removed when no effective cell text exists.
 \item \code{"none"} (default) - do not produce any metadata and remove any existing
 sidecar for the same output file.
 }
