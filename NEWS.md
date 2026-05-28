@@ -11,8 +11,6 @@
   removes any stale sidecar for that output.
   The default can be changed project-wide by setting
   `options(gridify.export.metadata = "sidecar")`.
-* `jsonlite` moved from `Imports` to `Suggests`; it is only required when using
-  `metadata = "sidecar"`.
 * Added support for `fill_empty = NA` in the `paginate_table()` function.
 
 ## Bug fixes
