@@ -32,7 +32,7 @@ layout-driven height in npc, then floors the result via \code{grid::unit.pmax()}
 so the viewport never collapses to zero.
 }
 \details{
-\verb{use_grob_height_for_object evaluates} to \code{TRUE} when the caller has opted
+\code{use_grob_height_for_object} evaluates to \code{TRUE} when the caller has opted
 into vertical anchoring (\code{vjust != 0.5}) and the grob has a meaningful
 natural height (i.e. is not flexible, see \code{\link[=is_flexible_grob]{is_flexible_grob()}}).
 The \code{vjust == 0.5} short-circuit preserves the historical "fill the row"
