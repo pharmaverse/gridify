@@ -20,9 +20,14 @@ which can be overwritten alongside other graphical parameters found by \code{gri
 Default \code{grid::get.gpar()$fill} for a white background.}
 
 \item{object_vjust}{A numeric value in \verb{[0, 1]} controlling the vertical anchoring of the
-object within its row. \code{0} aligns to the bottom, \code{0.5} (default) centers it, \code{1} aligns
-to the top. Useful when the object's row is taller than the object itself.
-Has no effect on flexible grobs (e.g. \code{ggplot2::ggplotGrob()}), which always fill the full row.}
+object within its row. \code{0} aligns to the bottom, \code{0.5} (default) centers it,
+and \code{1} aligns to the top. Useful when the
+object's row is taller than the object itself. Has no effect on flexible grobs
+(e.g. \code{ggplot2::ggplotGrob()}), which always fill the full row. For fixed-size
+table grobs such as \code{gt} and \code{flextable}, values at the edge (\code{0} or \code{1})
+place the table directly against the object-row edge; add spacer rows in a
+custom layout or use an inset value such as \code{0.05} or \code{0.95} if nearby text
+appears too close.}
 }
 \value{
 A \code{gridifyLayout} object with the structure defined for A4 paper size.

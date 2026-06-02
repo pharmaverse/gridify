@@ -5,24 +5,7 @@
 #' notes and footnotes around the output.
 #'
 #' @name complex_layout
-#' @param margin A unit object specifying the margins around the output. Default is 10% of the output area on all sides.
-#' @param global_gpar A gpar object specifying the global graphical parameters.
-#'  Must be the result of a call to `grid::gpar()`.
-#' @param background A string specifying the background fill colour.
-#' Default `grid::get.gpar()$fill` for a white background.
-#' @param scales A string, either `"free"` or `"fixed"`.
-#' By default, `"fixed"` ensures that text elements (titles, footers, etc.)
-#' retain a static height, preventing text overlap while maintaining a
-#' structured layout. However, this may result in different height proportions
-#' between the text elements and the output.
-#'
-#' The `"free"` option makes the row heights proportional,
-#' allowing them to scale dynamically based on the overall output size.
-#' This ensures that the text elements and the output maintain relative proportions.
-#' @param object_vjust A numeric value in `[0, 1]` controlling the vertical anchoring of the
-#' object within its row. `0` aligns to the bottom, `0.5` (default) centers it, `1` aligns
-#' to the top. Useful when the object's row is taller than the object itself.
-#' Has no effect on flexible grobs (e.g. `ggplot2::ggplotGrob()`), which always fill the full row.
+#' @inheritParams simple_layout
 #'
 #' @details The layout consists of six rows for headers, titles, object (figure or table), notes, and footnotes.
 #' The object is placed in the fourth row.\cr

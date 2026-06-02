@@ -19,10 +19,14 @@ can be anchored within a taller row.}
 \item{width}{A numeric value specifying the width of the object. Default is 1.}
 
 \item{vjust}{A numeric value in \verb{[0, 1]} specifying the vertical anchoring of the object
-within its cell. \code{0} aligns to the bottom, \code{0.5} (default) centers it, \code{1} aligns to the top.
+within its cell. \code{0} aligns to the bottom, \code{0.5} (default) centers it, and
+\code{1} aligns to the top.
 Anchoring only takes effect for fixed-size grobs (e.g. \code{gt::as_gtable()},
 \code{flextable::gen_grob()}). Flexible grobs (e.g. \code{ggplot2::ggplotGrob()}) always fill the
-full row regardless of \code{vjust}.}
+full row regardless of \code{vjust}.
+For fixed-size table grobs, edge values (\code{0} or \code{1}) place the table directly
+against the object-row edge; add spacer rows in a custom layout or use an
+inset value such as \code{0.05} or \code{0.95} if nearby text appears too close.}
 }
 \value{
 An instance of the gridifyObject class.

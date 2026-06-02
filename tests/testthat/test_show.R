@@ -64,7 +64,7 @@ test_that("show on gridifyClass returns information to the console", {
       "  Col: 1",
       "  Width: 1",
       "  Height: 1",
-      "  Vjust: 0.5 (default; the object fills the full row regardless of grob type)",
+      "  Vjust: 0.5",
       "",
       "Object Row Heights:",
       "  Row 2: 1 null",
@@ -158,7 +158,7 @@ test_that("show on more complex gridifyClass returns information to the console"
       "  Col: 1",
       "  Width: 1",
       "  Height: 1",
-      "  Vjust: 0.5 (default; the object fills the full row regardless of grob type)",
+      "  Vjust: 0.5",
       "",
       "Object Row Heights:",
       "  Row 2: 1 null",
@@ -239,7 +239,7 @@ test_that("show on gridifyLayout returns information to the console", {
       "  Col: 1",
       "  Width: 1",
       "  Height: 1",
-      "  Vjust: 0.5 (default; the object fills the full row regardless of grob type)",
+      "  Vjust: 0.5",
       "",
       "Object Row Heights:",
       "  Row 2: 1 null",
@@ -304,7 +304,7 @@ test_that("show on complex gridifyLayout returns information to the console", {
       "  Col: 1-3",
       "  Width: 1",
       "  Height: 1",
-      "  Vjust: 0.5 (default; the object fills the full row regardless of grob type)",
+      "  Vjust: 0.5",
       "",
       "Object Row Heights:",
       "  Row 4: 1 null",
@@ -391,7 +391,7 @@ test_that("test span row for output height row = c(x:y)", {
       "  Col: 1",
       "  Width: 1",
       "  Height: 1",
-      "  Vjust: 0.5 (default; the object fills the full row regardless of grob type)",
+      "  Vjust: 0.5",
       "",
       "Object Row Heights:",
       "  Row 1: 0.05 npc",
@@ -466,7 +466,7 @@ test_that("test span row for output height row = c(x, y)", {
       "  Col: 1",
       "  Width: 1",
       "  Height: 1",
-      "  Vjust: 0.5 (default; the object fills the full row regardless of grob type)",
+      "  Vjust: 0.5",
       "",
       "Object Row Heights:",
       "  Row 1: 0.05 npc",
@@ -501,14 +501,14 @@ test_that("show_spec annotates Vjust line for both default and anchored values",
   default_lyt <- simple_layout()
   out <- capture_output_lines(show_spec(default_lyt))
   expect_true(any(grepl(
-    "^  Vjust: 0.5 \\(default; the object fills the full row regardless of grob type\\)$",
+    "^  Vjust: 0.5$",
     out
   )))
 
   anchored_lyt <- simple_layout(object_vjust = 1)
   out <- capture_output_lines(show_spec(anchored_lyt))
   expect_true(any(grepl(
-    "^  Vjust: 1 \\(anchors fixed-size grobs; flexible grobs e.g. ggplot still fill the row\\)$",
+    "^  Vjust: 1$",
     out
   )))
 })

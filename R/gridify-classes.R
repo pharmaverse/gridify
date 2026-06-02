@@ -445,11 +445,15 @@ gridifyCells <- function(...) {
 #' a taller row. The 1-inch floor in applies in both cases.
 #' @slot width A numeric value specifying the width of the object.
 #' @slot vjust A numeric value in `[0, 1]` specifying the vertical anchoring of the object
-#' within its cell. `0` aligns to the bottom, `0.5` (default) centers it, `1` aligns to the top.
+#' within its cell. `0` aligns to the bottom, `0.5` (default) centers it, and
+#' `1` aligns to the top.
 #' Anchoring only takes effect for fixed-size grobs (e.g. `gt::as_gtable()`,
 #' `flextable::gen_grob()`, plain `grid::rectGrob()`). Flexible grobs whose natural height is
 #' meant to fill the container (e.g. `ggplot2::ggplotGrob()`, recorded gTrees from
 #' `grid::grid.grabExpr()`) always span the full row regardless of `vjust`.
+#' For fixed-size table grobs, edge values (`0` or `1`) place the table directly
+#' against the object-row edge; add spacer rows in a custom layout or use an
+#' inset value such as `0.05` or `0.95` if nearby text appears too close.
 #' @exportClass gridifyObject
 setClass(
   "gridifyObject",
@@ -502,10 +506,14 @@ setValidity("gridifyObject", function(object) {
 #' can be anchored within a taller row.
 #' @param width A numeric value specifying the width of the object. Default is 1.
 #' @param vjust A numeric value in `[0, 1]` specifying the vertical anchoring of the object
-#' within its cell. `0` aligns to the bottom, `0.5` (default) centers it, `1` aligns to the top.
+#' within its cell. `0` aligns to the bottom, `0.5` (default) centers it, and
+#' `1` aligns to the top.
 #' Anchoring only takes effect for fixed-size grobs (e.g. `gt::as_gtable()`,
 #' `flextable::gen_grob()`). Flexible grobs (e.g. `ggplot2::ggplotGrob()`) always fill the
 #' full row regardless of `vjust`.
+#' For fixed-size table grobs, edge values (`0` or `1`) place the table directly
+#' against the object-row edge; add spacer rows in a custom layout or use an
+#' inset value such as `0.05` or `0.95` if nearby text appears too close.
 #'
 #' @return An instance of the gridifyObject class.
 #'
