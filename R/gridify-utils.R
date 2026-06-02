@@ -73,7 +73,7 @@ is_flexible_grob <- function(grob) {
     return(TRUE)
   }
   if (inherits(grob, "gtable")) {
-    return(any(grid::unitType(grob$heights) == "null"))
+    return(any(grid_unit_type(grob$heights) == "null"))
   }
   FALSE
 }
