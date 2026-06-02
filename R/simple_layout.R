@@ -23,9 +23,8 @@
 #' object's row is taller than the object itself. Has no effect on flexible grobs
 #' (e.g. `ggplot2::ggplotGrob()`), which always fill the full row. For fixed-size
 #' table grobs such as `gt` and `flextable`, values at the edge (`0` or `1`)
-#' place the table directly against the object-row edge; add spacer rows in a
-#' custom layout or use an inset value such as `0.05` or `0.95` if nearby text
-#' appears too close.
+#' place the table directly against the object-row edge. 
+#' Use an inset value such as `0.05` or `0.95` if nearby text appears too close.
 #'
 #' @details The layout consists of three rows, one each for the title, output, and footer.\cr
 #' The heights of the rows in simple_layout with `"free"` scales are 15%, 70% and 15% of the area respectively.\cr

@@ -32,9 +32,8 @@ and \code{1} aligns to the top. Useful when the
 object's row is taller than the object itself. Has no effect on flexible grobs
 (e.g. \code{ggplot2::ggplotGrob()}), which always fill the full row. For fixed-size
 table grobs such as \code{gt} and \code{flextable}, values at the edge (\code{0} or \code{1})
-place the table directly against the object-row edge; add spacer rows in a
-custom layout or use an inset value such as \code{0.05} or \code{0.95} if nearby text
-appears too close.}
+place the table directly against the object-row edge.
+Use an inset value such as \code{0.05} or \code{0.95} if nearby text appears too close.}
 }
 \value{
 A \code{gridifyLayout} object that defines the general structure and parameters for a pharma layout.
