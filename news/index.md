@@ -1,6 +1,6 @@
 # Changelog
 
-## gridify 0.7.7.9000
+## gridify 0.8.1
 
 ### New features
 

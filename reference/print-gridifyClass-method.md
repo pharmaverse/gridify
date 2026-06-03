@@ -68,7 +68,7 @@ gg
 #>         ncol = 1L, heights = grid::unit(c(0.42, 1, 0), c("cm", 
 #>         "null", "lines")), widths = grid::unit(1, "npc"))))))
 #> attr(,"env")
-#> <environment: 0x564adb4388a0>
+#> <environment: 0x560369b8a7a0>
 # evaluate the code
 grid::grid.draw(eval(gg, envir = attr(gg, "env")))
 # or
