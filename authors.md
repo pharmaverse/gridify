@@ -29,7 +29,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/pharmaverse/gridify/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/pharmaverse/gridify/blob/v0.8.1/DESCRIPTION)
 
 Nasinski M, Wall A, Robson S, Dash P, Winick-Ng J (2026). *gridify:
 Enrich Figures and Tables with Custom Headers and Footers and More*. R
