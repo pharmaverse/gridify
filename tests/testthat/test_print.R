@@ -11,6 +11,21 @@ test_that("print on gridifyClass returns invisibly grob object", {
   expect_type(print(test_gridify), "language")
 })
 
+test_that("print returns a call evaluable with attached env", {
+  expect_silent(
+    test_gridify <- gridify(
+      object = ggplot2::ggplot(mtcars, ggplot2::aes(mpg, wt)) +
+        ggplot2::geom_point(),
+      layout = simple_layout()
+    )
+  )
+
+  gg <- print(test_gridify)
+  expect_type(gg, "language")
+  expect_true(is.environment(attr(gg, "env")))
+  expect_no_error(eval(gg, envir = attr(gg, "env")))
+})
+
 test_that("print on gridifyClass returns invisibly grob object", {
   expect_silent(
     test_gridify <- gridify(

@@ -14,8 +14,22 @@ Class for creating an object in a gridify layout.
 
 \item{\code{col}}{A numeric value, span or sequence specifying the column position of the object.}
 
-\item{\code{height}}{A numeric value specifying the height of the object.}
+\item{\code{height}}{A numeric value specifying the height of the object as a fraction of the row
+(interpreted in \code{npc}). Ignored when \code{vjust != 0.5} and the grob is fixed-size: in that
+case the viewport is sized to \code{grid::grobHeight()} so the object can be anchored within
+a taller row. The 1-inch floor in applies in both cases.}
 
 \item{\code{width}}{A numeric value specifying the width of the object.}
+
+\item{\code{vjust}}{A numeric value in \verb{[0, 1]} specifying the vertical anchoring of the object
+within its cell. \code{0} aligns to the bottom, \code{0.5} (default) centers it, and
+\code{1} aligns to the top.
+Anchoring only takes effect for fixed-size grobs (e.g. \code{gt::as_gtable()},
+\code{flextable::gen_grob()}, plain \code{grid::rectGrob()}). Flexible grobs whose natural height is
+meant to fill the container (e.g. \code{ggplot2::ggplotGrob()}, recorded gTrees from
+\code{grid::grid.grabExpr()}) always span the full row regardless of \code{vjust}.
+For fixed-size table grobs, edge values (\code{0} or \code{1}) place the table directly
+against the object-row edge; add spacer rows in a custom layout or use an
+inset value such as \code{0.05} or \code{0.95} if nearby text appears too close.}
 }}
 

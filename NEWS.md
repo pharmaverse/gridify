@@ -2,6 +2,18 @@
 
 ## New features
 
+* Added vertical anchoring for the gridify object inside its cell via the new
+  `vjust` slot of `gridifyObject()` and the `object_vjust` argument of
+  `simple_layout()`, `complex_layout()`, `pharma_layout_base()`,
+  `pharma_layout_A4()` and `pharma_layout_letter()`.
+  `0` aligns the object to the bottom, `0.5` (default) centers it, and `1`
+  anchors it to the top of the cell. Most useful
+  for fixed-size grobs such as `gt` and `flextable` tables. When `vjust != 0.5`
+  is used with a fixed-size grob the viewport is sized to `grid::grobHeight()`
+  and the `height` slot of `gridifyObject()` is ignored. For fixed-size tables,
+  edge values (`0` or `1`) place the table directly against the object-row edge;
+  add spacer rows in custom layouts or use inset values such as `0.05` or `0.95`
+  if nearby text appears too close. Reported and proposed by Monika Beh.
 * Added support for `fill_empty = NA` in the `paginate_table()` function.
 
 ## Bug fixes

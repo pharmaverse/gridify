@@ -15,14 +15,21 @@ test_that("all layout functions return a gridifyLayout", {
   }
 })
 
-test_that("all layout funs have any or some of args: margin, global_gpar, background, scales, adjust_height", {
+test_that("all layout funs have any or some of args: margin, global_gpar, background, scales, adjust_height, object_vjust", {
   for (layout in layouts) {
     args <- formalArgs(asNamespace("gridify")[[layout]])
     expect_true(
       is.null(args) ||
         all(
           args %in%
-            c("margin", "global_gpar", "background", "scales", "adjust_height")
+            c(
+              "margin",
+              "global_gpar",
+              "background",
+              "scales",
+              "adjust_height",
+              "object_vjust"
+            )
         )
     )
   }
