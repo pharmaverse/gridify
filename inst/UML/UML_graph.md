@@ -72,6 +72,7 @@ classDiagram
         +col: numeric
         +height: numeric
         +width: numeric
+        +vjust: numeric
     }
     class gridifyCells {
         cells: namedList[gridifyCell]

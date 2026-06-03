@@ -18,6 +18,10 @@
 #'   Providing a value (e.g., `"|"`, `""`, or `"—"`) automatically enables filling and uses that
 #'   value for all cells in the empty rows. This helps maintain consistent vertical positioning
 #'   across all pages. The target row count is the maximum page size across all pages.
+#'   Use `NA` to fill with missing values while preserving original column types.
+#'   If you need consistent types across all pages, use `NA`.
+#'   Because `fill_empty` is a character placeholder, pages are coerced to character
+#'   columns when filling is applied (except when `fill_empty = NA`).
 #'
 #' @return A list of data frames, one for each page. When `split_by` is used, the list
 #'   is named with the group values. If a group spans multiple pages (when combined with
@@ -177,8 +181,13 @@ paginate_table <- function(
     }
   }
 
-  if (!is.null(fill_empty) && (!is.character(fill_empty) || length(fill_empty) != 1)) {
-    stop("`fill_empty` must be NULL or a single character string.")
+  if (!is.null(fill_empty)) {
+    fill_is_single_na <- length(fill_empty) == 1 && isTRUE(is.na(fill_empty))
+    fill_is_single_character <- is.character(fill_empty) && length(fill_empty) == 1
+
+    if (!(fill_is_single_na || fill_is_single_character)) {
+      stop("`fill_empty` must be NULL, NA, or a single character string.")
+    }
   }
 
     # Split data based on method
@@ -231,12 +240,28 @@ paginate_table <- function(
       if (page_nrows < rows_per_page) {
         rows_difference <- rows_per_page - page_nrows
 
-        # Create empty rows with specified fill value
-        empty_df <- data.frame(
-          matrix(fill_empty, nrow = rows_difference, ncol = ncol(data)),
-          stringsAsFactors = FALSE
-        )
-        colnames(empty_df) <- colnames(data)
+        if (isTRUE(is.na(fill_empty))) {
+          # Preserve original column classes when filling with missing values.
+          empty_df <- as.data.frame(
+            lapply(page, function(col) rep(col[NA_integer_], rows_difference)),
+            stringsAsFactors = FALSE,
+            check.names = FALSE
+          )
+        } else {
+          # Character placeholder fill uses character columns across all fields.
+          page <- as.data.frame(
+            lapply(page, as.character),
+            stringsAsFactors = FALSE,
+            check.names = FALSE
+          )
+
+          empty_df <- data.frame(
+            matrix(fill_empty, nrow = rows_difference, ncol = ncol(data)),
+            stringsAsFactors = FALSE,
+            check.names = FALSE
+          )
+          colnames(empty_df) <- colnames(data)
+        }
 
         # Append to page
         page <- rbind(page, empty_df)
