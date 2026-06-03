@@ -480,6 +480,7 @@ specifications of <code>g</code>’s layout.</p>
 <span><span class="co">#&gt;   Col: 1</span></span>
 <span><span class="co">#&gt;   Width: 1</span></span>
 <span><span class="co">#&gt;   Height: 1</span></span>
+<span><span class="co">#&gt;   Vjust: 0.5</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Object Row Heights:</span></span>
 <span><span class="co">#&gt;   Row 2: 1 null</span></span>
@@ -524,6 +525,7 @@ layout) if we want to view its specs.</p>
 <span><span class="co">#&gt;   Col: 1</span></span>
 <span><span class="co">#&gt;   Width: 1</span></span>
 <span><span class="co">#&gt;   Height: 1</span></span>
+<span><span class="co">#&gt;   Vjust: 0.5</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Object Row Heights:</span></span>
 <span><span class="co">#&gt;   Row 2: 1 null</span></span>
@@ -928,6 +930,161 @@ applying <code><a href="../reference/pharma_layout_letter.html">pharma_layout_le
 </div>
 </div>
 <div class="section level2">
+<h2 id="vertically-anchoring-the-object">Vertically Anchoring the Object<a class="anchor" aria-label="anchor" href="#vertically-anchoring-the-object"></a>
+</h2>
+<p>By default the object (plot or table) is centered vertically inside
+its row. When the row is taller than the object (e.g., object with a
+fixed-size table grob, or when the object’s <code>height</code> is set
+below <code>1</code>), there will be visible empty space above and below
+it.</p>
+<p>The <code>object_vjust</code> argument of the layout helpers (and the
+<code>vjust</code> slot of <code><a href="../reference/gridifyObject.html">gridifyObject()</a></code> for custom
+layouts) controls this anchoring:</p>
+<ul>
+<li>
+<code>object_vjust = 0.5</code> (default) — centered.</li>
+<li>
+<code>object_vjust = 1</code> — anchored to the top of the row.</li>
+<li>
+<code>object_vjust = 0</code> — anchored to the bottom of the
+row.</li>
+</ul>
+<p>Note: When the object is a flextable and vjust = 0.5, the table will
+expand to fill the space. When the object is a flextable and vjust does
+not equal 0.5, the table height will remain fixed and position based on
+the vjust argument provided. For fixed-size table grobs such as
+<code>gt</code> and <code>flextable</code>, edge values (<code>0</code>
+or <code>1</code>) place the table directly against the object-row edge.
+If the first text line above or below the table appears too close, add
+small spacer rows around the object row in a custom layout, use an inset
+value such as <code>0.05</code> or <code>0.95</code>, or add an explicit
+blank line to the nearby text.</p>
+<p>The example below uses a custom layout with the object occupying only
+<code>40%</code> of the available row height so the difference is
+visible:</p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>gridify.adjust_height.line <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">mpg</span>, <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">make_layout</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">object_vjust</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="../reference/gridifyLayout.html">gridifyLayout</a></span><span class="op">(</span></span>
+<span>    nrow <span class="op">=</span> <span class="fl">3</span>, ncol <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>    heights <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">10</span>, <span class="fl">2</span><span class="op">)</span>, <span class="st">"cm"</span><span class="op">)</span>,</span>
+<span>    widths  <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">1</span>, <span class="st">"npc"</span><span class="op">)</span>,</span>
+<span>    margin  <span class="op">=</span> <span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="fl">0.05</span>, <span class="fl">0.05</span>, <span class="fl">0.05</span><span class="op">)</span>, <span class="st">"npc"</span><span class="op">)</span>,</span>
+<span>    adjust_height <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    object  <span class="op">=</span> <span class="fu"><a href="../reference/gridifyObject.html">gridifyObject</a></span><span class="op">(</span>row <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="fl">1</span>, height <span class="op">=</span> <span class="fl">0.4</span>, vjust <span class="op">=</span> <span class="va">object_vjust</span><span class="op">)</span>,</span>
+<span>    cells   <span class="op">=</span> <span class="fu"><a href="../reference/gridifyCells.html">gridifyCells</a></span><span class="op">(</span></span>
+<span>      title  <span class="op">=</span> <span class="fu"><a href="../reference/gridifyCell.html">gridifyCell</a></span><span class="op">(</span>row <span class="op">=</span> <span class="fl">1</span>, col <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>      footer <span class="op">=</span> <span class="fu"><a href="../reference/gridifyCell.html">gridifyCell</a></span><span class="op">(</span>row <span class="op">=</span> <span class="fl">3</span>, col <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Default: object centered in the available space</span></span>
+<span><span class="fu"><a href="../reference/gridify.html">gridify</a></span><span class="op">(</span><span class="va">p</span>, layout <span class="op">=</span> <span class="fu">make_layout</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"title"</span>, <span class="st">"object_vjust = 0.5 (default behaviour)"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer"</span>, <span class="st">"Footer"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; gridifyClass object</span></span>
+<span><span class="co">#&gt; ---------------------</span></span>
+<span><span class="co">#&gt; Please run `show_spec(object)` or print the layout to get more specs.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Cells:</span></span>
+<span><span class="co">#&gt;   title: filled</span></span>
+<span><span class="co">#&gt;   footer: filled</span></span></code></pre></div>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-38-1.png" class="r-plt" alt="" width="672"></p>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Anchored to the top of the row</span></span>
+<span><span class="fu"><a href="../reference/gridify.html">gridify</a></span><span class="op">(</span><span class="va">p</span>, layout <span class="op">=</span> <span class="fu">make_layout</span><span class="op">(</span>object_vjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"title"</span>, <span class="st">"object_vjust = 1 (anchored to the top)"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer"</span>, <span class="st">"Footer"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; gridifyClass object</span></span>
+<span><span class="co">#&gt; ---------------------</span></span>
+<span><span class="co">#&gt; Please run `show_spec(object)` or print the layout to get more specs.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Cells:</span></span>
+<span><span class="co">#&gt;   title: filled</span></span>
+<span><span class="co">#&gt;   footer: filled</span></span></code></pre></div>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-39-1.png" class="r-plt" alt="" width="672"></p>
+<p>The same <code>object_vjust</code> argument is also accepted by
+<code><a href="../reference/simple_layout.html">simple_layout()</a></code>, <code><a href="../reference/complex_layout.html">complex_layout()</a></code>,
+<code><a href="../reference/pharma_layout_base.html">pharma_layout_base()</a></code>, <code><a href="../reference/pharma_layout_A4.html">pharma_layout_A4()</a></code> and
+<code><a href="../reference/pharma_layout_letter.html">pharma_layout_letter()</a></code>. For fixed-size table grobs
+(<code>flextable</code>, <code>gt</code>), anchoring to the top is often
+preferred:</p>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># flextable anchored to the top of the object row</span></span>
+<span><span class="va">ft_top</span> <span class="op">&lt;-</span> <span class="fu">flextable</span><span class="fu">::</span><span class="fu"><a href="https://davidgohel.github.io/flextable/reference/flextable.html" class="external-link">flextable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mpg"</span>, <span class="st">"wt"</span>, <span class="st">"cyl"</span><span class="op">)</span><span class="op">]</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/gridify.html">gridify</a></span><span class="op">(</span></span>
+<span>  object <span class="op">=</span> <span class="va">ft_top</span>,</span>
+<span>  layout <span class="op">=</span> <span class="fu"><a href="../reference/pharma_layout_letter.html">pharma_layout_letter</a></span><span class="op">(</span>object_vjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"output_num"</span>, <span class="st">"&lt;Table&gt; xx.xx.xx"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"title_1"</span>, <span class="st">"Anchored flextable (object_vjust = 1)"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"note"</span>, <span class="st">"&lt;Note or Footnotes&gt;"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer_left"</span>, <span class="st">"Program: &lt;PROGRAM NAME&gt;, YYYY-MM-DD at HH:MM"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; gridifyClass object</span></span>
+<span><span class="co">#&gt; ---------------------</span></span>
+<span><span class="co">#&gt; Please run `show_spec(object)` or print the layout to get more specs.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Cells:</span></span>
+<span><span class="co">#&gt;   header_left_1: empty</span></span>
+<span><span class="co">#&gt;   header_left_2: empty</span></span>
+<span><span class="co">#&gt;   header_left_3: empty</span></span>
+<span><span class="co">#&gt;   header_right_1: filled</span></span>
+<span><span class="co">#&gt;   header_right_2: empty</span></span>
+<span><span class="co">#&gt;   header_right_3: empty</span></span>
+<span><span class="co">#&gt;   output_num: filled</span></span>
+<span><span class="co">#&gt;   title_1: filled</span></span>
+<span><span class="co">#&gt;   title_2: empty</span></span>
+<span><span class="co">#&gt;   title_3: empty</span></span>
+<span><span class="co">#&gt;   by_line: empty</span></span>
+<span><span class="co">#&gt;   note: filled</span></span>
+<span><span class="co">#&gt;   references: empty</span></span>
+<span><span class="co">#&gt;   footer_left: filled</span></span>
+<span><span class="co">#&gt;   footer_right: empty</span></span>
+<span><span class="co">#&gt;   watermark: empty</span></span></code></pre></div>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-40-1.png" class="r-plt" alt="" width="672"></p>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># gt table anchored to the top of the object row</span></span>
+<span><span class="va">gt_top</span> <span class="op">&lt;-</span> <span class="fu">gt</span><span class="fu">::</span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mpg"</span>, <span class="st">"wt"</span>, <span class="st">"cyl"</span><span class="op">)</span><span class="op">]</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/gridify.html">gridify</a></span><span class="op">(</span></span>
+<span>  object <span class="op">=</span> <span class="va">gt_top</span>,</span>
+<span>  layout <span class="op">=</span> <span class="fu"><a href="../reference/pharma_layout_letter.html">pharma_layout_letter</a></span><span class="op">(</span>object_vjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"output_num"</span>, <span class="st">"&lt;Table&gt; xx.xx.xx"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"title_1"</span>, <span class="st">"Anchored gt table (object_vjust = 1)"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"note"</span>, <span class="st">"&lt;Note or Footnotes&gt;"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/set_cell.html">set_cell</a></span><span class="op">(</span><span class="st">"footer_left"</span>, <span class="st">"Program: &lt;PROGRAM NAME&gt;, YYYY-MM-DD at HH:MM"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; gridifyClass object</span></span>
+<span><span class="co">#&gt; ---------------------</span></span>
+<span><span class="co">#&gt; Please run `show_spec(object)` or print the layout to get more specs.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Cells:</span></span>
+<span><span class="co">#&gt;   header_left_1: empty</span></span>
+<span><span class="co">#&gt;   header_left_2: empty</span></span>
+<span><span class="co">#&gt;   header_left_3: empty</span></span>
+<span><span class="co">#&gt;   header_right_1: filled</span></span>
+<span><span class="co">#&gt;   header_right_2: empty</span></span>
+<span><span class="co">#&gt;   header_right_3: empty</span></span>
+<span><span class="co">#&gt;   output_num: filled</span></span>
+<span><span class="co">#&gt;   title_1: filled</span></span>
+<span><span class="co">#&gt;   title_2: empty</span></span>
+<span><span class="co">#&gt;   title_3: empty</span></span>
+<span><span class="co">#&gt;   by_line: empty</span></span>
+<span><span class="co">#&gt;   note: filled</span></span>
+<span><span class="co">#&gt;   references: empty</span></span>
+<span><span class="co">#&gt;   footer_left: filled</span></span>
+<span><span class="co">#&gt;   footer_right: empty</span></span>
+<span><span class="co">#&gt;   watermark: empty</span></span></code></pre></div>
+<p><img src="simple_examples_files/figure-html/unnamed-chunk-41-1.png" class="r-plt" alt="" width="672"></p>
+</div>
+<div class="section level2">
 <h2 id="exporting-section">Export to PDF, PNG, TIFF, and JPEG<a class="anchor" aria-label="anchor" href="#exporting-section"></a>
 </h2>
 <p>We can export <code>gridify</code> objects to PDF, PNG, TIFF, and
@@ -936,7 +1093,7 @@ JPEG files using the <code><a href="../reference/export_to.html">export_to()</a>
 PDF file.</p>
 <p>We take the earlier example where we applied
 <code><a href="../reference/pharma_layout_letter.html">pharma_layout_letter()</a></code> to a line plot.</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gridify_obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gridify.html">gridify</a></span><span class="op">(</span></span>
 <span>  object <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mtcars</span>, <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">mpg</span>, y <span class="op">=</span> <span class="va">wt</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -957,27 +1114,27 @@ PDF file.</p>
 <p>Then we pass the <code>gridify</code> object to the
 <code><a href="../reference/export_to.html">export_to()</a></code> function. We specify the desired file type and
 name using the <code>to</code> argument.</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/export_to.html">export_to</a></span><span class="op">(</span><span class="va">gridify_obj</span>, to <span class="op">=</span> <span class="st">"output.pdf"</span><span class="op">)</span></span></code></pre></div>
 <p>Instead of just a file name, the <code>to</code> argument can also be
 set to a file path if we want to change the location where the file is
 saved.</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/export_to.html">export_to</a></span><span class="op">(</span><span class="va">gridify_obj</span>, to <span class="op">=</span> <span class="st">"~/folder1/output.pdf"</span><span class="op">)</span></span></code></pre></div>
 <p>To export the object to a PNG file, we specify a file name with the
 <code>.png</code> file extension.</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/export_to.html">export_to</a></span><span class="op">(</span><span class="va">gridify_obj</span>, to <span class="op">=</span> <span class="st">"output.png"</span><span class="op">)</span></span></code></pre></div>
 <p>To export the object to a TIFF file, we specify a file name with the
 <code>.tiff</code> or <code>.tif</code> file extension.</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/export_to.html">export_to</a></span><span class="op">(</span><span class="va">gridify_obj</span>, to <span class="op">=</span> <span class="st">"output.tiff"</span><span class="op">)</span></span></code></pre></div>
 <p>Similarly, to export the object to a JPEG file, we specify a file
 name with the <code>.jpeg</code> or <code>.jpg</code> file extension. We
 can also modify characteristics such as <code>width</code> and
 <code>height</code> by passing them into <code><a href="../reference/export_to.html">export_to()</a></code> after
 the <code>to</code> argument.</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/export_to.html">export_to</a></span><span class="op">(</span><span class="va">gridify_obj</span>, to <span class="op">=</span> <span class="st">"output.jpeg"</span>, width <span class="op">=</span> <span class="fl">2400</span>, height <span class="op">=</span> <span class="fl">1800</span>, res <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">

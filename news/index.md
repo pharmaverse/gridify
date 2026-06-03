@@ -4,6 +4,27 @@
 
 ### New features
 
+- Added vertical anchoring for the gridify object inside its cell via
+  the new `vjust` slot of
+  [`gridifyObject()`](https://pharmaverse.github.io/gridify/reference/gridifyObject.md)
+  and the `object_vjust` argument of
+  [`simple_layout()`](https://pharmaverse.github.io/gridify/reference/simple_layout.md),
+  [`complex_layout()`](https://pharmaverse.github.io/gridify/reference/complex_layout.md),
+  [`pharma_layout_base()`](https://pharmaverse.github.io/gridify/reference/pharma_layout_base.md),
+  [`pharma_layout_A4()`](https://pharmaverse.github.io/gridify/reference/pharma_layout_A4.md)
+  and
+  [`pharma_layout_letter()`](https://pharmaverse.github.io/gridify/reference/pharma_layout_letter.md).
+  `0` aligns the object to the bottom, `0.5` (default) centers it, and
+  `1` anchors it to the top of the cell. Most useful for fixed-size
+  grobs such as `gt` and `flextable` tables. When `vjust != 0.5` is used
+  with a fixed-size grob the viewport is sized to
+  [`grid::grobHeight()`](https://rdrr.io/r/grid/grobWidth.html) and the
+  `height` slot of
+  [`gridifyObject()`](https://pharmaverse.github.io/gridify/reference/gridifyObject.md)
+  is ignored. For fixed-size tables, edge values (`0` or `1`) place the
+  table directly against the object-row edge; add spacer rows in custom
+  layouts or use inset values such as `0.05` or `0.95` if nearby text
+  appears too close. Reported and proposed by Monika Beh.
 - Added support for `fill_empty = NA` in the
   [`paginate_table()`](https://pharmaverse.github.io/gridify/reference/paginate_table.md)
   function.

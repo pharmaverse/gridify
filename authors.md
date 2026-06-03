@@ -22,6 +22,8 @@
 
 - **Gary Cao**. Contributor.
 
+- **Monika Beh**. Contributor.
+
 - **UCB S.A., Belgium**. Copyright holder, funder.
 
 ## Citation

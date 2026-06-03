@@ -11,7 +11,8 @@ complex_layout(
   margin = grid::unit(c(t = 0.1, r = 0.1, b = 0.1, l = 0.1), units = "npc"),
   global_gpar = grid::gpar(),
   background = grid::get.gpar()$fill,
-  scales = c("fixed", "free")
+  scales = c("fixed", "free"),
+  object_vjust = 0.5
 )
 ```
 
@@ -44,6 +45,18 @@ complex_layout(
   The `"free"` option makes the row heights proportional, allowing them
   to scale dynamically based on the overall output size. This ensures
   that the text elements and the output maintain relative proportions.
+
+- object_vjust:
+
+  A numeric value in `[0, 1]` controlling the vertical anchoring of the
+  object within its row. `0` aligns to the bottom, `0.5` (default)
+  centers it, and `1` aligns to the top. Useful when the object's row is
+  taller than the object itself. Has no effect on flexible grobs (e.g.
+  [`ggplot2::ggplotGrob()`](https://ggplot2.tidyverse.org/reference/ggplotGrob.html)),
+  which always fill the full row. For fixed-size table grobs such as
+  `gt` and `flextable`, values at the edge (`0` or `1`) place the table
+  directly against the object-row edge. Use an inset value such as
+  `0.05` or `0.95` if nearby text appears too close.
 
 ## Value
 
@@ -168,6 +181,7 @@ complex_layout()
 #>   Col: 1-3
 #>   Width: 1
 #>   Height: 1
+#>   Vjust: 0.5
 #> 
 #> Object Row Heights:
 #>   Row 4: 1 null

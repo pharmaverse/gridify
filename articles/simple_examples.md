@@ -498,6 +498,7 @@ show_spec(g)
 #>   Col: 1
 #>   Width: 1
 #>   Height: 1
+#>   Vjust: 0.5
 #> 
 #> Object Row Heights:
 #>   Row 2: 1 null
@@ -547,6 +548,7 @@ simple_layout()
 #>   Col: 1
 #>   Width: 1
 #>   Height: 1
+#>   Vjust: 0.5
 #> 
 #> Object Row Heights:
 #>   Row 2: 1 null
@@ -989,6 +991,176 @@ print(g)
 ```
 
 ![](simple_examples_files/figure-html/unnamed-chunk-37-1.png)
+
+## Vertically Anchoring the Object
+
+By default the object (plot or table) is centered vertically inside its
+row. When the row is taller than the object (e.g., object with a
+fixed-size table grob, or when the object’s `height` is set below `1`),
+there will be visible empty space above and below it.
+
+The `object_vjust` argument of the layout helpers (and the `vjust` slot
+of
+[`gridifyObject()`](https://pharmaverse.github.io/gridify/reference/gridifyObject.md)
+for custom layouts) controls this anchoring:
+
+- `object_vjust = 0.5` (default) — centered.
+- `object_vjust = 1` — anchored to the top of the row.
+- `object_vjust = 0` — anchored to the bottom of the row.
+
+Note: When the object is a flextable and vjust = 0.5, the table will
+expand to fill the space. When the object is a flextable and vjust does
+not equal 0.5, the table height will remain fixed and position based on
+the vjust argument provided. For fixed-size table grobs such as `gt` and
+`flextable`, edge values (`0` or `1`) place the table directly against
+the object-row edge. If the first text line above or below the table
+appears too close, add small spacer rows around the object row in a
+custom layout, use an inset value such as `0.05` or `0.95`, or add an
+explicit blank line to the nearby text.
+
+The example below uses a custom layout with the object occupying only
+`40%` of the available row height so the difference is visible:
+
+``` r
+
+options(gridify.adjust_height.line = NULL)
+
+p <- ggplot(mtcars, aes(mpg, wt)) +
+  geom_point() +
+  theme_minimal()
+
+make_layout <- function(object_vjust = 0.5) {
+  gridifyLayout(
+    nrow = 3, ncol = 1,
+    heights = grid::unit(c(2, 10, 2), "cm"),
+    widths  = grid::unit(1, "npc"),
+    margin  = grid::unit(c(0.05, 0.05, 0.05, 0.05), "npc"),
+    adjust_height = FALSE,
+    object  = gridifyObject(row = 2, col = 1, height = 0.4, vjust = object_vjust),
+    cells   = gridifyCells(
+      title  = gridifyCell(row = 1, col = 1),
+      footer = gridifyCell(row = 3, col = 1)
+    )
+  )
+}
+
+# Default: object centered in the available space
+gridify(p, layout = make_layout()) %>%
+  set_cell("title", "object_vjust = 0.5 (default behaviour)") %>%
+  set_cell("footer", "Footer")
+#> gridifyClass object
+#> ---------------------
+#> Please run `show_spec(object)` or print the layout to get more specs.
+#> 
+#> Cells:
+#>   title: filled
+#>   footer: filled
+```
+
+![](simple_examples_files/figure-html/unnamed-chunk-38-1.png)
+
+``` r
+
+# Anchored to the top of the row
+gridify(p, layout = make_layout(object_vjust = 1)) %>%
+  set_cell("title", "object_vjust = 1 (anchored to the top)") %>%
+  set_cell("footer", "Footer")
+#> gridifyClass object
+#> ---------------------
+#> Please run `show_spec(object)` or print the layout to get more specs.
+#> 
+#> Cells:
+#>   title: filled
+#>   footer: filled
+```
+
+![](simple_examples_files/figure-html/unnamed-chunk-39-1.png)
+
+The same `object_vjust` argument is also accepted by
+[`simple_layout()`](https://pharmaverse.github.io/gridify/reference/simple_layout.md),
+[`complex_layout()`](https://pharmaverse.github.io/gridify/reference/complex_layout.md),
+[`pharma_layout_base()`](https://pharmaverse.github.io/gridify/reference/pharma_layout_base.md),
+[`pharma_layout_A4()`](https://pharmaverse.github.io/gridify/reference/pharma_layout_A4.md)
+and
+[`pharma_layout_letter()`](https://pharmaverse.github.io/gridify/reference/pharma_layout_letter.md).
+For fixed-size table grobs (`flextable`, `gt`), anchoring to the top is
+often preferred:
+
+``` r
+
+# flextable anchored to the top of the object row
+ft_top <- flextable::flextable(head(mtcars[c("mpg", "wt", "cyl")], 4))
+
+gridify(
+  object = ft_top,
+  layout = pharma_layout_letter(object_vjust = 1)
+) %>%
+  set_cell("output_num", "<Table> xx.xx.xx") %>%
+  set_cell("title_1", "Anchored flextable (object_vjust = 1)") %>%
+  set_cell("note", "<Note or Footnotes>") %>%
+  set_cell("footer_left", "Program: <PROGRAM NAME>, YYYY-MM-DD at HH:MM")
+#> gridifyClass object
+#> ---------------------
+#> Please run `show_spec(object)` or print the layout to get more specs.
+#> 
+#> Cells:
+#>   header_left_1: empty
+#>   header_left_2: empty
+#>   header_left_3: empty
+#>   header_right_1: filled
+#>   header_right_2: empty
+#>   header_right_3: empty
+#>   output_num: filled
+#>   title_1: filled
+#>   title_2: empty
+#>   title_3: empty
+#>   by_line: empty
+#>   note: filled
+#>   references: empty
+#>   footer_left: filled
+#>   footer_right: empty
+#>   watermark: empty
+```
+
+![](simple_examples_files/figure-html/unnamed-chunk-40-1.png)
+
+``` r
+
+# gt table anchored to the top of the object row
+gt_top <- gt::gt(head(mtcars[c("mpg", "wt", "cyl")], 4))
+
+gridify(
+  object = gt_top,
+  layout = pharma_layout_letter(object_vjust = 1)
+) %>%
+  set_cell("output_num", "<Table> xx.xx.xx") %>%
+  set_cell("title_1", "Anchored gt table (object_vjust = 1)") %>%
+  set_cell("note", "<Note or Footnotes>") %>%
+  set_cell("footer_left", "Program: <PROGRAM NAME>, YYYY-MM-DD at HH:MM")
+#> gridifyClass object
+#> ---------------------
+#> Please run `show_spec(object)` or print the layout to get more specs.
+#> 
+#> Cells:
+#>   header_left_1: empty
+#>   header_left_2: empty
+#>   header_left_3: empty
+#>   header_right_1: filled
+#>   header_right_2: empty
+#>   header_right_3: empty
+#>   output_num: filled
+#>   title_1: filled
+#>   title_2: empty
+#>   title_3: empty
+#>   by_line: empty
+#>   note: filled
+#>   references: empty
+#>   footer_left: filled
+#>   footer_right: empty
+#>   watermark: empty
+```
+
+![](simple_examples_files/figure-html/unnamed-chunk-41-1.png)
 
 ## Export to PDF, PNG, TIFF, and JPEG
 

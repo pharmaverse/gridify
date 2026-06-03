@@ -6,7 +6,11 @@ elements for pharma layouts using the A4 paper size.
 ## Usage
 
 ``` r
-pharma_layout_A4(global_gpar = NULL, background = grid::get.gpar()$fill)
+pharma_layout_A4(
+  global_gpar = NULL,
+  background = grid::get.gpar()$fill,
+  object_vjust = 0.5
+)
 ```
 
 ## Arguments
@@ -24,6 +28,18 @@ pharma_layout_A4(global_gpar = NULL, background = grid::get.gpar()$fill)
 
   A character string specifying the background fill colour. Default
   `grid::get.gpar()$fill` for a white background.
+
+- object_vjust:
+
+  A numeric value in `[0, 1]` controlling the vertical anchoring of the
+  object within its row. `0` aligns to the bottom, `0.5` (default)
+  centers it, and `1` aligns to the top. Useful when the object's row is
+  taller than the object itself. Has no effect on flexible grobs (e.g.
+  [`ggplot2::ggplotGrob()`](https://ggplot2.tidyverse.org/reference/ggplotGrob.html)),
+  which always fill the full row. For fixed-size table grobs such as
+  `gt` and `flextable`, values at the edge (`0` or `1`) place the table
+  directly against the object-row edge. Use an inset value such as
+  `0.05` or `0.95` if nearby text appears too close.
 
 ## Value
 
@@ -165,6 +181,7 @@ pharma_layout_A4()
 #>   Col: 1-3
 #>   Width: 1
 #>   Height: 1
+#>   Vjust: 0.5
 #> 
 #> Object Row Heights:
 #>   Row 10: 1 null

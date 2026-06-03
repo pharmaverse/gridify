@@ -13,7 +13,8 @@ pharma_layout_base(
   margin = grid::unit(c(t = 1, r = 1, b = 1, l = 1), units = "inches"),
   global_gpar = NULL,
   background = grid::get.gpar()$fill,
-  adjust_height = TRUE
+  adjust_height = TRUE,
+  object_vjust = 0.5
 )
 ```
 
@@ -42,6 +43,18 @@ pharma_layout_base(
 
   A logical value indicating whether to adjust the height of the layout.
   Default is `TRUE`.
+
+- object_vjust:
+
+  A numeric value in `[0, 1]` controlling the vertical anchoring of the
+  object within its row. `0` aligns to the bottom, `0.5` (default)
+  centers it, and `1` aligns to the top. Useful when the object's row is
+  taller than the object itself. Has no effect on flexible grobs (e.g.
+  [`ggplot2::ggplotGrob()`](https://ggplot2.tidyverse.org/reference/ggplotGrob.html)),
+  which always fill the full row. For fixed-size table grobs such as
+  `gt` and `flextable`, values at the edge (`0` or `1`) place the table
+  directly against the object-row edge. Use an inset value such as
+  `0.05` or `0.95` if nearby text appears too close.
 
 ## Value
 
@@ -177,6 +190,7 @@ pharma_layout_base()
 #>   Col: 1-3
 #>   Width: 1
 #>   Height: 1
+#>   Vjust: 0.5
 #> 
 #> Object Row Heights:
 #>   Row 10: 1 null

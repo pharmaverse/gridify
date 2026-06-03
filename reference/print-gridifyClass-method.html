@@ -96,8 +96,9 @@ Prevents the <code>show</code> method from being triggered.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> grid::gTree(children = grid::gList(grid::rectGrob(x = 0, y = 0, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     width = 1, height = 1, just = c("left", "bottom"), gp = grid::gpar(fill = "white", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         col = "white")), grid::gTree(children = do.call(grid::gList, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     list(grid::grobTree(grid::editGrob(OBJECT, vp = grid::viewport(height = grid::unit.pmax(grid::unit(1, </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "npc"), grid::unit(1, "inch")), width = grid::unit.pmax(grid::unit(1, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     list(grid::grobTree(grid::editGrob(OBJECT, vp = grid::viewport(y = grid::unit(0.5, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "npc"), just = c(0.5, 0.5), height = grid::unit.pmax(grid::unit(1, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "npc"), grid::unit(1, "inches")), width = grid::unit.pmax(grid::unit(1, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         "npc"), grid::unit(1, "inch")))), vp = grid::viewport(layout.pos.row = 2, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         layout.pos.col = 1)), grid::grobTree(grid::textGrob(label = "TITLE", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         x = 0.5, y = 0.5, hjust = 0.5, vjust = 0.5, rot = 0, </span>
@@ -111,7 +112,7 @@ Prevents the <code>show</code> method from being triggered.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         ncol = 1L, heights = grid::unit(c(0.42, 1, 0), c("cm", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         "null", "lines")), widths = grid::unit(1, "npc"))))))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"env")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x557f88c10fd0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55da60b7dd58&gt;</span>
 <span class="r-in"><span><span class="co"># evaluate the code</span></span></span>
 <span class="r-in"><span><span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.draw.html" class="external-link">grid.draw</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/eval.html" class="external-link">eval</a></span><span class="op">(</span><span class="va">gg</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">gg</span>, <span class="st">"env"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># or</span></span></span>

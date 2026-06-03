@@ -52,6 +52,7 @@ show(complex_layout())
 #>   Col: 1-3
 #>   Width: 1
 #>   Height: 1
+#>   Vjust: 0.5
 #> 
 #> Object Row Heights:
 #>   Row 4: 1 null

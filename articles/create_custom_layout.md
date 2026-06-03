@@ -220,6 +220,7 @@ simple_layout(scales = "free")
 #>   Col: 1
 #>   Width: 1
 #>   Height: 1
+#>   Vjust: 0.5
 #> 
 #> Object Row Heights:
 #>   Row 2: 0.7 npc
@@ -272,6 +273,7 @@ simple_layout(scales = "fixed")
 #>   Col: 1
 #>   Width: 1
 #>   Height: 1
+#>   Vjust: 0.5
 #> 
 #> Object Row Heights:
 #>   Row 2: 1 null
@@ -358,6 +360,7 @@ scales_example_layout(scales = "npc")
 #>   Col: 1
 #>   Width: 1
 #>   Height: 1
+#>   Vjust: 0.5
 #> 
 #> Object Row Heights:
 #>   Row 2: 0.7 npc
@@ -406,6 +409,7 @@ scales_example_layout(scales = "lines")
 #>   Col: 1
 #>   Width: 1
 #>   Height: 1
+#>   Vjust: 0.5
 #> 
 #> Object Row Heights:
 #>   Row 2: 1 lines

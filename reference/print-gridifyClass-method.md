@@ -52,8 +52,9 @@ gg
 #> grid::gTree(children = grid::gList(grid::rectGrob(x = 0, y = 0, 
 #>     width = 1, height = 1, just = c("left", "bottom"), gp = grid::gpar(fill = "white", 
 #>         col = "white")), grid::gTree(children = do.call(grid::gList, 
-#>     list(grid::grobTree(grid::editGrob(OBJECT, vp = grid::viewport(height = grid::unit.pmax(grid::unit(1, 
-#>         "npc"), grid::unit(1, "inch")), width = grid::unit.pmax(grid::unit(1, 
+#>     list(grid::grobTree(grid::editGrob(OBJECT, vp = grid::viewport(y = grid::unit(0.5, 
+#>         "npc"), just = c(0.5, 0.5), height = grid::unit.pmax(grid::unit(1, 
+#>         "npc"), grid::unit(1, "inches")), width = grid::unit.pmax(grid::unit(1, 
 #>         "npc"), grid::unit(1, "inch")))), vp = grid::viewport(layout.pos.row = 2, 
 #>         layout.pos.col = 1)), grid::grobTree(grid::textGrob(label = "TITLE", 
 #>         x = 0.5, y = 0.5, hjust = 0.5, vjust = 0.5, rot = 0, 
@@ -67,7 +68,7 @@ gg
 #>         ncol = 1L, heights = grid::unit(c(0.42, 1, 0), c("cm", 
 #>         "null", "lines")), widths = grid::unit(1, "npc"))))))
 #> attr(,"env")
-#> <environment: 0x557f88c10fd0>
+#> <environment: 0x55da60b7dd58>
 # evaluate the code
 grid::grid.draw(eval(gg, envir = attr(gg, "env")))
 # or

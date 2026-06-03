@@ -58,11 +58,27 @@
 
 
 <dt><code>height</code></dt>
-<dd><p>A numeric value specifying the height of the object.</p></dd>
+<dd><p>A numeric value specifying the height of the object as a fraction of the row
+(interpreted in <code>npc</code>). Ignored when <code>vjust != 0.5</code> and the grob is fixed-size: in that
+case the viewport is sized to <code><a href="https://rdrr.io/r/grid/grobWidth.html" class="external-link">grid::grobHeight()</a></code> so the object can be anchored within
+a taller row. The 1-inch floor in applies in both cases.</p></dd>
 
 
 <dt><code>width</code></dt>
 <dd><p>A numeric value specifying the width of the object.</p></dd>
+
+
+<dt><code>vjust</code></dt>
+<dd><p>A numeric value in <code>[0, 1]</code> specifying the vertical anchoring of the object
+within its cell. <code>0</code> aligns to the bottom, <code>0.5</code> (default) centers it, and
+<code>1</code> aligns to the top.
+Anchoring only takes effect for fixed-size grobs (e.g. <code><a href="https://gt.rstudio.com/reference/as_gtable.html" class="external-link">gt::as_gtable()</a></code>,
+<code><a href="https://davidgohel.github.io/flextable/reference/gen_grob.html" class="external-link">flextable::gen_grob()</a></code>, plain <code><a href="https://rdrr.io/r/grid/grid.rect.html" class="external-link">grid::rectGrob()</a></code>). Flexible grobs whose natural height is
+meant to fill the container (e.g. <code><a href="https://ggplot2.tidyverse.org/reference/ggplotGrob.html" class="external-link">ggplot2::ggplotGrob()</a></code>, recorded gTrees from
+<code><a href="https://rdrr.io/r/grid/grid.grab.html" class="external-link">grid::grid.grabExpr()</a></code>) always span the full row regardless of <code>vjust</code>.
+For fixed-size table grobs, edge values (<code>0</code> or <code>1</code>) place the table directly
+against the object-row edge; add spacer rows in a custom layout or use an
+inset value such as <code>0.05</code> or <code>0.95</code> if nearby text appears too close.</p></dd>
 
 
 </dl></div>

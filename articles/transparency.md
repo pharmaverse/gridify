@@ -67,8 +67,9 @@ grid_call_behind
 #> grid::gTree(children = grid::gList(grid::rectGrob(x = 0, y = 0, 
 #>     width = 1, height = 1, just = c("left", "bottom"), gp = grid::gpar(fill = "transparent", 
 #>         col = "transparent")), grid::gTree(children = do.call(grid::gList, 
-#>     list(grid::grobTree(grid::editGrob(OBJECT, vp = grid::viewport(height = grid::unit.pmax(grid::unit(1, 
-#>         "npc"), grid::unit(1, "inch")), width = grid::unit.pmax(grid::unit(1, 
+#>     list(grid::grobTree(grid::editGrob(OBJECT, vp = grid::viewport(y = grid::unit(0.5, 
+#>         "npc"), just = c(0.5, 0.5), height = grid::unit.pmax(grid::unit(1, 
+#>         "npc"), grid::unit(1, "inches")), width = grid::unit.pmax(grid::unit(1, 
 #>         "npc"), grid::unit(1, "inch")))), vp = grid::viewport(layout.pos.row = 4, 
 #>         layout.pos.col = c(1, 3))), grid::grobTree(grid::textGrob(label = "Left Header", 
 #>         x = 0.5, y = 0.5, hjust = 0.5, vjust = 0.5, rot = 0, 
@@ -107,7 +108,7 @@ grid_call_behind
 #>         0.4), c("cm", "cm", "cm", "null", "cm", "cm")), widths = grid::unit(c(0.33, 
 #>         0.33, 0.33), c("npc", "npc", "npc")))))))
 #> attr(,"env")
-#> <environment: 0x55e3f5456250>
+#> <environment: 0x55ee17aec548>
 ```
 
 ``` r
