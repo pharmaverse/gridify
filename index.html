@@ -71,7 +71,7 @@
 <p><code>gridify</code> builds on the base R <code>grid</code> package and makes it easy to add flexible and customizable information around a figure or table using a pre-defined or custom layout. The <code>gridify</code> package works with all of the following input types, creating consistency when using various different inputs:</p>
 <p><strong>grob</strong>, <strong>gtable</strong>, <strong>ggplot</strong>, <strong>flextable</strong>, <strong>gt</strong>, <strong>base R plots (by formula)</strong></p>
 <p>Whilst <strong>rtables</strong> are not directly supported, we can use <strong>rtables</strong> with <code>gridify</code> by first converting them to <strong>flextable</strong> (with <strong>rtables.officer</strong>).</p>
-<p>As <code>gridify</code> is based on the graphical tool <strong>grid</strong>, any figure or table inputs are converted to a <code>grob</code> object in <code>gridify</code> and the result of using <code>gridify</code> is always a graphical image.</p>
+<p>As <code>gridify</code> is based on the graphical tool <strong>grid</strong>, any figure or table inputs are converted to a <code>grob</code> object in <code>gridify</code> and the result of using <code>gridify</code> is always a graphical image by design. By unifying tables and figures into scalable vector graphics, <code>gridify</code> locks the layout so it cannot break across environments — no shifting columns, no reflowing text. The output is stable while the text stays clear, searchable, and copy-able at any zoom level.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -167,6 +167,22 @@
 <li>
 <strong>Transparency of gridify</strong> <code><a href="articles/transparency.html">vignette("transparency", package = "gridify")</a></code> - How to extract the raw grid code to reproduce a <code>gridify</code> object.</li>
 </ul>
+</div>
+<div class="section level2">
+<h2 id="non-editable-outputs">Non Editable Outputs<a class="anchor" aria-label="anchor" href="#non-editable-outputs"></a>
+</h2>
+<p><code>gridify</code> outputs are graphical — they <strong>cannot be hand-edited</strong> like Word or Excel. Once a PDF or PNG is produced, the content is locked: nothing to retype, nothing to rephrase. Unlike Word/RTF, the layout will not reflow or break when opened on a different machine. This is useful in validated environments where any manual change after generation is a compliance issue, and especially for final eCTD submissions where formatting must be pixel-stable.</p>
+</div>
+<div class="section level2">
+<h2 id="pdf-text-is-still-searchable">PDF Text is Still Searchable<a class="anchor" aria-label="anchor" href="#pdf-text-is-still-searchable"></a>
+</h2>
+<p>Because <code>gridify</code> uses R’s vector graphics engine, text in PDFs (exported with <code><a href="reference/export_to.html">export_to()</a></code>) is <strong>real text</strong>, not a flat image. Reviewers can:</p>
+<ul>
+<li>use Ctrl+F / Cmd+F to search,</li>
+<li>copy &amp; paste values for checks,</li>
+<li>zoom in without losing clarity.</li>
+</ul>
+<p>So the output is uneditable <em>and</em> searchable at the same time.</p>
 </div>
 <div class="section level2">
 <h2 id="related-packages">Related packages<a class="anchor" aria-label="anchor" href="#related-packages"></a>

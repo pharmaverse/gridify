@@ -108,7 +108,7 @@ grid_call_behind
 #>         0.4), c("cm", "cm", "cm", "null", "cm", "cm")), widths = grid::unit(c(0.33, 
 #>         0.33, 0.33), c("npc", "npc", "npc")))))))
 #> attr(,"env")
-#> <environment: 0x55ee17aec548>
+#> <environment: 0x560ec01c18a0>
 ```
 
 ``` r
@@ -146,10 +146,22 @@ all `grid` calls required to produce your graphics.
     straightforward to diagnose layout issues or confirm that all
     elements are placed correctly.
 
+4.  **“No-Touch” Outputs**  
+    `gridify` outputs are graphical — they cannot be hand-edited after
+    generation. Together with the auditable `grid` code, this is helpful
+    in validated workflows where manual changes are not allowed.
+
+5.  **PDF Text is Searchable**  
+    Text in PDFs from
+    [`export_to()`](https://pharmaverse.github.io/gridify/reference/export_to.md)
+    is real, selectable text — not a flat image. Reviewers can search
+    (Ctrl+F), copy & paste, and zoom without losing quality.
+
 ## Conclusion
 
-By providing direct access to the underlying `grid` code, `gridify`
-prioritizes **transparency**.
+By exposing the underlying `grid` code, `gridify` keeps things
+**transparent**. The outputs are also uneditable yet searchable, which
+is a practical combination for regulated environments.
 
 For more details on other aspects like reproducibility, consistency, and
 advanced layouts, check out our package documentation and additional

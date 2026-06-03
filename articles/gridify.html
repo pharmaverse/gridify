@@ -466,7 +466,7 @@ displays the final layout in your R session, and invisibly returns the
 <span><span class="co">#&gt;             "cm", "null", "cm", "lines", "cm", "cm")), widths = grid::unit(c(0.33, </span></span>
 <span><span class="co">#&gt;         0.33, 0.33), c("npc", "npc", "npc")))))))</span></span>
 <span><span class="co">#&gt; attr(,"env")</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x562962ee5ee0&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; &lt;environment: 0x556f34255148&gt;</span></span></code></pre></div>
 <p><code>gridify</code> uses meta-programming to capture all
 <code>grid</code> calls needed to assemble your layout. That means you
 can retrieve or audit exactly how the figure or table is constructed.
@@ -552,6 +552,35 @@ placing headers and footers around it.</p>
 <code><a href="../articles/transparency.html">vignette("transparency", package = "gridify")</a></code>
 </li>
 </ul>
+</div>
+<div class="section level2">
+<h2 id="a-note-on-security-and-searchability">A Note on Security and Searchability<a class="anchor" aria-label="anchor" href="#a-note-on-security-and-searchability"></a>
+</h2>
+<p>Two things worth knowing about <code>gridify</code> outputs in
+regulated settings:</p>
+<div class="section level3">
+<h3 id="outputs-cannot-be-hand-edited">Outputs Cannot Be Hand-Edited<a class="anchor" aria-label="anchor" href="#outputs-cannot-be-hand-edited"></a>
+</h3>
+<p><code>gridify</code> produces graphical objects, not editable
+documents. Unlike Word or Excel, there is nothing to retype or change by
+hand after the output is generated. This matters in validated
+environments where manual modifications are not allowed.</p>
+</div>
+<div class="section level3">
+<h3 id="pdf-text-is-searchable">PDF Text is Searchable<a class="anchor" aria-label="anchor" href="#pdf-text-is-searchable"></a>
+</h3>
+<p>Even though the output is graphical, text in PDFs (via
+<code><a href="../reference/export_to.html">export_to()</a></code>) is <strong>real text</strong> — not a flat
+image. R’s vector graphics engine keeps the characters selectable, so
+reviewers can:</p>
+<ul>
+<li>search with Ctrl+F / Cmd+F,</li>
+<li>copy &amp; paste text,</li>
+<li>zoom without losing quality.</li>
+</ul>
+<p>In short: the output is locked down but still easy to work with for
+review.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="conclusion">Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>

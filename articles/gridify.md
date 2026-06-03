@@ -394,7 +394,7 @@ final_grob
 #>             "cm", "null", "cm", "lines", "cm", "cm")), widths = grid::unit(c(0.33, 
 #>         0.33, 0.33), c("npc", "npc", "npc")))))))
 #> attr(,"env")
-#> <environment: 0x562962ee5ee0>
+#> <environment: 0x556f34255148>
 ```
 
 `gridify` uses meta-programming to capture all `grid` calls needed to
@@ -471,6 +471,31 @@ To save `gridify` drawings to files see
   [`vignette("create_custom_layout", package = "gridify")`](https://pharmaverse.github.io/gridify/articles/create_custom_layout.md)  
 - **Transparency**:
   [`vignette("transparency", package = "gridify")`](https://pharmaverse.github.io/gridify/articles/transparency.md)
+
+## A Note on Security and Searchability
+
+Two things worth knowing about `gridify` outputs in regulated settings:
+
+### Outputs Cannot Be Hand-Edited
+
+`gridify` produces graphical objects, not editable documents. Unlike
+Word or Excel, there is nothing to retype or change by hand after the
+output is generated. This matters in validated environments where manual
+modifications are not allowed.
+
+### PDF Text is Searchable
+
+Even though the output is graphical, text in PDFs (via
+[`export_to()`](https://pharmaverse.github.io/gridify/reference/export_to.md))
+is **real text** — not a flat image. R’s vector graphics engine keeps
+the characters selectable, so reviewers can:
+
+- search with Ctrl+F / Cmd+F,
+- copy & paste text,
+- zoom without losing quality.
+
+In short: the output is locked down but still easy to work with for
+review.
 
 ## Conclusion
 
