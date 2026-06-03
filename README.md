@@ -147,7 +147,7 @@ For more information please visit the following vignettes:
   `vignette("transparency", package = "gridify")` - How to extract the
   raw grid code to reproduce a `gridify` object.
 
-### "No-Touch" Pipelines
+## Non Editable Outputs
 
 `gridify` outputs are graphical — they **cannot be hand-edited** like
 Word or Excel. Once a PDF or PNG is produced, the content is locked:
@@ -157,7 +157,7 @@ useful in validated environments where any manual change after
 generation is a compliance issue, and especially for final eCTD
 submissions where formatting must be pixel-stable.
 
-### PDF Text is Still Searchable
+## PDF Text is Still Searchable
 
 Because `gridify` uses R's vector graphics engine, text in PDFs
 (exported with `export_to()`) is **real text**, not a flat image.
