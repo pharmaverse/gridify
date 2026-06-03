@@ -22,6 +22,7 @@
 
 ## Miscellaneous
 
+* Added section on pipeline security and PDF searchability to `README.md`, `gridify` vignette, and `transparency` vignette.
 * Added the active lifecycle badge to `README.md` file (#17).
 
 # gridify 0.7.7
