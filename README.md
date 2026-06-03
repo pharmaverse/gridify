@@ -33,12 +33,11 @@ Whilst **rtables** are not directly supported, we can use **rtables** with `grid
 
 As `gridify` is based on the graphical tool **grid**, any figure or table
 inputs are converted to a `grob` object in `gridify` and the result of using
-`gridify` is always a graphical image. This is by design: by unifying
+`gridify` is always a graphical image by design. By unifying
 tables and figures into scalable vector graphics, `gridify` locks the
 layout so it cannot break across environments — no shifting columns, no
-reflowing text. The output is stable enough for final PDF submissions
-(e.g. eCTD) while the text stays clear, searchable, and copy-able at
-any zoom level.
+reflowing text. The output is stable while the text stays clear, searchable, 
+and copy-able at any zoom level.
 
 ## Installation
 
