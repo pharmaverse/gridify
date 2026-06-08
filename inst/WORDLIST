@@ -21,11 +21,14 @@ RStudio
 Rmd
 TransactionID
 Vicencio
+centered
 centers
 doi
 etc
 flextable
 fontfamily
+gTree
+gTrees
 ggplot
 gpar
 gridifyCell
@@ -34,6 +37,7 @@ gridifyClass
 gridifyLayout
 gridifyObject
 gridifying
+grob's
 gt
 gtable
 labeled
@@ -45,3 +49,4 @@ rd
 rtables
 sprintf
 unitType
+vjust

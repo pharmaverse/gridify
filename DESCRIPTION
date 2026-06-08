@@ -13,6 +13,7 @@ Authors@R: c(
     person("Agota", "Bodoni", , "Agota.Bodoni@ucb.com", role = "ctb"),
     person("Eilis", "Meldrum-Dolan", , "Eilis.Meldrum-Dolan@ucb.com", role = "ctb"),
     person("Gary", "Cao", , "Gary.Cao@ucb.com", role = "ctb"),
+    person("Monika", "Beh", , "Monika.Beh@ucb.com", role = "ctb"),
     person("Bethany", "George", , "Bethany.George@ucb.com", role = "ctb"),
     person("UCB S.A., Belgium", role = c("cph", "fnd"))
   )

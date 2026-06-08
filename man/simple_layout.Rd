@@ -8,7 +8,8 @@ simple_layout(
   margin = grid::unit(c(t = 0.1, r = 0.1, b = 0.1, l = 0.1), units = "npc"),
   global_gpar = grid::gpar(),
   background = grid::get.gpar()$fill,
-  scales = c("fixed", "free")
+  scales = c("fixed", "free"),
+  object_vjust = 0.5
 )
 }
 \arguments{
@@ -29,6 +30,15 @@ between the text elements and the output.
 The \code{"free"} option makes the row heights proportional,
 allowing them to scale dynamically based on the overall output size.
 This ensures that the text elements and the output maintain relative proportions.}
+
+\item{object_vjust}{A numeric value in \verb{[0, 1]} controlling the vertical anchoring of the
+object within its row. \code{0} aligns to the bottom, \code{0.5} (default) centers it,
+and \code{1} aligns to the top. Useful when the
+object's row is taller than the object itself. Has no effect on flexible grobs
+(e.g. \code{ggplot2::ggplotGrob()}), which always fill the full row. For fixed-size
+table grobs such as \code{gt} and \code{flextable}, values at the edge (\code{0} or \code{1})
+place the table directly against the object-row edge.
+Use an inset value such as \code{0.05} or \code{0.95} if nearby text appears too close.}
 }
 \value{
 A gridifyLayout object.
