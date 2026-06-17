@@ -347,6 +347,49 @@ export_to(
 )
 ```
 
+Passing `metadata = "sidecar"` to `export_to()` writes a JSON sidecar next to
+each output file. The sidecar identifies itself as `gridify.sidecar.metadata`
+and uses the same schema-versioned `pages` structure for single-page and
+multi-page exports. It records effective cell text values, including layout
+defaults and values supplied via `set_cell()`:
+
+```json
+{
+  "schema": "gridify.sidecar.metadata",
+  "schema_version": "1.0.0",
+  "pages": [
+    {
+      "cells": {
+        "title_1": "Page 1"
+      }
+    },
+    {
+      "cells": {
+        "title_1": "Page 2"
+      }
+    }
+  ]
+}
+```
+
+The number of sidecars and page entries depends on how the output is structured:
+
+- **Single multi-page PDF** (a list of objects exported to one `.pdf` path) —
+  one sidecar `<file>.pdf.json` containing one `pages` entry per exported
+  object.
+- **Multiple separate files** (a list of objects exported to a vector of paths,
+  or any single-object export) — one sidecar per file (e.g. `fig1.pdf.json`,
+  `fig2.pdf.json`, ...), each containing one `pages` entry.
+
+The default is `"none"` (no metadata). Set
+`options(gridify.export.metadata = "sidecar")` to change the default
+project-wide.
+
+When reusing the same output path, `export_to()` keeps the output and sidecar in
+sync: exporting without metadata, or exporting an object/list with no
+effective cell text values, removes any existing sidecar for that output. This
+avoids leaving stale JSON metadata next to a newer PDF, PNG, TIFF or JPEG file.
+
 ### Extending The Multi-Page Example
 
 In pharmaceutical and other industries, presenting tables often requires customization to meet reporting standards. While splitting by rows is a common approach for handling large datasets, it is not the only option. Here are some potential ways in which a table could be split up, where `gridify` could then be used to generate a new page for each table:

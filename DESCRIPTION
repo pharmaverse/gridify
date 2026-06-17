@@ -32,6 +32,7 @@ Imports:
     methods
 Suggests:
     flextable (>= 0.8.0),
+    jsonlite,
     ggplot2,
     gridGraphics,
     gt (>= 0.11.0),
