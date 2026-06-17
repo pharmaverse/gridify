@@ -7,8 +7,6 @@
 [![status: active](https://github.com/GIScience/badges/raw/master/status/active.svg)](https://github.com/GIScience/badges#active)
 [![Dependencies](https://tinyverse.netlify.app/badge/gridify)](https://cran.r-project.org/package=gridify)
 
-
-
 ## Overview
 
 In the pharmaceutical industry, and many other fields that rely heavily
