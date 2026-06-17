@@ -394,7 +394,7 @@ final_grob
 #>             "cm", "null", "cm", "lines", "cm", "cm")), widths = grid::unit(c(0.33, 
 #>         0.33, 0.33), c("npc", "npc", "npc")))))))
 #> attr(,"env")
-#> <environment: 0x55ffb04bc2d0>
+#> <environment: 0x555951ac3f10>
 ```
 
 `gridify` uses meta-programming to capture all `grid` calls needed to

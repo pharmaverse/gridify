@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gridify</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.1.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,11 +36,14 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/pharmaverse/gridify/blob/v0.8.1/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/pharmaverse/gridify/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.8.1" id="gridify-081">gridify 0.8.1<a class="anchor" aria-label="anchor" href="#gridify-081"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.8.1.9000" id="gridify-0819000">gridify 0.8.1.9000<a class="anchor" aria-label="anchor" href="#gridify-0819000"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.8.1" id="gridify-081">gridify 0.8.1<a class="anchor" aria-label="anchor" href="#gridify-081"></a></h2><p class="text-muted">CRAN release: 2026-06-03</p>
 <div class="section level3">
 <h3 id="new-features-0-8-1">New features<a class="anchor" aria-label="anchor" href="#new-features-0-8-1"></a></h3>
 <ul><li>Added vertical anchoring for the gridify object inside its cell via the new <code>vjust</code> slot of <code><a href="../reference/gridifyObject.html">gridifyObject()</a></code> and the <code>object_vjust</code> argument of <code><a href="../reference/simple_layout.html">simple_layout()</a></code>, <code><a href="../reference/complex_layout.html">complex_layout()</a></code>, <code><a href="../reference/pharma_layout_base.html">pharma_layout_base()</a></code>, <code><a href="../reference/pharma_layout_A4.html">pharma_layout_A4()</a></code> and <code><a href="../reference/pharma_layout_letter.html">pharma_layout_letter()</a></code>. <code>0</code> aligns the object to the bottom, <code>0.5</code> (default) centers it, and <code>1</code> anchors it to the top of the cell. Most useful for fixed-size grobs such as <code>gt</code> and <code>flextable</code> tables. When <code>vjust != 0.5</code> is used with a fixed-size grob the viewport is sized to <code><a href="https://rdrr.io/r/grid/grobWidth.html" class="external-link">grid::grobHeight()</a></code> and the <code>height</code> slot of <code><a href="../reference/gridifyObject.html">gridifyObject()</a></code> is ignored. For fixed-size tables, edge values (<code>0</code> or <code>1</code>) place the table directly against the object-row edge; add spacer rows in custom layouts or use inset values such as <code>0.05</code> or <code>0.95</code> if nearby text appears too close. Reported and proposed by Monika Beh.</li>

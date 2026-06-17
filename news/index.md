@@ -1,6 +1,10 @@
 # Changelog
 
+## gridify 0.8.1.9000
+
 ## gridify 0.8.1
+
+CRAN release: 2026-06-03
 
 ### New features
 
