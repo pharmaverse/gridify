@@ -5,6 +5,8 @@
 [![pharmaverse gridify Badge](http://pharmaverse.org/shields/gridify.svg)](https://pharmaverse.org)
 [![CRAN status](https://www.r-pkg.org/badges/version/gridify)](https://CRAN.R-project.org/package=gridify)
 [![status: active](https://github.com/GIScience/badges/raw/master/status/active.svg)](https://github.com/GIScience/badges#active)
+[![Dependencies](https://tinyverse.netlify.app/badge/gridify)](https://cran.r-project.org/package=gridify)
+
 
 
 ## Overview

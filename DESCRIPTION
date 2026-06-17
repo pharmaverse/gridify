@@ -1,7 +1,7 @@
 Type: Package
 Package: gridify
 Title: Enrich Figures and Tables with Custom Headers and Footers and More
-Version: 0.8.1
+Version: 0.8.1.9000
 Authors@R: c(
     person("Maciej", "Nasinski", , "Maciej.Nasinski@ucb.com", role = c("aut", "cre")),
     person("Alexandra", "Wall", , "Alexandra.Wall@ucb.com", role = "aut"),
@@ -14,6 +14,7 @@ Authors@R: c(
     person("Eilis", "Meldrum-Dolan", , "Eilis.Meldrum-Dolan@ucb.com", role = "ctb"),
     person("Gary", "Cao", , "Gary.Cao@ucb.com", role = "ctb"),
     person("Monika", "Beh", , "Monika.Beh@ucb.com", role = "ctb"),
+    person("Bethany", "George", , "Bethany.George@ucb.com", role = "ctb"),
     person("UCB S.A., Belgium", role = c("cph", "fnd"))
   )
 Description: A simple and flexible tool designed to create enriched figures and tables by providing a way to add text 
