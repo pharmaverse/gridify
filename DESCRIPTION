@@ -40,7 +40,8 @@ Suggests:
     magrittr,
     rmarkdown,
     spelling,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    tflmetaR (>= 0.1.5)
 Collate:
     gridify-utils.R
     gridify-classes.R
