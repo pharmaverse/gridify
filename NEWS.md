@@ -1,5 +1,11 @@
 # gridify 0.8.1.9000
 
+## Documentation
+
+* Added the "Posit Table Contest 2025: The Best Pharma Table" vignette
+  (`vignette("table_contest")`) showcasing the winning entry of the pharma
+  table category, which combines `gt` styling with `gridify` framing (#27).
+
 # gridify 0.8.1
 
 ## New features

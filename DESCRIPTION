@@ -31,6 +31,7 @@ Imports:
     grid,
     methods
 Suggests:
+    dplyr,
     flextable (>= 0.8.0),
     ggplot2,
     gridGraphics,
@@ -38,7 +39,9 @@ Suggests:
     gtable,
     knitr,
     magrittr,
+    random.cdisc.data,
     rmarkdown,
+    scales,
     spelling,
     testthat (>= 3.0.0)
 Collate:

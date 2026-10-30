@@ -16,6 +16,7 @@ articles:
       - multi_page_examples
       - create_custom_layout
       - transparency
+      - table_contest
       
 reference:
   - title: gridify Users
