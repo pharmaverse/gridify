@@ -1,6 +1,6 @@
 ---
 name: gridify
-description: Help users write correct R code for adding headers, titles, footnotes, watermarks and other text around figures and tables using gridify. Use when users need to annotate ggplot2, gt, flextable, rtables, base R plots or grobs, choose or build a layout (simple, complex, pharma A4/letter, custom gridifyLayout), fill cells with set_cell(), paginate long tables, or export TLF outputs to PDF/PNG/TIFF/JPEG.
+description: Help users write correct R code for adding headers, titles, footnotes, watermarks and other text around figures and tables using gridify. Use when users need to annotate ggplot2, gt, flextable, rtables, base R plots or grobs, choose or build a layout (simple, complex, pharma A4/letter, custom gridifyLayout), fill cells with set_cell(), paginate long tables, include outputs in R Markdown, Quarto or Shiny apps, or export TLF outputs to PDF/PNG/TIFF/JPEG.
 metadata:
   author: Maciej Nasinski (@Polkas)
   version: "1.0"
@@ -45,13 +45,14 @@ The native pipe `|>` needs R >= 4.1.0; otherwise use `%>%` from magrittr.
 
 ## Supported Inputs
 
-`gridify()` accepts objects inheriting from `grob`, `ggplot`, `flextable`, `gt_tbl` or `formula`. Conversion happens inside `gridify()`:
+`gridify()` accepts objects inheriting from `grob`, `ggplot`, `flextable`, `gt_tbl` or `formula`. It also supports an rtables workflow by first converting the table to a flextable with rtables.officer. Except for that explicit conversion, conversion happens inside `gridify()`:
 
 | Input | Converted with | Requirement |
 |-------|----------------|-------------|
 | `ggplot` | `ggplot2::ggplotGrob()` | ggplot2 |
 | `gt_tbl` | `gt::as_gtable()` | gt >= 0.11.0 (and gtable) |
 | `flextable` | `flextable::gen_grob()` | flextable >= 0.8.0 |
+| `rtables` table (indirectly) | First call `rtables.officer::tt_to_flextable()`, then pass the flextable to `gridify()` | rtables, rtables.officer, flextable >= 0.8.0 |
 | base R plot as `~ expr` | `gridGraphics::grid.echo()` | gridGraphics |
 | `grob` / `gtable` | used as is | — |
 
@@ -59,9 +60,13 @@ The native pipe `|>` needs R >= 4.1.0; otherwise use `%>%` from magrittr.
 # Base R plots must be wrapped in a one-sided formula
 gridify(~ barplot(1:10), layout = simple_layout())
 
-# rtables are not supported directly: convert to flextable first
+# Convert an rtables table to flextable before passing it to gridify
+table_layout <- rtables::basic_table() |>
+  rtables::analyze("Sepal.Length")
+my_rtable <- rtables::build_table(table_layout, iris)
 ft <- rtables.officer::tt_to_flextable(my_rtable, theme = NULL)
-gridify(ft, layout = pharma_layout_letter())
+gridify(ft, layout = pharma_layout_letter()) |>
+  set_cell("title_1", "Summary of Sepal Length")
 ```
 
 Anything else (data.frame, `rtables` object, file path, ...) errors. Convert it to one of the classes above first, e.g. with `grid::grid.grabExpr()` for code that draws on a grid device.
@@ -219,6 +224,93 @@ export_to(x, to, device = NULL, ...)
 - Lists: a single `.pdf` path gives a multi-page PDF; a vector of paths (same length as the list) writes one file per object. Multi-page PNG/JPEG/TIFF is not possible.
 - The target directory must already exist.
 - In `.Rmd` / `.qmd`, just print the gridify object in a chunk and control its size with `fig.width` / `fig.height`.
+
+## R Markdown and Quarto
+
+Use gridify directly in R Markdown (`.Rmd`) and Quarto (`.qmd`, using the knitr engine). There is no need to export a file first: `print()` draws the annotated figure or table on the chunk's graphics device. HTML, PDF and Word documents embed the result as a graphic, not as an editable table.
+
+### R Markdown
+
+````markdown
+```{r annotated-figure, fig.width=10, fig.height=7, echo=FALSE}
+library(gridify)
+
+p <- ggplot2::ggplot(mtcars, ggplot2::aes(mpg, wt)) +
+  ggplot2::geom_point()
+g <- gridify(p, layout = simple_layout()) |>
+  set_cell("title", "Weight by Miles per Gallon") |>
+  set_cell("footer", "Source: mtcars")
+print(g)
+```
+````
+
+### Quarto
+
+````markdown
+```{r}
+#| label: annotated-figure
+#| fig-width: 10
+#| fig-height: 7
+#| echo: false
+library(gridify)
+
+p <- ggplot2::ggplot(mtcars, ggplot2::aes(mpg, wt)) +
+  ggplot2::geom_point()
+g <- gridify(p, layout = simple_layout()) |>
+  set_cell("title", "Weight by Miles per Gallon") |>
+  set_cell("footer", "Source: mtcars")
+print(g)
+```
+````
+
+Chunk figure dimensions are in inches. Size the graphics device to leave room for the object, text and margins; scaling the displayed image alone does not change the layout space. Prefer `scales = "fixed"` for text rows. When drawing multiple gridify objects in a loop, call `print()` explicitly for each object:
+
+```r
+for (page in gridify_list) {
+  print(page)
+}
+```
+
+## Shiny Apps
+
+gridify can render figures and tables in Shiny apps using `shiny::plotOutput()` and `shiny::renderPlot()`. Construct the gridify object from reactive data or inputs and call `print()` explicitly inside `renderPlot()`; do not use `renderTable()` for the graphical output.
+
+```r
+library(gridify)
+
+ui <- shiny::fluidPage(
+  shiny::textInput("title", "Title", "Weight by Miles per Gallon"),
+  shiny::plotOutput("annotated_plot", height = "600px"),
+  shiny::downloadButton("download_pdf", "Download PDF")
+)
+
+server <- function(input, output, session) {
+  annotated <- shiny::reactive({
+    p <- ggplot2::ggplot(mtcars, ggplot2::aes(mpg, wt)) +
+      ggplot2::geom_point()
+    gridify(p, layout = simple_layout()) |>
+      set_cell("title", input$title) |>
+      set_cell("footer", "Source: mtcars")
+  })
+
+  output$annotated_plot <- shiny::renderPlot({
+    print(annotated())
+  })
+  output$download_pdf <- shiny::downloadHandler(
+    filename = function() "annotated-figure.pdf",
+    content = function(file) {
+      export_to(annotated(), to = file, width = 10, height = 7)
+    }
+  )
+}
+
+app <- shiny::shinyApp(ui, server)
+# Run interactively with shiny::runApp(app).
+```
+
+Give the plot enough display space for its annotations. Reuse the same reactive gridify object for the preview and download so their content stays consistent; their dimensions are controlled separately.
+
+For a related example of interactive title/footer customisation in teal-based Shiny apps, see [uteals](https://phuse-org.github.io/uteals/) and its [title/footer decorator](https://github.com/phuse-org/uteals/blob/main/R/title_footer_decorator.R). This is an application integration pattern, not a gridify-specific Shiny API.
 
 ## Common Mistakes
 
