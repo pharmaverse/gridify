@@ -180,6 +180,149 @@ export_to(
 )
 ```
 
+## Metadata-driven delivery with tflmetaR
+
+The [`tflmetaR`](https://CRAN.R-project.org/package=tflmetaR) package reads annotations for tables, figures and listings from structured Excel or CSV files.
+The metadata can be processed once and then used to populate `gridify` cells for each output.
+This example uses `st_titles.xls`, a sample workbook included with `tflmetaR`.
+
+The workbook contains two sheets:
+
+- `Sheet1` has one row per output. `read_tfile()` requires the columns `PGMNAME`, `TTL1`, `FOOT1` and `SOURCE` to be present. The workbook also includes optional fields such as `OID`, `TTL2`, `TTL3`, `POPULATION` and additional footnotes (`FOOT2`, etc.). In this workbook, `TTL1` contains the output number and `TTL2` its title.
+- `Headr` contains the common upper-left (`UL1`, `UL2`, etc.) and upper-right (`UR1`, `UR2`, etc.) header lines.
+
+The `sample_titles.xlsx` file also included in `tflmetaR` has a `Descriptions` sheet documenting its metadata columns.
+The sample annotations are illustrative and should be replaced with metadata that describes your actual outputs.
+
+```{r, include = FALSE}
+has_tflmetar <- requireNamespace("tflmetaR", quietly = TRUE) &&
+  utils::packageVersion("tflmetaR") >= "0.1.5"
+```
+
+### Read the sample workbook
+
+Read each sheet once; `read_tfile()` converts column names to uppercase.
+The header sheet does not contain the required output metadata columns, so it is read with `validate = FALSE`.
+
+```{r, eval = has_tflmetar}
+metadata_file <- system.file("extdata", "st_titles.xls", package = "tflmetaR")
+titles_meta <- tflmetaR::read_tfile(metadata_file, sheetname = "Sheet1")
+headers_meta <- tflmetaR::read_tfile(
+  metadata_file, sheetname = "Headr", validate = FALSE
+)
+
+ulheader <- tflmetaR::get_ulheader(headers_meta)
+urheader <- tflmetaR::get_urheader(headers_meta)
+
+titles_meta[
+  titles_meta$TTL1 %in% c("Figure 1.1", "Table 3.1"),
+  c("PGMNAME", "OID", "TTL1", "TTL2", "SOURCE", "POPULATION")
+]
+```
+
+### Match output content to metadata
+
+`tflmetaR` supplies annotations, not the output content itself.
+Here we create a figure from `ggplot2::mpg` and a table from `iris`, and name them using the corresponding `TTL1` values from the workbook.
+In a real workflow these objects could come from separate analysis functions.
+
+```{r, eval = has_tflmetar}
+output_objects <- list(
+  "Figure 1.1" = ggplot2::ggplot(ggplot2::mpg, ggplot2::aes(displ, hwy)) +
+    ggplot2::geom_point() +
+    ggplot2::labs(x = "Engine displacement (litres)", y = "Highway mileage (mpg)"),
+  "Table 3.1" = gt::gt(head(iris))
+)
+```
+
+The `get_*()` functions return data frames for one matching output.
+We select each row by its unique `tnumber` (the value in `TTL1`) in this workbook and convert its fields into a list for the loop.
+Alternatively, select by `pname` (`PGMNAME`); when a program produces multiple outputs, also pass its `oid` (`OID`), for example `tflmetaR::get_title(titles_meta, pname = "f_sample", oid = "a")`.
+Optional columns containing only missing values are removed by the accessors, so the helper below supplies an empty string for absent optional title fields.
+Non-empty footnotes are joined into a single string for the `note` cell.
+
+```{r, eval = has_tflmetar}
+optional_text <- function(data, column) {
+  if (column %in% names(data)) data[[column]][[1]] else ""
+}
+
+process_output_meta <- function(tfl_number) {
+  titles <- tflmetaR::get_title(titles_meta, tnumber = tfl_number)
+  footnotes <- unlist(
+    tflmetaR::get_footnote(titles_meta, tnumber = tfl_number, add_footr_tstamp = FALSE),
+    use.names = FALSE
+  )
+  program <- tflmetaR::get_pgmname(titles_meta, tnumber = tfl_number)
+  source <- tflmetaR::get_source(titles_meta, tnumber = tfl_number)
+
+  list(
+    number = titles$TTL1[[1]],
+    title1 = optional_text(titles, "TTL2"),
+    title2 = optional_text(titles, "TTL3"),
+    population = optional_text(titles, "POPULATION"),
+    note = paste(footnotes[!is.na(footnotes) & nzchar(footnotes)], collapse = "\n"),
+    program = program$PGMNAME[[1]],
+    source = source$SOURCE[[1]]
+  )
+}
+
+outputs_meta <- lapply(names(output_objects), process_output_meta)
+names(outputs_meta) <- names(output_objects)
+
+outputs_meta[["Figure 1.1"]]
+```
+
+### Generate the outputs in a loop
+
+Use the common headers and each output's metadata to annotate the corresponding object.
+Both examples are single-page outputs, so each is labelled `Page 1 of 1`.
+
+```{r, eval = has_tflmetar}
+tflmetar_outputs <- list()
+
+for (output_number in names(output_objects)) {
+  output_meta <- outputs_meta[[output_number]]
+
+  tflmetar_outputs[[output_number]] <- gridify(
+    object = output_objects[[output_number]],
+    layout = pharma_layout_A4()
+  ) %>%
+    set_cell("header_left_1", ulheader$UL1[[1]]) %>%
+    set_cell("header_left_2", ulheader$UL2[[1]]) %>%
+    set_cell("header_left_3", ulheader$UL3[[1]]) %>%
+    set_cell("header_right_1", urheader$UR1[[1]]) %>%
+    set_cell("header_right_2", urheader$UR2[[1]]) %>%
+    set_cell("header_right_3", urheader$UR3[[1]]) %>%
+    set_cell("output_num", output_meta$number) %>%
+    set_cell("title_1", output_meta$title1) %>%
+    set_cell("title_2", output_meta$title2) %>%
+    set_cell("title_3", output_meta$population) %>%
+    set_cell("note", output_meta$note) %>%
+    set_cell("footer_left", sprintf("Program: %s, Source: %s", output_meta$program, output_meta$source)) %>%
+    set_cell("footer_right", "Page 1 of 1")
+}
+```
+
+```{r, eval = has_tflmetar, fig.width = 7.2, fig.height = 7}
+print(tflmetar_outputs[["Figure 1.1"]])
+print(tflmetar_outputs[["Table 3.1"]])
+```
+
+Export the outputs to separate PDFs, using their output numbers in the filenames:
+
+```{r, eval = FALSE}
+if (!dir.exists("outputs")) {
+  dir.create("outputs")
+}
+
+export_to(
+  tflmetar_outputs,
+  file.path("outputs", paste0(gsub(" ", "_", names(tflmetar_outputs)), ".pdf"))
+)
+```
+
+For more details, see `vignette("f_km", package = "tflmetaR")`, which also uses the sample workbook with `gridify`.
+
 ## Tables
 
 ### For PDF/DOCX

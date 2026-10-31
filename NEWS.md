@@ -1,5 +1,11 @@
 # gridify 0.8.1.9000
 
+## Documentation
+
+* Added an example using a `tflmetaR` sample workbook to process output
+  metadata (titles, footnotes and headers) for a loop of outputs in the
+  "Multi-Page and Multi-Figure Examples" vignette (#28).
+
 # gridify 0.8.1
 
 ## New features
