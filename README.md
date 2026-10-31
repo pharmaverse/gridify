@@ -146,6 +146,16 @@ For more information please visit the following vignettes:
 - **Transparency of gridify**
   `vignette("transparency", package = "gridify")` - How to extract the
   raw grid code to reproduce a `gridify` object.
+- **Posit Table Contest 2025: The Best Pharma Table**
+  `vignette("table_contest", package = "gridify")` - The winning entry of the
+  pharma table category, combining `gt` styling with `gridify` regulatory framing.
+
+## Posit Table Contest 2025
+
+A `gt` table framed with `gridify` won **The Best Pharma Table** category of the
+[2025 Posit Table Contest](https://posit.co/blog/2025-table-contest-winners/).
+See the `table_contest` vignette or the original code at
+[Polkas/tgcontest2025](https://github.com/Polkas/tgcontest2025).
 
 ## Non Editable Outputs
 
