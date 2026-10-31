@@ -1,5 +1,9 @@
 # gridify 0.8.1.9000
 
+## Miscellaneous
+
+* Added an AI agent skill, `inst/skills/gridify/SKILL.md`, describing how to write correct `gridify` code (#26).
+
 # gridify 0.8.1
 
 ## New features
