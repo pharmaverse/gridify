@@ -7,13 +7,13 @@
 \alias{export_to,ANY-method}
 \title{Export gridify objects to a file}
 \usage{
-export_to(x, to, device = NULL, ...)
+export_to(x, to, device = NULL, metadata = NULL, ...)
 
-\S4method{export_to}{gridifyClass}(x, to, device = NULL, ...)
+\S4method{export_to}{gridifyClass}(x, to, device = NULL, metadata = NULL, ...)
 
-\S4method{export_to}{list}(x, to, device = NULL, ...)
+\S4method{export_to}{list}(x, to, device = NULL, metadata = NULL, ...)
 
-\S4method{export_to}{ANY}(x, to, device = NULL, ...)
+\S4method{export_to}{ANY}(x, to, device = NULL, metadata = NULL, ...)
 }
 \arguments{
 \item{x}{A \code{gridifyClass} object or a list of \code{gridifyClass} objects.}
@@ -23,6 +23,26 @@ The extension determines the output format.}
 
 \item{device}{a function for graphics device.
 By default a file name extension is used to choose a graphics device function. Default \code{NULL}}
+
+\item{metadata}{Controls writing of metadata derived from effective cell text
+values, including layout defaults and values supplied via \code{\link[=set_cell]{set_cell()}}.
+One of:
+\itemize{
+\item \code{"sidecar"} - write a JSON sidecar file next to the output named \verb{<to>.json}
+containing \code{schema}, \code{schema_version} and \code{pages}. The \code{schema} value is
+\code{"gridify.sidecar.metadata"}. Each page contains a \code{cells} object mapping
+cell names to their text values. Single-page and multi-page exports use the
+same structure; multi-page PDFs contain one page entry per exported object.
+Any stale sidecar is removed when no effective cell text exists.
+\item \code{"none"} (default) - do not produce any metadata and remove any existing
+sidecar for the same output file.
+}
+Validated with \code{\link[=match.arg]{match.arg()}} so it can be abbreviated.
+When \code{metadata = NULL} (the default), the value is taken from the
+\code{gridify.export.metadata} global option (see \code{\link[=options]{options()}}), falling back to
+\code{"none"} if unset. This makes it possible to enable the feature globally
+for a project via
+\code{options(gridify.export.metadata = "sidecar")}.}
 
 \item{...}{Additional arguments passed to the graphics device functions
 (\code{pdf()}, \code{png()}, \code{tiff()}, \code{jpeg()} or your custom one).
