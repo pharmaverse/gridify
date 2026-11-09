@@ -327,6 +327,9 @@ ggplot2::ggplot(mtcars, ggplot2::aes(mpg, wt)) +
 # CORRECT: build the plot first (or wrap it in parentheses / braces)
 p <- ggplot2::ggplot(mtcars, ggplot2::aes(mpg, wt)) + ggplot2::geom_point()
 gridify(p, layout = simple_layout())
+
+(ggplot2::ggplot(mtcars, ggplot2::aes(mpg, wt)) + ggplot2::geom_point()) |>
+  gridify(layout = simple_layout())
 ```
 
 ### Font sizes differ between gt and gridify
