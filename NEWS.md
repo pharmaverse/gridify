@@ -1,7 +1,8 @@
 # gridify 0.8.1.9000
 
-## Documentation
+## Miscellaneous
 
+* Added an AI agent skill, `inst/skills/gridify/SKILL.md`, describing how to write correct `gridify` code (#26).
 * Added an example using a `tflmetaR` sample workbook to process output
   metadata (titles, footnotes and headers) for a loop of outputs in the
   "Multi-Page and Multi-Figure Examples" vignette (#28).
